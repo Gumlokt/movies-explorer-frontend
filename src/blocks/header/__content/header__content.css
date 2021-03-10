@@ -1,0 +1,11 @@
+.header__content {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: #073042;
+  background-image: url(../../../images/landing-logo.svg);
+  background-position: center;
+  background-size: 320px 320px;
+  background-repeat: no-repeat;
+  height: 524px;
+}

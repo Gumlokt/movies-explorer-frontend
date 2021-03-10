@@ -1,0 +1,7 @@
+.footer__content {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 79px 0 20px;
+  width: 100%;
+  border-bottom: 1px solid #424242;
+}
