@@ -1,0 +1,9 @@
+/* Footer */
+@import url(./css/footer/footer.css);
+@import url(./css/footer/__content/footer__content.css);
+@import url(./css/footer/__title/footer__description.css);
+
+@import url(./css/footer/__social/footer__social.css);
+@import url(./css/footer/__copyright/footer__copyright.css);
+@import url(./css/footer/__bar/footer__bar.css);
+@import url(./css/footer/__link/footer__link.css);
