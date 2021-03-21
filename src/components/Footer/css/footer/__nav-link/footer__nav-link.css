@@ -1,12 +1,10 @@
-.footer__link {
-  display: block;
-  margin-left: 20px;
+.footer__nav-link {
   text-decoration: none;
   color: #fff;
   text-align: right;
   transition: opacity 0.4s linear;
 }
 
-.footer__link:hover {
+.footer__nav-link:hover {
   opacity: 0.6;
 }

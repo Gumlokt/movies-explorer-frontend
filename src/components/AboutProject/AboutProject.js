@@ -5,7 +5,7 @@ import Caption from '../Caption/Caption';
 function AboutProject(props) {
   return (
     <section className="about-project">
-      <div className="about-project__content">
+      <div className="about-project__container">
         <Caption title="О проекте" />
 
         <div className="description">

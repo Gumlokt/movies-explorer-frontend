@@ -1,0 +1,18 @@
+.techs__container {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 100px 70px;
+  max-width: 1280px;
+}
+
+@media screen and (max-width: 768px) {
+  .techs__container {
+    padding: 90px 50px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .techs__container {
+    padding: 70px 18px;
+  }
+}

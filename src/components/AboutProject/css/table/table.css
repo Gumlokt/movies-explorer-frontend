@@ -1,8 +1,0 @@
-.table {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 70px 0 110px 0;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-}
