@@ -1,0 +1,13 @@
+.table__text_theme_frontend {
+  width: 912px;
+  max-width: 912px;
+  height: 36px;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #303030;
+  color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

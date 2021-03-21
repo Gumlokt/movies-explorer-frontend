@@ -1,0 +1,11 @@
+.caption {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 0 23px 0;
+  border-bottom: 1px solid #dadada;
+}
+
+.caption__title {
+  font-size: 22px;
+  line-height: 27px;
+}

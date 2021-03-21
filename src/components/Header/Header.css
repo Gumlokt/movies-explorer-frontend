@@ -15,11 +15,3 @@
 @import url(./css/header/__stripe/_position/header__stripe_lowered.css);
 @import url(./css/header/__stripe/_position/header__stripe_hidden.css);
 @import url(./css/header/__stripe/_position/header__stripe_rised.css); */
-
-@import url(./css/header/__content/header__content.css);
-@import url(./css/header/__title/header__title.css);
-
-/* Nav */
-@import url(./css/nav/nav.css);
-@import url(./css/nav/__item/nav__item.css);
-@import url(./css/nav/__link/nav__link.css);

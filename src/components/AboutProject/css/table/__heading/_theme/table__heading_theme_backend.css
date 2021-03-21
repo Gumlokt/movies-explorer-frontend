@@ -1,0 +1,13 @@
+.table__heading_theme_backend {
+  width: 228px;
+  max-width: 228px;
+  height: 36px;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #3ddc84;
+  color: #000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

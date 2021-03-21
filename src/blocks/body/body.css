@@ -1,8 +1,7 @@
 .body {
   box-sizing: border-box;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
-  background-color: #000;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -10,6 +9,7 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+  background-color: #000;
 }
 
 @supports (font-variation-settings: normal) {
