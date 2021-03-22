@@ -1,0 +1,6 @@
+.person__photo {
+  max-width: 270px;
+  max-height: 327px;
+  object-fit: cover;
+  border-radius: 10px;
+}

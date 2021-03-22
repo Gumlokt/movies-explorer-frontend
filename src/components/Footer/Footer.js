@@ -1,5 +1,7 @@
 import './Footer.css';
 
+import Social from '../Social/Social';
+
 function Footer() {
   return (
     <footer className="footer">
@@ -11,40 +13,11 @@ function Footer() {
         <div className="footer__social">
           <p className="footer__copyright">&copy; 2021</p>
 
-          <nav className="footer__nav-bar">
-            <ul className="footer__nav-items">
-              <li className="footer__nav-item">
-                <a
-                  href="https://praktikum.yandex.ru/profile/web/"
-                  className="footer__nav-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Яндекс.Практикум
-                </a>
-              </li>
-              <li className="footer__nav-item">
-                <a
-                  href="https://github.com/Gumlokt"
-                  className="footer__nav-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Github
-                </a>
-              </li>
-              <li className="footer__nav-item">
-                <a
-                  href="https://facebook.com"
-                  className="footer__nav-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Facebook
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <Social data={[
+            { link: 'https://praktikum.yandex.ru/profile/web/', title: 'Яндекс.Практикум' },
+            { link: 'https://github.com/Gumlokt', title:'Github' },
+            { link: 'https://facebook.com', title:'Facebook' }
+          ]} />
         </div>
       </div>
     </footer>

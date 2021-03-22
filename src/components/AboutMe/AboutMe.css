@@ -1,0 +1,10 @@
+@import url(./css/about-me/about-me.css);
+@import url(./css/about-me/__container/about-me__container.css);
+
+@import url(./css/person/person.css);
+@import url(./css/person/__info/person__info.css);
+@import url(./css/person/__title/person__title.css);
+@import url(./css/person/__activity/person__activity.css);
+@import url(./css/person/__biography/person__biography.css);
+
+@import url(./css/person/__photo/person__photo.css);

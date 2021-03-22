@@ -1,0 +1,11 @@
+.person {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 66px 0 100px 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 270px;
+}
