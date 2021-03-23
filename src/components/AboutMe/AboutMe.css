@@ -8,3 +8,11 @@
 @import url(./css/person/__biography/person__biography.css);
 
 @import url(./css/person/__photo/person__photo.css);
+
+@import url(./css/portfolio/portfolio.css);
+@import url(./css/portfolio/__title/portfolio__title.css);
+@import url(./css/portfolio/__items/portfolio__items.css);
+@import url(./css/portfolio/__item/portfolio__item.css);
+@import url(./css/portfolio/__link/portfolio__link.css);
+@import url(./css/portfolio/__link-text/portfolio__link-text.css);
+@import url(./css/portfolio/__link-icon/portfolio__link-icon.css);

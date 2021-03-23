@@ -1,0 +1,11 @@
+.portfolio__item {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 20px 0 19px 0;
+  border-bottom: 1px solid #424242;
+  list-style-type: none;
+}
+
+.portfolio__item:last-child {
+  border-bottom: none;
+}
