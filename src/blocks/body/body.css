@@ -10,6 +10,8 @@
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   background-color: #000;
+  background-color: #eee;
+  background-color: #aaa;
 }
 
 @supports (font-variation-settings: normal) {

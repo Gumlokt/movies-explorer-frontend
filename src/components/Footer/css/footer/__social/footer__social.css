@@ -2,6 +2,16 @@
   box-sizing: border-box;
   margin: 0;
   padding: 20px 0 0 0;
-  display: flex;
+
+  display: grid;
+  grid-auto-flow: column;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .footer__social {
+    grid-auto-flow: row;
+    justify-content: center;
+    gap: 30px;
+  }
 }

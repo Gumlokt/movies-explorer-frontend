@@ -1,0 +1,10 @@
+.social__items {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  gap: 20px;
+}

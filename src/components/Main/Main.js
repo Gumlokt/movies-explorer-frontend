@@ -9,11 +9,11 @@ import AboutMe from '../AboutMe/AboutMe';
 function Main(props) {
   return (
     <main className="content">
-      <Promo />
+      {/* <Promo /> */}
       <NavTab />
-      <AboutProject />
+      {/* <AboutProject />
       <Techs />
-      <AboutMe />
+      <AboutMe /> */}
     </main>
   );
 }

@@ -1,0 +1,7 @@
+@media screen and (max-width: 768px) {
+  .social__items_alignment_vertical {
+    grid-auto-flow: row;
+    justify-content: center;
+    gap: 12px;
+  }
+}

@@ -6,9 +6,9 @@
   line-height: 16px;
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 320px) {
   .footer {
-    max-width: 320px;
-    padding: 50px 19px 36px;
+    font-size: 12px;
+    line-height: 15px;
   }
 }

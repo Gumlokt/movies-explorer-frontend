@@ -17,7 +17,7 @@ function Footer() {
             { link: 'https://praktikum.yandex.ru/profile/web/', title: 'Яндекс.Практикум' },
             { link: 'https://github.com/Gumlokt', title:'Github' },
             { link: 'https://facebook.com', title:'Facebook' }
-          ]} />
+          ]} alignVertical={true}/>
         </div>
       </div>
     </footer>

@@ -4,7 +4,8 @@
   padding: 18px 70px;
   max-width: 1280px;
 
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
   justify-content: space-between;
   align-items: center;
 }
@@ -18,5 +19,12 @@
 @media screen and (max-width: 320px) {
   .header__container {
     padding: 18px 14px;
+  }
+}
+
+@media screen and (max-width: 240px) {
+  .header__container {
+    grid-template-columns: min-content;
+    justify-content: center;
   }
 }
