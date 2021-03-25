@@ -1,22 +1,22 @@
-.header__nav {
+.header__container {
   box-sizing: border-box;
   margin: 0 auto;
   padding: 18px 70px;
   max-width: 1280px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 @media screen and (max-width: 768px) {
-  .header__nav {
-    padding: 0 calc((100% - 282px*3 - 18px*2)/2);
+  .header__container {
+    padding: 18px 30px;
   }
 }
 
 @media screen and (max-width: 320px) {
-  .header__nav {
-    max-width: 320px;
-    padding: 0;
+  .header__container {
+    padding: 18px 14px;
   }
 }

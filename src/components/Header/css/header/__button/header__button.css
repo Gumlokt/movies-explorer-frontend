@@ -6,9 +6,12 @@
   background-color: #3ddc84;
   border-radius: 3px;
   color: #000;
+
+  font-weight: 500;
   font-size: 12px;
   line-height: 16px;
   text-align: right;
+
   transition: opacity 0.4s linear;
 }
 
