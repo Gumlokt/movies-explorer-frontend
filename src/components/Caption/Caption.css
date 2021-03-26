@@ -1,15 +1,3 @@
-.caption {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0 0 23px 0;
-  border-bottom: 1px solid #dadada;
-}
-
-.caption__title {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-weight: normal;
-  font-size: 22px;
-  line-height: 27px;
-}
+@import url(./css/caption/caption.css);
+@import url(./css/caption/_theme/caption_theme_dark.css);
+@import url(./css/caption/__title/caption__title.css);

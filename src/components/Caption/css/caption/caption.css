@@ -1,0 +1,12 @@
+.caption {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 0 23px 0;
+  border-bottom: 1px solid #dadada;
+}
+
+@media screen and (max-width: 320px) {
+  .caption {
+    padding: 0 0 28px 0;
+  }
+}

@@ -1,0 +1,57 @@
+.promo__conteiner {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 70px;
+  padding: 0;
+  max-width: 1280px;
+
+  background-image: url(../../../../../images/landing-logo.svg);
+  background-position: center 82px;
+  background-size: 320px 320px;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 768px) {
+  .promo__conteiner {
+    padding: 0 19px;
+    background-position: center 224px;
+  }
+}
+
+/* Самодеятельность */
+@media screen and (max-width: 550px) {
+  .promo__conteiner {
+    background-position: center 260px;
+  }
+}
+
+/* Самодеятельность */
+@media screen and (max-width: 510px) {
+  .promo__conteiner {
+    background-position: center 340px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .promo__conteiner {
+    padding: 0 10px;
+    background-position: center 142px;
+    background-size: 248px 248px;
+  }
+}
+
+/* Самодеятельность */
+@media screen and (max-width: 280px) {
+  .promo__conteiner {
+    background-position: center 200px;
+    background-size: 220px 220px;
+  }
+}
+
+/* Самодеятельность */
+@media screen and (max-width: 240px) {
+  .promo__conteiner {
+    background-position: center 216px;
+    background-size: 220px 220px;
+  }
+}

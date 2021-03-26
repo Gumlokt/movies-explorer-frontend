@@ -4,3 +4,15 @@
   padding: 110px 70px 125px 70px;
   max-width: 1280px;
 }
+
+@media screen and (max-width: 768px) {
+  .about-me__container {
+    padding: 90px 50px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about-me__container {
+    padding: 60px 14px 70px;
+  }
+}

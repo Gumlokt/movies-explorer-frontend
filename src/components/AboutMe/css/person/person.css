@@ -1,7 +1,7 @@
 .person {
   box-sizing: border-box;
   margin: 0;
-  padding: 66px 0 100px 0;
+  padding: 66px 0 100px;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
@@ -10,4 +10,20 @@
   grid-template-columns: minmax(min-content, 600px) 1fr;
   justify-items: end;
   column-gap: 49px;
+}
+
+@media screen and (max-width: 768px) {
+  .person {
+    grid-template-columns: minmax(min-content, 364px) 1fr;
+    padding: 66px 0 90px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .person {
+    padding: 60px 0 70px;
+    grid-template-columns: 1fr;
+    align-items: center;
+    align-content: center;
+  }
 }

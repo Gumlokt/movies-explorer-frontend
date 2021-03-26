@@ -1,9 +1,37 @@
 .techs__description {
   box-sizing: border-box;
-  margin: 0;
+  margin: 0 auto;
   padding: 0 0 100px 0;
+  max-width: 460px;
+
   font-weight: normal;
   font-size: 14px;
   line-height: 20px;
   text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .techs__description {
+    padding: 0 0 83px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .techs__description {
+    padding: 0 0 50px;
+    max-width: 292px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
+
+/* Самодеятельность */
+@media screen and (max-width: 240px) {
+  .techs__description {
+    padding: 0 0 30px;
+    font-size: 10px;
+    line-height: 14px;
+  }
 }

@@ -6,7 +6,7 @@ function Techs(props) {
   return (
     <section className="techs">
       <div className="techs__container">
-        <Caption title="Технологии" />
+        <Caption title="Технологии" darkTheme={true} />
 
         <h3 className="techs__title">7 технологий</h3>
 

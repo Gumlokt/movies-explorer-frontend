@@ -1,11 +1,15 @@
-.promo {
+@import url(./css/promo/promo.css);
+@import url(./css/promo/__conteiner/promo__conteiner.css);
+@import url(./css/promo/__title/promo__title.css);
+
+/* .promo {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   background-color: #073042;
-}
+} */
 
-.promo_content {
+/* .promo_content {
   box-sizing: border-box;
   margin: 0 auto;
   padding: 0 70px;
@@ -16,9 +20,9 @@
   background-size: 320px 320px;
   background-repeat: no-repeat;
   height: 524px;
-}
+} */
 
-.promo__title {
+/* .promo__title {
   box-sizing: border-box;
   margin: 0 auto;
   padding: 184px 0 224px 0;
@@ -26,4 +30,4 @@
   font-size: 50px;
   line-height: 58px;
   text-align: center;
-}
+} */

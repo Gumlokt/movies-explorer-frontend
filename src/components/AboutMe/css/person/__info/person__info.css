@@ -7,3 +7,9 @@
   grid-template-rows: repeat(3, min-content) 1fr;
   align-items: end;
 }
+
+@media screen and (max-width: 480px) {
+  .person__info {
+    padding: 40px 0 0;
+  }
+}

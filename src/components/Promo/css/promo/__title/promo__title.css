@@ -1,0 +1,33 @@
+.promo__title {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 184px 0 224px 0;
+  max-width: 730px;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .promo__title {
+    padding: 326px 0 342px 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .promo__title {
+    padding: 207px 0 246px 0;
+    max-width: 300px;
+    font-size: 31px;
+    line-height: 39px;
+  }
+}
+
+/* Самодеятельность */
+@media screen and (max-width: 240px) {
+  .promo__title {
+    font-size: 24px;
+    line-height: 28px;
+  }
+}

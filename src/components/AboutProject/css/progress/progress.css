@@ -2,8 +2,36 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: minmax(max-content, 228px) 1fr;
   grid-template-rows: 36px min-content;
   grid-gap: 14px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .progress {
+    grid-template-columns: minmax(max-content, 140px) 1fr;
+  }
+}
+
+/* Самодеятельность */
+@media screen and (max-width: 480px) {
+  .progress {
+    grid-template-columns: minmax(max-content, 100px) 1fr;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .progress {
+    grid-template-rows: 35px min-content;
+    grid-gap: 10px 0;
+  }
+}
+
+/* Самодеятельность */
+@media screen and (max-width: 280px) {
+  .progress {
+    grid-template-columns: minmax(max-content, 1fr) minmax(max-content, 4fr);
+  }
 }

@@ -10,10 +10,10 @@ function Main(props) {
   return (
     <main className="content">
       {/* <Promo /> */}
-      <NavTab />
-      {/* <AboutProject />
-      <Techs />
-      <AboutMe /> */}
+      {/* <NavTab /> */}
+      {/* <AboutProject /> */}
+      {/* <Techs /> */}
+      <AboutMe />
     </main>
   );
 }
