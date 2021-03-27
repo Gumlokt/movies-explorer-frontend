@@ -19,11 +19,9 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 620px) {
   .person {
     padding: 60px 0 70px;
-    grid-template-columns: 1fr;
-    align-items: center;
-    align-content: center;
+    grid-template-columns: minmax(min-content, 1fr);
   }
 }

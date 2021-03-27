@@ -2,7 +2,24 @@
   box-sizing: border-box;
   margin: 0;
   padding: 18px 0 26px 0;
+
   font-weight: 500;
   font-size: 18px;
   line-height: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .person__activity {
+    padding: 16px 0 20px 0;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .person__activity {
+    padding: 20px 0 20px 0;
+    font-size: 11px;
+    line-height: 16px;
+  }
 }
