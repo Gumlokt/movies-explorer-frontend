@@ -1,0 +1,13 @@
+.search-form__input-container {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 0 9px;
+  border-bottom: 1px solid #424242;
+
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+}
+
+.search-form__input-container:focus {
+  border-bottom: 1px solid #4285f4;
+}

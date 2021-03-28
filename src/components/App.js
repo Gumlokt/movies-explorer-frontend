@@ -8,6 +8,8 @@ import Footer from './Footer/Footer';
 import Register from './Register/Register';
 import Login from './Login/Login';
 
+import Movies from './Movies/Movies';
+
 function App() {
   return (
     <>
@@ -18,6 +20,12 @@ function App() {
 
         <Route path="/signup">
           <Register />
+        </Route>
+
+        <Route path="/movies">
+          <Header darkTheme={true} />
+          <Movies />
+          <Footer />
         </Route>
 
         <Route path="/">

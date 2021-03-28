@@ -1,0 +1,14 @@
+.search-form__visible-checkbox {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  display: inline-block;
+  vertical-align: middle;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
+
+  background-color: #3ddc84;
+  border-radius: 20px;
+}

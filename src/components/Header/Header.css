@@ -1,25 +1,4 @@
-/* Header */
 @import url(./css/header/header.css);
+@import url(./css/header/_theme/header_theme_dark.css);
+
 @import url(./css/header/__container/header__container.css);
-
-@import url(./css/header/__logo/header__logo.css);
-
-/* @import url(./css/header/__link/header__link.css); */
-/* @import url(./css/header/__link/_theme/header__link_theme_btn-success.css); */
-/* @import url(./css/header/__menu/header__menu.css); */
-/* @import url(./css/header/__stripe/header__stripe.css); */
-/* @import url(./css/header/__text/header__text.css); */
-/* @import url(./css/header/__button/header__button.css); */
-
-/* @import url(./css/header/__btn-menu/header__btn-menu.css);
-@import url(./css/header/__btn-menu/_pressed/header__btn-menu_pressed.css);
-@import url(./css/header/__stripe/_position/header__stripe_lowered.css);
-@import url(./css/header/__stripe/_position/header__stripe_hidden.css);
-@import url(./css/header/__stripe/_position/header__stripe_rised.css); */
-
-/* Menu */
-@import url(./css/menu/menu.css);
-@import url(./css/menu/__items/menu__items.css);
-@import url(./css/menu/__item/menu__item.css);
-@import url(./css/menu/__link/menu__link.css);
-@import url(./css/menu/__link/_theme/menu__link_theme_btn-success.css);
