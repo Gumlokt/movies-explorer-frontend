@@ -1,0 +1,18 @@
+.logo {
+  display: block;
+  max-width: 38px;
+  max-height: 38px;
+
+  transition: opacity 0.4s linear;
+}
+
+.logo:hover {
+  opacity: 0.6;
+}
+
+
+@media screen and (max-width: 240px) {
+  .logo {
+    margin: 0 auto 14px;
+  }
+}

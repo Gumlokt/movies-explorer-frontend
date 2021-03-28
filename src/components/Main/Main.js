@@ -8,7 +8,7 @@ import AboutMe from '../AboutMe/AboutMe';
 
 function Main(props) {
   return (
-    <main className="content">
+    <main className="main-content">
       <Promo />
       <NavTab />
       <AboutProject />

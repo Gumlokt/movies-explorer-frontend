@@ -4,27 +4,21 @@ import Caption from '../Caption/Caption';
 
 function AboutProject(props) {
   return (
-    <section className="about-project">
+    <section className="about-project" id="about-project">
       <div className="about-project__container">
         <Caption title="О проекте" />
 
         <div className="description">
-          <h3 className="description__heading">
-            Дипломный проект включал 5 этапов
-          </h3>
+          <h3 className="description__heading">Дипломный проект включал 5 этапов</h3>
 
           <p className="description__text">
-            Составление плана, работу над бэкендом, вёрстку, добавление
-            функциональности и финальные доработки.
+            Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.
           </p>
 
-          <h3 className="description__heading">
-            На выполнение диплома ушло 5 недель
-          </h3>
+          <h3 className="description__heading">На выполнение диплома ушло 5 недель</h3>
 
           <p className="description__text">
-            У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было
-            соблюдать, чтобы успешно защититься.
+            У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.
           </p>
         </div>
 
