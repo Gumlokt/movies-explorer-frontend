@@ -8,19 +8,25 @@
   height: 34px;
 
   color: #fff;
-  background: #4285F4;
+  background: #4285f4;
   border-radius: 48px;
   border: 0;
-
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  transition: opacity .4s linear;
+  transition: opacity 0.4s linear;
 }
 
 .search-form__btn-submit:hover {
   cursor: pointer;
-  opacity: .6;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 280px) {
+  .search-form__btn-submit {
+    width: 34px;
+    height: 34px;
+  }
 }

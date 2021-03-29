@@ -1,22 +1,33 @@
+/* 
+ * This checkbox is actually hidden,
+ * but instead there is a new one 
+ * with a custom style: .search-form__visible-checkbox
+*/
 .search-form__checkbox-input {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 1px;
+  height: 1px;
   overflow: hidden;
-  /* clip: rect(0 0 0 0); */
+  clip: rect(0 0 0 0);
 }
 
-/* This checkbox is actually hidden, but instead there is a new one with custom style: .search-form__visible-checkbox */
+.search-form__checkbox-input + .search-form__visible-checkbox {
+  background-color: #8b8b8b;
+  transition: background-color 0.3s linear;
+}
 
-
-.search-form__checkbox-input:disabled + .search-form__visible-checkbox {
-  background-color: #999;
+.search-form__checkbox-input + .search-form__visible-checkbox::after {
+  transition: left 0.1s linear;
 }
 
 .search-form__checkbox-input:checked + .search-form__visible-checkbox {
   background-color: #3ddc84;
 }
 
-/* .search-form__checkbox-input:focus + .search-form__visible-checkbox {
-  box-shadow: 0 0 5px #999;
-} */
+.search-form__checkbox-input:checked + .search-form__visible-checkbox::after {
+  left: 18px;
+}
+
+.search-form__checkbox-input:focus + .search-form__visible-checkbox {
+  box-shadow: 0 0 4px #ff0;
+}

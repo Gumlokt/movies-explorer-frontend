@@ -16,12 +16,12 @@
 
   color: #fff;
   background-color: #202020;
-  background-color: #000;
+  /* background-color: #000; */
 }
 
 @supports (font-variation-settings: normal) {
   .root {
-    font-family: 'Inter var', sans-serif;
+    font-family: "Inter var", sans-serif;
   }
 }
 

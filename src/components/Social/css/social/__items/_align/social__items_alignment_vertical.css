@@ -1,4 +1,4 @@
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 480px) {
   .social__items_alignment_vertical {
     grid-auto-flow: row;
     justify-items: center;

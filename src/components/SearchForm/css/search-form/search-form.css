@@ -4,3 +4,15 @@
   padding: 70px 0 49px;
   background-color: #202020;
 }
+
+@media screen and (max-width: 768px) {
+  .search-form {
+    padding: 86px 0 62px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .search-form {
+    padding: 98px 0 50px;
+  }
+}
