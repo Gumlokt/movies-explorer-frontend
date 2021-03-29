@@ -23,3 +23,15 @@
     gap: 7px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .menu-btn {
+    gap: 6px;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .menu-btn {
+    margin: 10px auto;
+  }
+}

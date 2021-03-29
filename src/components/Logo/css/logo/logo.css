@@ -9,10 +9,3 @@
 .logo:hover {
   opacity: 0.6;
 }
-
-
-@media screen and (max-width: 240px) {
-  .logo {
-    margin: 0 auto 14px;
-  }
-}

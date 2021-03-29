@@ -17,9 +17,9 @@
 .navigation__link:hover {
   opacity: 0.6;
 }
-/* 
+
 @media screen and (max-width: 320px) {
   .navigation__link {
     font-size: 10px;
   }
-} */
+}

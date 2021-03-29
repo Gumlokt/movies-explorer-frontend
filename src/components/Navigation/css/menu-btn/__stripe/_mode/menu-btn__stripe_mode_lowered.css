@@ -1,5 +1,10 @@
 .menu-btn__stripe_mode_lowered {
   transform: rotate(45deg);
-  width: 29px;
-  transform-origin: 0% 0%;
+  width: 28px;
+}
+
+@media screen and (max-width: 320px) {
+  .menu-btn__stripe_mode_lowered {
+    width: 22px;
+  }
 }

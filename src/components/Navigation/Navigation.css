@@ -1,6 +1,7 @@
 @import url(./css/navigation/navigation.css);
 
 @import url(./css/navigation/__items/navigation__items.css);
+@import url(./css/navigation/__items/_type/navigation__items_type_hideable.css);
 
 @import url(./css/navigation/__item/navigation__item.css);
 

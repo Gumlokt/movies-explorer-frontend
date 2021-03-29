@@ -1,4 +1,10 @@
 .menu-btn__stripe_mode_hidden {
-  visibility: hidden;
-  /* transition: visibility 0.4s linear; */
+  transform: translateX(-80px);
+  opacity: 0;
+}
+
+@media screen and (max-width: 240px) {
+  .menu-btn__stripe_mode_hidden {
+    transform: translateX(-30px);
+  }
 }
