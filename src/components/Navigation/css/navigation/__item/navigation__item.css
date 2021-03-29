@@ -5,8 +5,8 @@
   list-style-type: none;
 }
 
-@media screen and (max-width: 240px) {
+/* @media screen and (max-width: 240px) {
   .navigation__item {
     text-align: center;
   }
-}
+} */

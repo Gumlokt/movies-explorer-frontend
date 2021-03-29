@@ -11,7 +11,13 @@
   gap: 30px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 768px) {
+  .navigation__items {
+    display: none;
+  }
+}
+
+/* @media screen and (max-width: 320px) {
   .navigation__items {
     gap: 14px;
   }
@@ -22,4 +28,4 @@
     grid-auto-flow: row;
     justify-content: center;
   }
-}
+} */

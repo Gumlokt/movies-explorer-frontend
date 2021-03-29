@@ -1,0 +1,11 @@
+.menu-btn__stripe {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  width: 28px;
+  height: 3px;
+  background-color: #fff;
+
+  transition: transform 0.4s linear;
+}

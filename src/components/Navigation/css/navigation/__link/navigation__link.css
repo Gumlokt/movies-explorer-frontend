@@ -12,15 +12,14 @@
   line-height: 16px;
 
   transition: opacity 0.4s linear;
-
 }
 
 .navigation__link:hover {
   opacity: 0.6;
 }
-
+/* 
 @media screen and (max-width: 320px) {
   .navigation__link {
     font-size: 10px;
   }
-}
+} */

@@ -1,0 +1,25 @@
+.menu-btn {
+  display: none;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  border: 0px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: opacity 0.4s linear;
+}
+
+.menu-btn:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-btn {
+    display: grid;
+    grid-template-columns: min-content;
+    grid-template-rows: repeat(3, min-content);
+    gap: 7px;
+  }
+}
