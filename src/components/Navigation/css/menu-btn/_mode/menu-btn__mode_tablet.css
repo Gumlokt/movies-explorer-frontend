@@ -1,0 +1,10 @@
+.menu-btn__mode_tablet {
+  margin: 0 22px 0 0;
+  justify-self: end;
+}
+
+@media screen and (max-width: 320px) {
+  .menu-btn__mode_tablet {
+    margin: 0 13px 0 0;
+  }
+}

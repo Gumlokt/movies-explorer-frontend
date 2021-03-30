@@ -8,7 +8,12 @@
   border: 0px;
   background-color: transparent;
   cursor: pointer;
+
   transition: opacity 0.4s linear;
+}
+
+.menu-btn:focus {
+  outline: none;
 }
 
 .menu-btn:hover {

@@ -1,0 +1,20 @@
+.user {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 28px 0 0;
+
+  align-self: end;
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  align-items: center;
+  gap: 13px;
+}
+
+@media screen and (max-width: 240px) {
+  .user {
+    grid-auto-flow: row;
+    justify-items: center;
+  }
+}

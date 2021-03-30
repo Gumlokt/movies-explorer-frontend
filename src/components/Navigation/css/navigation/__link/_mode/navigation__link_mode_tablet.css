@@ -1,0 +1,11 @@
+.navigation__link_mode_tablet {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+@media screen and (max-width: 240px) {
+  .navigation__link_mode_tablet {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}

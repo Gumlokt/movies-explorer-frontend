@@ -1,5 +1,5 @@
 @media screen and (max-width: 768px) {
-  .navigation__items_type_hideable {
+  .navigation__items_type_hidden {
     display: none;
   }
 }
