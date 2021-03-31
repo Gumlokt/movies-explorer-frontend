@@ -6,7 +6,6 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-color: coral;
   background-color: #202020;
 
   height: 100vh;
@@ -22,6 +21,12 @@
 
 @media screen and (max-width: 320px) {
   .navigation__wrapper_mode_tablet {
-    padding: 14px 0 48px;
+    padding: 20px 0 48px;
+  }
+}
+
+@media screen and (max-width: 240px) {
+  .navigation__wrapper_mode_tablet {
+    padding: 53px 0 28px;
   }
 }

@@ -1,0 +1,17 @@
+.movies-card-list {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 70px 0 28px;
+}
+
+@media screen and (max-width: 768px) {
+  .movies-card-list {
+    padding: 70px 0 12px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .movies-card-list {
+    padding: 40px 0 13px;
+  }
+}

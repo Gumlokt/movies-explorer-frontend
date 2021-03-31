@@ -1,0 +1,15 @@
+.movies-card__caption {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 14px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .movies-card__caption {
+    padding: 0;
+  }
+}

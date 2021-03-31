@@ -1,0 +1,27 @@
+.movies-card__btn {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  display: none;
+
+  transition: opacity .4s linear;
+}
+
+.movies-card__btn:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+@media screen and (max-widtd: 320px) {
+  .movies-card__btn {
+    top: 14px;
+    right: 14px;
+  }
+}

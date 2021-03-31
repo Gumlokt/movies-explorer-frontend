@@ -7,9 +7,14 @@
   gap: 28px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 240px) {
   .navigation__items_mode_tablet {
-    padding: 99px 0 0;
+    padding: 99px 10px 0;
+  }
+}
+
+@media screen and (max-width: 240px) {
+  .navigation__items_mode_tablet {
     grid-template-columns: min-content;
   }
 }

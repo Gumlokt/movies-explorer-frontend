@@ -5,6 +5,13 @@
 
 @media screen and (max-width: 320px) {
   .menu-btn__mode_tablet {
-    margin: 0 13px 0 0;
+    margin: 0 20px 0 0;
+  }
+}
+
+@media screen and (max-width: 240px) {
+  .menu-btn__mode_tablet {
+    margin: 0;
+    justify-self: center;
   }
 }

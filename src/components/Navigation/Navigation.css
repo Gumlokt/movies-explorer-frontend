@@ -5,6 +5,7 @@
 @import url(./css/navigation/__wrapper/navigation__wrapper.css);
 @import url(./css/navigation/__wrapper/_mode/navigation__wrapper_mode_tablet.css);
 
+/* Navigation items & links */
 @import url(./css/navigation/__items/navigation__items.css);
 @import url(./css/navigation/__items/_mode/navigation__items_mode_tablet.css);
 @import url(./css/navigation/__items/_type/navigation__items_type_hidden.css);
