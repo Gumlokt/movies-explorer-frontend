@@ -10,6 +10,8 @@ import Login from './Login/Login';
 
 import Movies from './Movies/Movies';
 
+import PageNotFound from './PageNotFound/PageNotFound';
+
 function App() {
   return (
     <>
@@ -26,6 +28,10 @@ function App() {
           <Header darkTheme={true} />
           <Movies />
           <Footer />
+        </Route>
+
+        <Route path="/page-not-found">
+          <PageNotFound />
         </Route>
 
         <Route path="/">

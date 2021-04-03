@@ -1,0 +1,27 @@
+.page-not-found__link {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: block;
+
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+
+  text-align: center;
+  color: #4285F4;
+  text-decoration: none;
+
+  transition: opacity .4s linear;
+}
+
+.page-not-found__link:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 480px) {
+  .page-not-found__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
