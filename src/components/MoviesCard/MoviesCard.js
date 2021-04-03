@@ -6,15 +6,17 @@ function MoviesCard(props) {
       <button className="movies-card__btn movies-card__btn_type_stored"></button>
 
       <figure className="movies-card__figure">
-        {/* movies-card is grid layout */}
-        <img src={props.poster} className="movies-card__image" alt="Постер к фильму" />
-        <p className="movies-card__title">Here will be movie title and film duration</p>
+        <div className="movies-card__image-box">
+          <img src={props.poster} className="movies-card__image" alt="Постер к фильму" />
+        </div>
 
-        {/* <figcaption className="movies-card__caption">
-          <h4 className="movies-card__title">{props.title}</h4>
+        <figcaption className="movies-card__caption">
+          <h4 className="movies-card__title" title={props.title}>
+            {props.title}
+          </h4>
 
           <p className="movies-card__duration">1ч 17м</p>
-        </figcaption> */}
+        </figcaption>
       </figure>
     </div>
   );

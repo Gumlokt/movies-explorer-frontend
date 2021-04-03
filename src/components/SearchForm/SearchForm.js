@@ -1,4 +1,3 @@
-import iconSearch from '../../images/icons/search.svg';
 import './SearchForm.css';
 
 function SearchForm(props) {
@@ -9,9 +8,7 @@ function SearchForm(props) {
 
         <input type="text" className="search-form__text-input" placeholder="Фильм" id="search-input" />
 
-        <button className="search-form__btn-submit">
-          <img src={iconSearch} className="search-form__icon-search" alt="Иконка с изображением лупы" />
-        </button>
+        <button className="search-form__btn-submit"></button>
       </div>
 
       <label className="search-form__checkbox-label" htmlFor="checkbox">

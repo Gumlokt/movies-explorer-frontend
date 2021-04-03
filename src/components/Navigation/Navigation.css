@@ -26,5 +26,7 @@
 
 /* User */
 @import url(./css/user/user.css);
+@import url(./css/user/_type/user_type_hidden.css);
+@import url(./css/user/_mode/user_mode_tablet.css);
 @import url(./css/user/__link/user__link.css);
 @import url(./css/user/__icon/user__icon.css);

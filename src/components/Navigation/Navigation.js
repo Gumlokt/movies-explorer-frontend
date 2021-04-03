@@ -5,8 +5,8 @@ import iconUser from '../../images/icons/user.svg';
 import './Navigation.css';
 
 function Navigation(props) {
-  const loggedIn = true;
   // const [loggedIn, setLoggedIn] = React.useState(true); // this will be completed in the nearest future
+  const loggedIn = true;
   const [displayTabletMenuAppearance, setTabletMenuAppearance] = React.useState(false);
 
   function handleMenuAppearance() {
@@ -65,16 +65,13 @@ function Navigation(props) {
             </li>
           </ul>
 
-          {displayTabletMenuAppearance ? (
-            <div className="user">
-              <a href="/profile" className="user__link">
-                Аккаунт
-              </a>
-              <img src={iconUser} className="user__icon" alt="Иконка с изображением пользователя" />
-            </div>
-          ) : (
-            ''
-          )}
+          <div className={`user${displayTabletMenuAppearance ? ' user_mode_tablet' : ' user_type_hidden'}`}>
+            <a href="/profile" className="user__link">
+              Аккаунт
+            </a>
+
+            <img src={iconUser} className="user__icon" alt="Иконка с изображением пользователя" />
+          </div>
         </div>
       ) : (
         <ul className="navigation__items">
@@ -91,9 +88,7 @@ function Navigation(props) {
           </li>
 
           <li className="navigation__item">
-            <Link to="/signin" className="navigation__link navigation__link_type_btn-success">
-              Войти
-            </Link>
+            <Link to="/signin" className="navigation__link navigation__link_type_btn-success"></Link>
           </li>
         </ul>
       )}

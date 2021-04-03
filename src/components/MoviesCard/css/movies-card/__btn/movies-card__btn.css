@@ -19,7 +19,7 @@
   opacity: .8;
 }
 
-@media screen and (max-widtd: 320px) {
+@media screen and (max-widtd: 480px) {
   .movies-card__btn {
     top: 14px;
     right: 14px;

@@ -19,6 +19,15 @@
   transition: opacity 0.4s linear;
 }
 
+.search-form__btn-submit::before {
+  content: url(../../../../../images/icons/search.svg);
+  display: block;
+}
+
+.search-form__btn-submit:hover::before {
+  transform: scale(1.1, 1.1);
+}
+
 .search-form__btn-submit:hover {
   cursor: pointer;
   opacity: 0.6;

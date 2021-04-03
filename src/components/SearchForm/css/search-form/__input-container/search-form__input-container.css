@@ -11,9 +11,14 @@
   transition: border-bottom 0.4s linear;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .search-form__input-container {
     padding: 0 0 9px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .search-form__input-container {
     grid-template-columns: 1fr max-content;
   }
 }

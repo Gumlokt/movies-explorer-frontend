@@ -13,7 +13,7 @@ function MoviesCardList(props) {
       {/* grid items */}
       <ul className="movies-card-list__items">
         <li className="movies-card-list__item">
-          <MoviesCard poster={movie01} title={`33 слова о дизайне (some lorem ipsum text)`} />
+          <MoviesCard poster={movie01} title={`The Expanse`} />
         </li>
 
         <li className="movies-card-list__item">
@@ -21,13 +21,17 @@ function MoviesCardList(props) {
         </li>
 
         <li className="movies-card-list__item">
-          <MoviesCard poster={movie03} title={`Gimme Danger: История Игги и The Stooges`} />
+          <MoviesCard poster={movie03} title={`Gimme Danger: История Игги и The Stoooooges`} />
         </li>
 
         <li className="movies-card-list__item">
           <MoviesCard poster={movie04} title={`33 слова о дизайне (some lorem ipsum text)`} />
         </li>
       </ul>
+
+      <form className="movies-card-list__form">
+        <button className="movies-card-list__btn-more"></button>
+      </form>
     </section>
   );
 }

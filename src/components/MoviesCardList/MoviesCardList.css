@@ -2,3 +2,6 @@
 
 @import url(./css/movies-card-list/__items/movies-card-list__items.css);
 @import url(./css/movies-card-list/__item/movies-card-list__item.css);
+
+@import url(./css/movies-card-list/__form/movies-card-list__form.css);
+@import url(./css/movies-card-list/__btn-more/movies-card-list__btn-more.css);

@@ -5,16 +5,15 @@
   max-width: 1280px;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
-  justify-content: space-between;
+  grid-template-columns: minmax(38px, 1fr) 1fr;
+  justify-items: start;
   align-items: center;
   align-content: center;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1027px) {
   .header__container {
     padding: 18px 30px;
-    position: relative;
   }
 }
 
@@ -28,5 +27,6 @@
   .header__container {
     grid-template-columns: min-content;
     justify-content: center;
+    justify-items: center;
   }
 }

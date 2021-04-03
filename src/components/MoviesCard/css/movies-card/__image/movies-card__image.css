@@ -3,40 +3,14 @@
   margin: 0;
   padding: 0;
 
-  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 
-  max-height: 201px;
-  min-height: 201px;
+  width: 100%;
+  height: 100%;
 
   object-fit: cover;
 
   border-radius: 6px;
-}
-
-@media screen and (max-width: 1024px) {
-  .movies-card__image {
-    max-height: 190px;
-    min-height: 190px;
-  }
-}
-
-@media screen and (max-width: 620px) {
-  .movies-card__image {
-    max-height: 130px;
-    min-height: 130px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .movies-card__image {
-    max-height: 168px;
-    min-height: 168px;
-  }
-}
-
-@media screen and (max-width: 280px) {
-  .movies-card__image {
-    max-height: 100%;
-    min-height: 100%;
-  }
 }

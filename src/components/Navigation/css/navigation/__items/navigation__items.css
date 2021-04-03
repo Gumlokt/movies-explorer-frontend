@@ -21,6 +21,6 @@
   .navigation__items {
     margin-top: 10px;
     grid-auto-flow: row;
-    justify-content: center;
+    justify-items: center;
   }
 }

@@ -1,0 +1,42 @@
+.movies-card-list__btn-more {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 11px 0 9px;
+
+  width: 100%;
+  max-width: 320px;
+  height: 36px;
+
+  background-color: transparent;
+  border: 1px solid #424242;
+  color: #fff;
+  border-radius: 3px;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+
+  transition: opacity .4s linear;
+}
+
+.movies-card-list__btn-more::before {
+  content: "Ещё";
+  display: block;
+}
+
+.movies-card-list__btn-more:hover::before {
+  transform: scale(1.1, 1.1);
+}
+
+
+.movies-card-list__btn-more:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 320px) {
+  .movies-card-list__btn-more {
+    max-width: 240px;
+  }
+}

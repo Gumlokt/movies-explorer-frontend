@@ -1,11 +1,14 @@
 .navigation_mode_tablet::before {
   content: "";
   display: block;
+
   position: absolute;
   top: 0;
   left: 0;
+
   width: 100vw;
   height: 100vh;
+
   background-color: #000;
   opacity: 0.3;
   z-index: 5;

@@ -1,7 +1,7 @@
 .logo {
   display: block;
-  max-width: 38px;
-  max-height: 38px;
+  width: 38px;
+  height: 38px;
 
   transition: opacity 0.4s linear;
 }
