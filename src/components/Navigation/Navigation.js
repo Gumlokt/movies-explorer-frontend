@@ -37,7 +37,11 @@ function Navigation(props) {
               displayTabletMenuAppearance ? ' navigation__items_mode_tablet' : ' navigation__items_type_hidden'
             }`}
           >
-            <li className="navigation__item">
+            <li
+              className={`navigation__item${
+                displayTabletMenuAppearance ? ' navigation__item_mode_tablet' : ' navigation__item_type_hidden'
+              }`}
+            >
               <Link
                 to="/"
                 className={`navigation__link${displayTabletMenuAppearance ? ' navigation__link_mode_tablet' : ''}`}
@@ -66,9 +70,9 @@ function Navigation(props) {
           </ul>
 
           <div className={`user${displayTabletMenuAppearance ? ' user_mode_tablet' : ' user_type_hidden'}`}>
-            <a href="/profile" className="user__link">
+            <Link to="/profile" className="user__link">
               Аккаунт
-            </a>
+            </Link>
 
             <img src={iconUser} className="user__icon" alt="Иконка с изображением пользователя" />
           </div>

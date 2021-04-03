@@ -9,6 +9,7 @@ import Register from './Register/Register';
 import Login from './Login/Login';
 
 import Movies from './Movies/Movies';
+import Profile from './Profile/Profile';
 
 import PageNotFound from './PageNotFound/PageNotFound';
 
@@ -28,6 +29,11 @@ function App() {
           <Header darkTheme={true} />
           <Movies />
           <Footer />
+        </Route>
+
+        <Route path="/profile">
+          <Header darkTheme={true} />
+          <Profile />
         </Route>
 
         <Route path="/page-not-found">

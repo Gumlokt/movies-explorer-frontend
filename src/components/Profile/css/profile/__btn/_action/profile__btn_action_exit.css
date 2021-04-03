@@ -1,0 +1,7 @@
+.profile__btn_action_exit {
+  color: #ee3465;
+}
+
+.profile__btn_action_exit::before {
+  content: 'Выйти из аккаунта';
+}

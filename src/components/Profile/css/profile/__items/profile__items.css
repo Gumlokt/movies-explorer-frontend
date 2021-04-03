@@ -1,0 +1,21 @@
+.profile__items {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 80px 0;
+
+  max-width: 410px;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__items {
+    padding: 96px 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile__items {
+    padding: 80px 0;
+    max-width: 260px;
+  }
+}

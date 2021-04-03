@@ -1,0 +1,20 @@
+.profile__item {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 16px 0;
+
+  width: 100%;
+
+  list-style-type: none;
+  border-bottom: 1px solid #424242;
+
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile__item:last-child {
+  border-bottom: none;
+}

@@ -11,6 +11,7 @@
 @import url(./css/navigation/__items/_type/navigation__items_type_hidden.css);
 
 @import url(./css/navigation/__item/navigation__item.css);
+@import url(./css/navigation/__item/_type/navigation__item_type_hidden.css);
 
 @import url(./css/navigation/__link/navigation__link.css);
 @import url(./css/navigation/__link/_type/navigation__link_type_btn-success.css);

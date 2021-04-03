@@ -1,0 +1,16 @@
+@import url(./css/profile/profile.css);
+
+@import url(./css/profile/__form/profile__form.css);
+
+@import url(./css/profile/__title/profile__title.css);
+
+@import url(./css/profile/__items/profile__items.css);
+@import url(./css/profile/__item/profile__item.css);
+
+@import url(./css/profile/__label/profile__label.css);
+@import url(./css/profile/__input/profile__input.css);
+
+@import url(./css/profile/__btn/profile__btn.css);
+@import url(./css/profile/__btn/_action/profile__btn_action_edit.css);
+@import url(./css/profile/__btn/_action/profile__btn_action_exit.css);
+@import url(./css/profile/__btn/_action/profile__btn_action_save.css);
