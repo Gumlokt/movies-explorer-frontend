@@ -1,6 +1,9 @@
 // import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import beatMoviesFromApi from '../utils/beatfilm-movies.json';
+import beatMoviesSaved from '../utils/beatfilm-movies-saved.json';
+
 import Header from './Header/Header';
 import Main from './Main/Main';
 import Footer from './Footer/Footer';
@@ -17,6 +20,12 @@ function App() {
   return (
     <>
       <Switch>
+        <Route exact path="/">
+          <Header />
+          <Main />
+          <Footer />
+        </Route>
+
         <Route path="/signin">
           <Login />
         </Route>
@@ -27,7 +36,13 @@ function App() {
 
         <Route path="/movies">
           <Header darkTheme={true} />
-          <Movies />
+          <Movies beatMovies={beatMoviesFromApi} displayMoreBtn={true} />
+          <Footer />
+        </Route>
+
+        <Route path="/saved-movies">
+          <Header darkTheme={true} />
+          <Movies beatMovies={beatMoviesSaved} />
           <Footer />
         </Route>
 
@@ -40,10 +55,8 @@ function App() {
           <PageNotFound />
         </Route>
 
-        <Route path="/">
-          <Header />
-          <Main />
-          <Footer />
+        <Route path="*">
+          <PageNotFound />
         </Route>
       </Switch>
     </>

@@ -8,7 +8,7 @@ function Movies(props) {
     <main className="movies">
       <div className="movies__container">
         <SearchForm />
-        <MoviesCardList />
+        <MoviesCardList beatMovies={props.beatMovies} displayMoreBtn={props.displayMoreBtn} />
       </div>
     </main>
   );

@@ -11,12 +11,24 @@
   text-align: center;
   color: #4285F4;
   text-decoration: none;
+  border: none;
+  background-color: transparent;
 
   transition: opacity .4s linear;
 }
 
+.page-not-found__link::before {
+  content: 'Назад';
+  display: block;
+}
+
+.page-not-found__link:hover::before {
+  transform: scale(1.05, 1.05);
+}
+
 .page-not-found__link:hover {
   opacity: .6;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 480px) {

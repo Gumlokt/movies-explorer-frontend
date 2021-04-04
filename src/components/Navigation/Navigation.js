@@ -13,6 +13,10 @@ function Navigation(props) {
     setTabletMenuAppearance(!displayTabletMenuAppearance);
   }
 
+  function closeTabletMenu() {
+    setTabletMenuAppearance(false);
+  }
+
   return (
     <nav className={`navigation${displayTabletMenuAppearance ? ' navigation_mode_tablet' : ''}`}>
       {loggedIn ? (
@@ -45,6 +49,7 @@ function Navigation(props) {
               <Link
                 to="/"
                 className={`navigation__link${displayTabletMenuAppearance ? ' navigation__link_mode_tablet' : ''}`}
+                onClick={closeTabletMenu}
               >
                 Главная
               </Link>
@@ -54,6 +59,7 @@ function Navigation(props) {
               <Link
                 to="/movies"
                 className={`navigation__link${displayTabletMenuAppearance ? ' navigation__link_mode_tablet' : ''}`}
+                onClick={closeTabletMenu}
               >
                 Фильмы
               </Link>
@@ -63,6 +69,7 @@ function Navigation(props) {
               <Link
                 to="/saved-movies"
                 className={`navigation__link${displayTabletMenuAppearance ? ' navigation__link_mode_tablet' : ''}`}
+                onClick={closeTabletMenu}
               >
                 Сохранённые фильмы
               </Link>
@@ -70,7 +77,7 @@ function Navigation(props) {
           </ul>
 
           <div className={`user${displayTabletMenuAppearance ? ' user_mode_tablet' : ' user_type_hidden'}`}>
-            <Link to="/profile" className="user__link">
+            <Link to="/profile" className="user__link" onClick={closeTabletMenu}>
               Аккаунт
             </Link>
 
