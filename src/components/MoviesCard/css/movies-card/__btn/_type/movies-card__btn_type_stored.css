@@ -18,3 +18,7 @@
 .movies-card__btn_type_stored::after {
   content: url(../../../../../../images/icons/check.svg);
 }
+
+.movies-card__btn_type_stored:hover::after {
+  transform: scale(1.05, 1.05);
+}

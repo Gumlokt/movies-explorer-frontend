@@ -8,6 +8,10 @@
   position: relative;
 }
 
+.movies-card__image-box:hover {
+  transform: scale(1.01, 1.01);
+}
+
 .movies-card__image-box::before {
   content: "";
   display: inline-block;

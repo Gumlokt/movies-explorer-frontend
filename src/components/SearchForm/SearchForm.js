@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import './SearchForm.css';
 
@@ -6,6 +6,7 @@ import Preloader from '../Preloader/Preloader';
 
 function SearchForm(props) {
   const [displayPreloader, setDisplayPreloader] = React.useState(false);
+  const textInput = useRef(null);
 
   function fetchMoviesList(event) {
     event.preventDefault();
@@ -20,6 +21,9 @@ function SearchForm(props) {
         setDisplayPreloader(false);
       }
     };
+
+    textInput.current.focus();
+
     window.addEventListener('keydown', handleEsc);
 
     return () => {
@@ -32,7 +36,7 @@ function SearchForm(props) {
       <div className="search-form__input-container">
         <label className="search-form__input-label" htmlFor="search-input"></label>
 
-        <input type="text" className="search-form__text-input" placeholder="Фильм" id="search-input" />
+        <input ref={textInput} type="text" className="search-form__text-input" placeholder="Фильм" id="search-input" />
 
         <button className="search-form__btn-submit" onClick={fetchMoviesList}></button>
       </div>
@@ -42,7 +46,7 @@ function SearchForm(props) {
         <span className="search-form__visible-checkbox"></span>Короткометражки
       </label>
 
-      {displayPreloader && <Preloader />}
+      <Preloader isOpen={displayPreloader} />
     </form>
   );
 }

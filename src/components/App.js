@@ -1,4 +1,4 @@
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import beatMoviesFromApi from '../utils/beatfilm-movies.json';
@@ -15,8 +15,19 @@ import Movies from './Movies/Movies';
 import Profile from './Profile/Profile';
 
 import PageNotFound from './PageNotFound/PageNotFound';
+import Popup from './Popup/Popup';
 
 function App() {
+  const [isInformerPopupOpen, setInformerPopupOpen] = useState(false);
+  const [messageToUser, setMessageToUser] = useState(
+    'Some lorem ipsum text... Some lorem ipsum text... Some lorem ipsum text...',
+  );
+
+  function closeInformerPopup() {
+    setInformerPopupOpen(false);
+    setMessageToUser('');
+  }
+
   return (
     <>
       <Switch>
@@ -59,6 +70,8 @@ function App() {
           <PageNotFound />
         </Route>
       </Switch>
+
+      <Popup isOpen={isInformerPopupOpen} message={messageToUser} onClose={closeInformerPopup} />
     </>
   );
 }

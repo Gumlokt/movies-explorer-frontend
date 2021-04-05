@@ -10,19 +10,26 @@ function MoviesCard(props) {
 
   return (
     <div className="movies-card">
-      <button className="movies-card__btn movies-card__btn_type_stored"></button>
+      <button className="movies-card__btn movies-card__btn_type_save"></button>
 
       <figure className="movies-card__figure">
         <div className="movies-card__image-box">
-          <img
-            src={
-              props.beatMovie.image && props.beatMovie.image.url
-                ? `https://api.nomoreparties.co${props.beatMovie.image.url}`
-                : 'https://via.placeholder.com/360x200/778899/FFFFFF?text=Постер'
-            }
-            className="movies-card__image"
-            alt="Постер к фильму"
-          />
+          <a
+            className="movies-card__link"
+            href={props.beatMovie.trailerLink ? props.beatMovie.trailerLink : 'https://www.kinopoisk.ru/'}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={
+                props.beatMovie.image && props.beatMovie.image.url
+                  ? `https://api.nomoreparties.co${props.beatMovie.image.url}`
+                  : 'https://via.placeholder.com/360x200/778899/FFFFFF?text=Постер'
+              }
+              className="movies-card__image"
+              alt="Постер к фильму"
+            />
+          </a>
         </div>
 
         <figcaption className="movies-card__caption">

@@ -18,6 +18,7 @@
 .movies-card__btn:hover {
   cursor: pointer;
   opacity: .8;
+  transform: scale(1.05, 1.05);
 }
 
 @media screen and (max-widtd: 480px) {

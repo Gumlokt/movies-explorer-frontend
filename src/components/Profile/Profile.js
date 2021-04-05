@@ -1,18 +1,43 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import './Profile.css';
 
 function Profile(props) {
-  const userData = { name: 'Игорь', email: 'user@mail.dom' }; // should be get from api
+  const history = useHistory();
+  // const userData = { name: 'Игорь', email: 'user@mail.dom' }; // should be get from api
+  const [inputsDisabled, setInputsDisabled] = React.useState(true);
 
-  function signOut() {
-    console.log('toren removed...');
+  const [userName, setUserName] = React.useState('Игорь');
+  const [userEmail, setUserEmail] = React.useState('user@mail.dom');
+
+  function handleForm(event) {
+    event.preventDefault();
+
+    if (inputsDisabled) {
+      setInputsDisabled(false);
+    } else {
+      setInputsDisabled(true);
+    }
+  }
+
+  function handleChangeName(e) {
+    setUserName(e.target.value);
+  }
+
+  function handleChangeEmail(e) {
+    setUserEmail(e.target.value);
+  }
+
+  function signOut(event) {
+    event.preventDefault();
+    history.push('/');
   }
 
   return (
     <main className="profile">
       <form className="profile__form">
-        <h3 className="profile__title">Привет, {userData.name}</h3>
+        <h3 className="profile__title">Привет, {userName}</h3>
 
         <ul className="profile__items">
           <li className="profile__item">
@@ -21,12 +46,13 @@ function Profile(props) {
             </label>
 
             <input
+              onChange={handleChangeName}
               type="text"
               className="profile__input"
               name="name"
-              value={userData.name}
+              value={userName}
               id="name"
-              disabled
+              disabled={inputsDisabled}
               required
             />
           </li>
@@ -37,18 +63,22 @@ function Profile(props) {
             </label>
 
             <input
+              onChange={handleChangeEmail}
               type="email"
               className="profile__input"
               name="email"
-              value={userData.email}
+              value={userEmail}
               id="email"
-              disabled
+              disabled={inputsDisabled}
               required
             />
           </li>
         </ul>
 
-        <button className="profile__btn profile__btn_action_edit"></button>
+        <button
+          className={`profile__btn${inputsDisabled ? ' profile__btn_action_edit' : ' profile__btn_action_save'}`}
+          onClick={handleForm}
+        ></button>
 
         <button onClick={signOut} className="profile__btn profile__btn_action_exit"></button>
       </form>

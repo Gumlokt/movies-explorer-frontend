@@ -18,3 +18,7 @@
 .movies-card__btn_type_save::after {
   content: "Сохранить";
 }
+
+.movies-card__btn_type_save:hover::after {
+  transform: scale(1.05, 1.05);
+}

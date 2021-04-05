@@ -18,3 +18,7 @@
 .movies-card__btn_type_remove::after {
   content: url(../../../../../../images/icons/cross.svg);
 }
+
+.movies-card__btn_type_remove:hover::after {
+  transform: scale(1.05, 1.05);
+}

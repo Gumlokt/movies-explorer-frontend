@@ -11,6 +11,10 @@
   transition: border-bottom 0.4s linear;
 }
 
+.search-form__input-container:focus-within {
+  border-bottom: 1px solid #4285f4;
+}
+
 @media screen and (max-width: 480px) {
   .search-form__input-container {
     padding: 0 0 9px;
