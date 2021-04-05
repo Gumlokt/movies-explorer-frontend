@@ -1,4 +1,4 @@
-.search-form__visible-checkbox {
+.checkbox__visible {
   box-sizing: border-box;
   margin: 0 12px 0 0;
   padding: 2px;
@@ -13,7 +13,7 @@
   border-radius: 20px;
 }
 
-.search-form__visible-checkbox::after {
+.checkbox__visible::after {
   content: "";
   display: block;
   width: 16px;

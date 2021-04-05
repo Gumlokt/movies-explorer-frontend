@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from 'react';
 import './SearchForm.css';
 
 import Preloader from '../Preloader/Preloader';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm(props) {
   const [displayPreloader, setDisplayPreloader] = React.useState(false);
@@ -41,10 +42,7 @@ function SearchForm(props) {
         <button className="search-form__btn-submit" onClick={fetchMoviesList}></button>
       </div>
 
-      <label className="search-form__checkbox-label" htmlFor="checkbox">
-        <input type="checkbox" className="search-form__checkbox-input" id="checkbox" />
-        <span className="search-form__visible-checkbox"></span>Короткометражки
-      </label>
+      <FilterCheckbox />
 
       <Preloader isOpen={displayPreloader} />
     </form>

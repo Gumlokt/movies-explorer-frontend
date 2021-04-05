@@ -16,6 +16,8 @@ function Form(props) {
         className={`form__text-input${props.formName === 'login' ? ' form__text-input_type_hidden' : ''}`}
         name="name"
         // placeholder="Введите ваше имя"
+        minLength="2"
+        maxLength="40"
         id="name"
         required
       />

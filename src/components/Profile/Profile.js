@@ -51,6 +51,9 @@ function Profile(props) {
               className="profile__input"
               name="name"
               value={userName}
+              placeholder="Имя"
+              minLength="2"
+              maxLength="40"
               id="name"
               disabled={inputsDisabled}
               required
@@ -68,6 +71,7 @@ function Profile(props) {
               className="profile__input"
               name="email"
               value={userEmail}
+              placeholder="Email"
               id="email"
               disabled={inputsDisabled}
               required

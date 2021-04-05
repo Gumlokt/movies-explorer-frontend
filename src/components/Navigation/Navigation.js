@@ -6,7 +6,7 @@ import './Navigation.css';
 
 function Navigation(props) {
   // const [loggedIn, setLoggedIn] = React.useState(true); // this will be completed in the nearest future
-  const loggedIn = true;
+  const loggedIn = false; // !!!! A T T E N T I O N !!!! set this value to true to change navigation items in the <Header> component
   const [displayTabletMenuAppearance, setTabletMenuAppearance] = React.useState(false);
 
   function handleMenuAppearance() {
@@ -86,12 +86,6 @@ function Navigation(props) {
         </div>
       ) : (
         <ul className="navigation__items">
-          <li className="navigation__item">
-            <Link to="/movies" className="navigation__link">
-              Movies
-            </Link>
-          </li>
-
           <li className="navigation__item">
             <Link to="/signup" className="navigation__link">
               Регистрация
