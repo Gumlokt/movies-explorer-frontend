@@ -1,7 +1,6 @@
 import './MoviesCardList.css';
 
 import MoviesCard from '../MoviesCard/MoviesCard';
-import EmptySearchResults from '../EmptySearchResults/EmptySearchResults';
 
 function MoviesCardList(props) {
   return (
@@ -21,8 +20,6 @@ function MoviesCardList(props) {
           <button className="movies-card-list__btn-more"></button>
         </form>
       )}
-
-      <EmptySearchResults moviesNumber={props.beatMovies.length} />
     </section>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import beatMoviesFromApi from '../utils/beatfilm-movies.json';
 import beatMoviesSaved from '../utils/beatfilm-movies-saved.json';
 
 import Header from './Header/Header';
@@ -47,13 +46,13 @@ function App() {
 
         <Route path="/movies">
           <Header darkTheme={true} />
-          <Movies beatMovies={beatMoviesFromApi} displayMoreBtn={true} />
+          <Movies displayMoreBtn={true} />
           <Footer />
         </Route>
 
         <Route path="/saved-movies">
           <Header darkTheme={true} />
-          <Movies beatMovies={beatMoviesSaved} />
+          <Movies displayMoreBtn={false} beatMovies={beatMoviesSaved} />
           <Footer />
         </Route>
 

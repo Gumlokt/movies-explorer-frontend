@@ -5,10 +5,16 @@
   border-bottom: 1px solid #424242;
 
   display: grid;
-  grid-template-columns: max-content 1fr max-content;
+  grid-template-columns: max-content 1fr max-content max-content;
   align-items: center;
 
   transition: border-bottom 0.4s linear;
+}
+
+.search-form__input-container:hover .search-form__btn-reset {
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.4s linear;
 }
 
 .search-form__input-container:focus-within {
@@ -23,6 +29,6 @@
 
 @media screen and (max-width: 320px) {
   .search-form__input-container {
-    grid-template-columns: 1fr max-content;
+    grid-template-columns: 1fr max-content max-content;
   }
 }
