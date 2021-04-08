@@ -24,6 +24,7 @@ function SearchForm(props) {
           className="search-form__text-input"
           name="term"
           value={props.term}
+          minLength="2"
           placeholder="Фильм"
           id="search-input"
           required

@@ -9,6 +9,9 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import EmptySearchResults from '../EmptySearchResults/EmptySearchResults';
 
 function Movies(props) {
+  // const [totalCardsInRow, setTotalCardsInRow] = useState(3);
+  // const [totalRows, setTotalRows] = useState(0);
+
   const [beatMovies, setBeatMovies] = useState([]);
   const [term, setTerm] = useState('');
   const [displayPreloader, setDisplayPreloader] = useState(false);
@@ -18,6 +21,7 @@ function Movies(props) {
     event.preventDefault();
     setDisplayEmptySearchResults('');
     setTerm('');
+    setBeatMovies([]);
   }
 
   function fetchMoviesList(event) {
@@ -37,14 +41,28 @@ function Movies(props) {
         //попадаем сюда когда массив промисов будут выполнены
         const [initialMovies] = values;
 
-        // отбираем фильмы согласно поисковому запросу пользователя
-        setBeatMovies(moviesSelector.select(initialMovies, term));
 
+        
+        // отбираем фильмы согласно поисковому запросу пользователя
+        const selectedMovies = moviesSelector.select(initialMovies, term);
+
+        // setTotalRows(selectedMovies.length % totalCardsInRow > 0 ? Math.ceil(selectedMovies.length / totalCardsInRow) : selectedMovies.length / totalCardsInRow);
+
+        // console.log(Math.ceil(selectedMovies.length / totalCardsInRow));
+        // console.log(totalRows);
+
+        if(selectedMovies.length) {
+          setBeatMovies(selectedMovies);
+        } else {
+          setDisplayEmptySearchResults('Ничего не найдено');
+        }
+        
         setDisplayPreloader(false);
       })
       .catch((err) => {
         //попадаем сюда если хотя бы один из промисов завершится ошибкой
         console.log(err.message);
+        setDisplayEmptySearchResults('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.');
         setDisplayPreloader(false);
       });
   }

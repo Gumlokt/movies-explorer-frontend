@@ -33,7 +33,7 @@ function MoviesCard(props) {
         </div>
 
         <figcaption className="movies-card__caption">
-          <h4 className="movies-card__title" title={props.beatMovie.nameRU}>
+          <h4 className="movies-card__title" title={`Название на английском: ${props.beatMovie.nameEN}`}>
             {props.beatMovie.nameRU}
           </h4>
 
