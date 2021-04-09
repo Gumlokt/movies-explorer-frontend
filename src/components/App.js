@@ -46,13 +46,13 @@ function App() {
 
         <Route path="/movies">
           <Header darkTheme={true} />
-          <Movies displayMoreBtn={true} />
+          <Movies />
           <Footer />
         </Route>
 
         <Route path="/saved-movies">
           <Header darkTheme={true} />
-          <Movies displayMoreBtn={false} beatMovies={beatMoviesSaved} />
+          <Movies beatMovies={beatMoviesSaved} />
           <Footer />
         </Route>
 

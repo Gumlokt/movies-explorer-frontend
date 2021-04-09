@@ -8,6 +8,16 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 function SearchForm(props) {
   const textInput = useRef(null);
 
+  function resetForm(event) {
+    textInput.current.focus();
+    props.resetForm(event);
+  }
+
+  function handleShort(event) {
+    textInput.current.focus();
+    props.handleShort(event);
+  }
+
   useEffect(() => {
     textInput.current.focus();
   }, []);
@@ -30,11 +40,11 @@ function SearchForm(props) {
           required
         />
 
-        <button className="search-form__btn-reset" onClick={props.resetForm}></button>
+        <button type="reset" className="search-form__btn-reset" onClick={resetForm}></button>
         <button className="search-form__btn-submit" onClick={props.fetchMoviesList}></button>
       </div>
 
-      <FilterCheckbox />
+      <FilterCheckbox short={props.short} handleShort={handleShort}/>
 
       <Preloader isOpen={props.displayPreloader} />
     </form>

@@ -1,13 +1,8 @@
+import { convertDuration } from '../../utils/convertDuration';
+
 import './MoviesCard.css';
 
 function MoviesCard(props) {
-  function turnDurationToHumanReadable(duration) {
-    const hours = Math.floor(duration / 60);
-    const minutes = duration - hours * 60;
-
-    return `${hours}ч ${minutes}м`;
-  }
-
   return (
     <div className="movies-card">
       <button className="movies-card__btn movies-card__btn_type_save"></button>
@@ -37,7 +32,7 @@ function MoviesCard(props) {
             {props.beatMovie.nameRU}
           </h4>
 
-          <p className="movies-card__duration">{turnDurationToHumanReadable(props.beatMovie.duration)}</p>
+          <p className="movies-card__duration">{convertDuration(props.beatMovie.duration)}</p>
         </figcaption>
       </figure>
     </div>
