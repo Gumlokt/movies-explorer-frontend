@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import beatMoviesSaved from '../utils/beatfilm-movies-saved.json';
-
 import Header from './Header/Header';
 import Main from './Main/Main';
 import Footer from './Footer/Footer';
@@ -52,7 +50,7 @@ function App() {
 
         <Route path="/saved-movies">
           <Header darkTheme={true} />
-          <Movies beatMovies={beatMoviesSaved} />
+          <Movies />
           <Footer />
         </Route>
 

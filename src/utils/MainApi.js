@@ -16,7 +16,7 @@ class MainApi {
     this._headers.Authorization = `Bearer ${token}`;
   }
 
-  getInitialMovies() {
+  getFavouriteMovies() {
     return fetch(`${this._url}/movies`, {
       headers: this._headers,
     })
@@ -38,7 +38,7 @@ class MainApi {
       .catch((err) => console.log(err));
   }
 
-  deleteMovie(id) {
+  removeMovie(id) {
     // return fetch(`${this._url}/movies/test4583q0d2574b5862test`, {
     return fetch(`${this._url}/movies/${id}`, {
       method: 'DELETE',
@@ -75,10 +75,11 @@ class MainApi {
 
 /** Object with methods to send and request all data on the server side. */
 export const mainApi = new MainApi({
-  url: 'https://api.moviehunter.ru',
-  // url: 'http://localhost:4000',
+  // url: 'https://api.moviehunter.ru',
+  url: 'http://localhost:4000',
   headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    // Authorization: `Bearer ${localStorage.getItem('token')}`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRhNzNjMDE5ODlmMDM2Mjg2NjZlNmIiLCJpYXQiOjE2MTgxNDAzNTEsImV4cCI6MTYxODc0NTE1MX0.AFGR_THuqJG6ZeNON7qint7rziAsS8-RovUIrkyH46g`,
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },

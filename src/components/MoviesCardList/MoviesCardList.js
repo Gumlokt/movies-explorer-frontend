@@ -9,7 +9,12 @@ function MoviesCardList(props) {
         {props.displayedMovies.map((item, index) => {
           return (
             <li className="movies-card-list__item" key={index}>
-              <MoviesCard beatMovie={item} />
+              <MoviesCard
+                movieItem={item}
+                favouriteMovies={props.favouriteMovies}
+                onMovieSave={props.onMovieSave}
+                onMovieRemove={props.onMovieRemove}
+              />
             </li>
           );
         })}

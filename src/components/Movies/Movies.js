@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
 import { moviesSelector } from '../../utils/MoviesSelector';
 
@@ -9,6 +12,8 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import EmptySearchResults from '../EmptySearchResults/EmptySearchResults';
 
 function Movies(props) {
+  const location = useLocation();
+
   const cardsOnDesktop = 12;
   const cardsOnTablet = 8;
   const cardsOnPhone = 5;
@@ -19,6 +24,8 @@ function Movies(props) {
   const [cardsToAddOnClickMoreBtn, setCardsToAddOnClickMoreBtn] = useState(addCardsOnDesktop); // 3 - число фильмов, которые добавляются к уже отрендеренным при нажатии на кнопку "Ещё" (добавляется карточек: по 3шт. при >=1025px+; по 2шт. - во всех остальных разрешениях)
 
   const [initialMovies, setInitialMovies] = useState([]); // все фильмы полученные из BeatfilmMoviesApi
+  const [favouriteMovies, setFavouriteMovies] = useState([]); // все избранные фильмы, который хранятся на moviehunter.ru
+
   const [filteredMovies, setFilteredMovies] = useState([]); // число отфильтрованных фильмов в соответствии с поисковым запросом юзера (допустимые значения - от 0 до infinity)
   const [displayedMovies, setDisplayedMovies] = useState([]); // число отрендеренных фильмов из числа отфильтрованных, изначально равно cardsToDisplayByDefault, при этом не может превышать filteredMovies (допустимые значения - от 1 до filteredMovies)
 
@@ -66,7 +73,9 @@ function Movies(props) {
 
     setDisplayPreloader(true);
 
-    if (initialMovies.length) {
+    if (location.pathname === '/saved-movies') {
+      moviesDispatcher(moviesSelector.select(favouriteMovies, term, short));
+    } else if (initialMovies.length) {
       moviesDispatcher(moviesSelector.select(initialMovies, term, short));
     } else {
       Promise.all([
@@ -99,6 +108,18 @@ function Movies(props) {
     }
   }
 
+  // /**
+  //  * Function to get movies from moviehunter.ru.
+  //  * @param {Object} event - Browser's event - click submit button.
+  //  * @returns {void}
+  //  */
+  // function fetchFavouriteMoviesList(event) {
+  //   if (event) {
+  //     event.preventDefault();
+  //   }
+
+  //   console.log(location.pathname);
+  // }
   /**
    * Function to reset search form.
    * @param {Object} event - Browser's event - click reset button.
@@ -109,6 +130,8 @@ function Movies(props) {
     setDisplayEmptySearchResults('');
     setTerm('');
     setDisplayedMovies([]);
+
+    console.log(location.pathname);
   }
 
   /**
@@ -147,7 +170,50 @@ function Movies(props) {
   }
 
   /**
-   * Screen resolution tracking function.
+   * Function to save the selected movie to favorites.
+   * @param {Object} movie - Browser's event - click save button.
+   * @returns {void}
+   */
+  function handleMovieSave(movie) {
+    const movieToSave = {
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `https://api.nomoreparties.co${movie.image.url}`,
+      trailer: movie.trailerLink,
+      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+    };
+
+    mainApi
+      .addMovie(movieToSave)
+      .then((addedMovie) => {
+        console.log(addedMovie);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  /**
+   * Function to remove the selected movie from favorites.
+   * @param {Object} movie - Browser's event - click remove button.
+   * @returns {void}
+   */
+  function handleMovieRemove(movie) {
+    mainApi
+      .removeMovie(movie._id)
+      .then((removedMovie) => {
+        console.log(removedMovie);
+        // !!!! нужно доделать !!!!
+      })
+      .catch((err) => console.log(err));
+  }
+
+  /**
+   * Function to track screen resolution.
    * @returns {void}
    */
   useEffect(() => {
@@ -164,6 +230,10 @@ function Movies(props) {
         if (window.screen.width <= 480) {
           setCardsToDisplayByDefault(cardsOnPhone);
         }
+
+        if (location.pathname === '/saved-movies') {
+          setCardsToDisplayByDefault(Infinity);
+        }
       }, 500);
     }
 
@@ -174,8 +244,9 @@ function Movies(props) {
     return () => {
       window.removeEventListener('resize', keepTrackScreenWidth);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cardsToDisplayByDefault]);
+  }, [location]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [cardsToDisplayByDefault]);
 
   /**
    * Function to read initialMovies from localStorage once at app start.
@@ -187,6 +258,23 @@ function Movies(props) {
     if (allBeatfilmMovies && allBeatfilmMovies.length) {
       setInitialMovies(allBeatfilmMovies);
     }
+
+    setDisplayedMovies([]);
+  }, []);
+
+  /**
+   * Function to get favouriteMovies from moviehunter.ru once at app start.
+   * @returns {void}
+   */
+  useEffect(() => {
+    Promise.all([mainApi.getFavouriteMovies()])
+      .then((values) => {
+        const [allFavouriteMovies] = values;
+        setFavouriteMovies(allFavouriteMovies);
+      })
+      .catch((err) => {
+        console.log(`catch block: ${err.message}`);
+      });
   }, []);
 
   return (
@@ -205,9 +293,12 @@ function Movies(props) {
         <EmptySearchResults message={displayEmptySearchResults} />
 
         <MoviesCardList
+          favouriteMovies={favouriteMovies}
           displayedMovies={displayedMovies}
-          displayMoreBtn={filteredMovies.length > displayedMovies.length} // кнопка "Ещё" будет отображается до тех пор, пока число отфильтрованных фильмов по запросу юзера будет превышать число отрендеренных
+          displayMoreBtn={filteredMovies.length > displayedMovies.length && location.pathname !== '/saved-movies'} // кнопка "Ещё" будет отображается только на странице /movies и до тех пор, пока число отфильтрованных фильмов по запросу юзера будет превышать число отрендеренных
           handleMoreFilmsBtn={handleMoreFilmsBtn}
+          onMovieSave={handleMovieSave}
+          onMovieRemove={handleMovieRemove}
         />
       </div>
     </main>
