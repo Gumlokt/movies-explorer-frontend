@@ -1,0 +1,24 @@
+.techs__item {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+
+  background: #303030;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .techs__item {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

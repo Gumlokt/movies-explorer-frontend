@@ -1,0 +1,15 @@
+.caption__title {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 27px;
+}
+
+@media screen and (max-width: 320px) {
+  .caption__title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

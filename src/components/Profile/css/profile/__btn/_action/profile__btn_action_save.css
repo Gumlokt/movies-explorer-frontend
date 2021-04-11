@@ -1,0 +1,7 @@
+.profile__btn_action_save {
+  color: #3ddc84;
+}
+
+.profile__btn_action_save::before {
+  content: 'Сохранить изменения';
+}

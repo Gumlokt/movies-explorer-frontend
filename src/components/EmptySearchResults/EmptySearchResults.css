@@ -1,0 +1,30 @@
+.empty-search-results {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: all .4s ease-in-out;
+}
+
+.empty-search-results_displayed {
+  padding: 50px 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+.empty-search-results__text {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  font-style: italic;
+
+  color: #4285f4;
+}

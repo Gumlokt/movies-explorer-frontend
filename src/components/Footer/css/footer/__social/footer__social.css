@@ -1,0 +1,19 @@
+.footer__social {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 20px 0 0 0;
+
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+@media screen and (max-width: 480px) {
+  .footer__social {
+    grid-auto-flow: row;
+    justify-content: center;
+    gap: 30px;
+  }
+}

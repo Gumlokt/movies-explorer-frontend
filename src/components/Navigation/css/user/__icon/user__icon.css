@@ -1,0 +1,11 @@
+.user__icon {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 10px;
+
+  width: 30px;
+  height: 30px;
+
+  background: #313131;
+  border-radius: 6px;
+}

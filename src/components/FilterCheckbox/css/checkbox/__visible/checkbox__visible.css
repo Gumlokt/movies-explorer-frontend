@@ -1,0 +1,28 @@
+.checkbox__visible {
+  box-sizing: border-box;
+  margin: 0 12px 0 0;
+  padding: 2px;
+
+  display: inline-block;
+  vertical-align: middle;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
+  position: relative;
+
+  border-radius: 20px;
+}
+
+.checkbox__visible::after {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 16px;
+
+  position: absolute;
+  top: 2px;
+  left: 2px;
+
+  border-radius: 50%;
+  background-color: #fff;
+}

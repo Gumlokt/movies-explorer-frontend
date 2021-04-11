@@ -1,0 +1,20 @@
+.menu-btn__stripe {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  width: 28px;
+  height: 3px;
+  background-color: #fff;
+
+  transform-origin: 0% 50%;
+
+  transition: transform 0.4s linear, opacity 0.4s linear;
+}
+
+@media screen and (max-width: 320px) {
+  .menu-btn__stripe {
+    width: 22px;
+    height: 2px;
+  }
+}

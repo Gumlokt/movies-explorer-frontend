@@ -1,0 +1,28 @@
+.search-form__input-container {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 0 15px;
+  border-bottom: 1px solid #424242;
+
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  align-items: center;
+
+  transition: border-bottom 0.4s linear;
+}
+
+.search-form__input-container:focus-within {
+  border-bottom: 1px solid #4285f4;
+}
+
+@media screen and (max-width: 480px) {
+  .search-form__input-container {
+    padding: 0 0 9px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .search-form__input-container {
+    grid-template-columns: 1fr max-content;
+  }
+}

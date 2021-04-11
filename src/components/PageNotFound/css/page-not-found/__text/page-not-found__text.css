@@ -1,0 +1,26 @@
+.page-not-found__text {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 5px 0 184px;
+
+  text-align: center;
+
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: #fff;
+}
+
+@media screen and (max-width: 480px) {
+  .page-not-found__text {
+    padding: 10px 0 284px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .page-not-found__text {
+    padding: 10px 0 84px;
+  }
+}

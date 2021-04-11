@@ -1,0 +1,18 @@
+.search-form {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 70px 0 49px;
+  background-color: #202020;
+}
+
+@media screen and (max-width: 1024px) {
+  .search-form {
+    padding: 86px 0 62px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .search-form {
+    padding: 98px 0 50px;
+  }
+}

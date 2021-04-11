@@ -1,0 +1,20 @@
+.checkbox {
+  box-sizing: border-box;
+  margin: 29px 0 0;
+  padding: 0;
+  display: block;
+
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+
+  text-align: center;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+  .checkbox {
+    margin: 42px 0 0;
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,7 @@
+@import url(./css/techs/techs.css);
+@import url(./css/techs/__container/techs__container.css);
+
+@import url(./css/techs/__title/techs__title.css);
+@import url(./css/techs/__description/techs__description.css);
+@import url(./css/techs/__items/techs__items.css);
+@import url(./css/techs/__item/techs__item.css);

@@ -1,0 +1,22 @@
+.profile__form {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 74px 70px 70px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__form {
+    padding: 236px 30px 70px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__form {
+    padding: 70px 14px 70px;
+  }
+}

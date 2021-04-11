@@ -1,0 +1,22 @@
+.search-form__input-label {
+  box-sizing: border-box;
+  margin: 6px;
+  padding: 0;
+  display: block;
+
+  background-image: url(../../../../../images/icons/search.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+  border: 1px solid #424242;
+}
+
+@media screen and (max-width: 320px) {
+  .search-form__input-label {
+    display: none;
+  }
+}

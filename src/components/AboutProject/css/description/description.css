@@ -1,0 +1,29 @@
+.description {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 70px 0 110px 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 40px 26px;
+}
+
+@media screen and (max-width: 768px) {
+  .description {
+    padding: 70px 0 93px 0;
+    grid-gap: 22px 30px;
+  }
+}
+
+@media screen and (max-width: 632px) {
+  .description {
+    grid-template-columns: 1fr;
+    grid-gap: 16px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .description {
+    padding: 60px 0;
+  }
+}

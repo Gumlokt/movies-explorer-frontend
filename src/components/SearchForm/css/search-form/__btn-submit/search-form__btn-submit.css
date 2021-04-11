@@ -1,0 +1,41 @@
+.search-form__btn-submit {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: block;
+
+  width: 80px;
+  height: 34px;
+
+  color: #fff;
+  background: #4285f4;
+  border-radius: 48px;
+  border: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: opacity 0.4s linear;
+}
+
+.search-form__btn-submit::before {
+  content: url(../../../../../images/icons/search.svg);
+  display: block;
+}
+
+.search-form__btn-submit:hover::before {
+  transform: scale(1.1, 1.1);
+}
+
+.search-form__btn-submit:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 280px) {
+  .search-form__btn-submit {
+    width: 34px;
+    height: 34px;
+  }
+}

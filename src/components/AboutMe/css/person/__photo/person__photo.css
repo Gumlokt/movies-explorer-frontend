@@ -1,0 +1,29 @@
+.person__photo {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  width: 270px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .person__photo {
+    width: 255px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .person__photo {
+    width: 292px;
+    margin: 0 auto;
+    grid-row: 1/2;
+  }
+}
+
+@media screen and (max-width: 316px) {
+  .person__photo {
+    width: 100%;
+  }
+}

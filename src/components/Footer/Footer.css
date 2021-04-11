@@ -1,0 +1,12 @@
+/* Footer */
+@import url(./css/footer/footer.css);
+@import url(./css/footer/__container/footer__container.css);
+@import url(./css/footer/__title/footer__title.css);
+
+@import url(./css/footer/__social/footer__social.css);
+@import url(./css/footer/__copyright/footer__copyright.css);
+
+@import url(./css/footer/__nav-bar/footer__nav-bar.css);
+@import url(./css/footer/__nav-items/footer__nav-items.css);
+@import url(./css/footer/__nav-item/footer__nav-item.css);
+@import url(./css/footer/__nav-link/footer__nav-link.css);

@@ -1,0 +1,13 @@
+.navigation {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  justify-self: end;
+}
+
+@media screen and (max-width: 240px) {
+  .navigation {
+    justify-self: center;
+  }
+}

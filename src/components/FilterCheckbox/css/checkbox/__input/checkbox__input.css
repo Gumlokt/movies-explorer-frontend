@@ -1,0 +1,33 @@
+/*
+ * This checkbox is actually hidden,
+ * but instead there is a new one
+ * with a custom style: .checkbox__visible
+*/
+.checkbox__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.checkbox__input + .checkbox__visible {
+  background-color: #8b8b8b;
+  transition: background-color 0.3s linear;
+}
+
+.checkbox__input + .checkbox__visible::after {
+  transition: left 0.1s linear;
+}
+
+.checkbox__input:checked + .checkbox__visible {
+  background-color: #3ddc84;
+}
+
+.checkbox__input:checked + .checkbox__visible::after {
+  left: 18px;
+}
+
+.checkbox__input:focus + .checkbox__visible {
+  box-shadow: 0 0 4px #ff0;
+}

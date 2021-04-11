@@ -1,0 +1,10 @@
+.social__link {
+  text-decoration: none;
+  color: #fff;
+  text-align: right;
+  transition: opacity 0.4s linear;
+}
+
+.social__link:hover {
+  opacity: 0.6;
+}

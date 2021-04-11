@@ -1,0 +1,22 @@
+.movies-card__figure {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr min-content;
+  gap: 14px;
+}
+
+@media screen and (max-width: 1024px) {
+  .movies-card__figure {
+    gap: 25px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .movies-card__figure {
+    gap: 15px;
+  }
+}

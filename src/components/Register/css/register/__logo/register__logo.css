@@ -1,0 +1,10 @@
+.register__logo {
+  max-width: 38px;
+  max-height: 38px;
+}
+
+@media screen and (max-width: 480px) {
+  .register__logo {
+    justify-self: center;
+  }
+}

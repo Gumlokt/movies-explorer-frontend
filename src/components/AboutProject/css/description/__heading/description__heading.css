@@ -1,0 +1,28 @@
+.description__heading {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.description__heading:nth-child(3) {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+}
+
+@media screen and (max-width: 632px) {
+  .description__heading:nth-child(3) {
+    grid-row: 3 / 4;
+    grid-column: 1 / 2;
+    margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .description__heading {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

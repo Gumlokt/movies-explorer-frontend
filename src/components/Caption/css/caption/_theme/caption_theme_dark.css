@@ -1,0 +1,5 @@
+@media screen and (max-width: 320px) {
+  .caption_theme_dark {
+    border-bottom: 1px solid #000;
+  }
+}

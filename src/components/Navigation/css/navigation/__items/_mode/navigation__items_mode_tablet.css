@@ -1,0 +1,20 @@
+.navigation__items_mode_tablet {
+  padding: 105px 0 0;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 28px;
+}
+
+@media screen and (max-width: 240px) {
+  .navigation__items_mode_tablet {
+    padding: 99px 10px 0;
+  }
+}
+
+@media screen and (max-width: 240px) {
+  .navigation__items_mode_tablet {
+    grid-template-columns: min-content;
+  }
+}

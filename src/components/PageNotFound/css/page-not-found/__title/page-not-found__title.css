@@ -1,0 +1,26 @@
+.page-not-found__title {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  text-align: center;
+
+  font-weight: normal;
+  font-size: 140px;
+  line-height: 169px;
+  color: #fff;
+}
+
+@media screen and (max-width: 480px) {
+  .page-not-found__title {
+    font-size: 80px;
+    line-height: 97px;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .page-not-found__title {
+    font-size: 48px;
+    line-height: 52px;
+  }
+}

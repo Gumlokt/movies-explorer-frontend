@@ -1,0 +1,26 @@
+.navigation__items {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-content: end;
+  align-items: center;
+  gap: 30px;
+}
+
+@media screen and (max-width: 320px) {
+  .navigation__items {
+    gap: 14px;
+  }
+}
+
+@media screen and (max-width: 240px) {
+  .navigation__items {
+    margin-top: 10px;
+    grid-auto-flow: row;
+    justify-items: center;
+  }
+}

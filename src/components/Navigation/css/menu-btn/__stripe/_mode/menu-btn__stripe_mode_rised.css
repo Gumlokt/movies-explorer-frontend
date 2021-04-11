@@ -1,0 +1,10 @@
+.menu-btn__stripe_mode_rised {
+  transform: rotate(-45deg);
+  width: 28px;
+}
+
+@media screen and (max-width: 320px) {
+  .menu-btn__stripe_mode_rised {
+    width: 22px;
+  }
+}

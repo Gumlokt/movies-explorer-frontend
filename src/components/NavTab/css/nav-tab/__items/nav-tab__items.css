@@ -1,0 +1,23 @@
+.nav-tab__items {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 24px 0;
+  background-color: #272727;
+
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  gap: 40px;
+}
+
+@media screen and (max-width: 320px) {
+  .nav-tab__items {
+    gap: 24px;
+  }
+}
+
+@media screen and (max-width: 240px) {
+  .nav-tab__items {
+    grid-auto-flow: row;
+  }
+}
