@@ -4,9 +4,9 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList(props) {
   return (
-    <section className="movies-card-list">
+    <section className={`movies-card-list${props.displayedMovies.length ? ' movies-card-list_type_displayed' : ''}`}>
       <ul className="movies-card-list__items">
-        {props.beatMovies.map((item, index) => {
+        {props.displayedMovies.map((item, index) => {
           return (
             <li className="movies-card-list__item" key={index}>
               <MoviesCard beatMovie={item} />
@@ -17,7 +17,7 @@ function MoviesCardList(props) {
 
       {props.displayMoreBtn && (
         <form className="movies-card-list__form">
-          <button className="movies-card-list__btn-more"></button>
+          <button onClick={props.handleMoreFilmsBtn} className="movies-card-list__btn-more"></button>
         </form>
       )}
     </section>

@@ -34,7 +34,7 @@ function SearchForm(props) {
           className="search-form__text-input"
           name="term"
           value={props.term}
-          minLength="2"
+          minLength="1"
           placeholder="Фильм"
           id="search-input"
           required
@@ -44,7 +44,7 @@ function SearchForm(props) {
         <button className="search-form__btn-submit" onClick={props.fetchMoviesList}></button>
       </div>
 
-      <FilterCheckbox short={props.short} handleShort={handleShort}/>
+      <FilterCheckbox short={props.short} handleShort={handleShort} />
 
       <Preloader isOpen={props.displayPreloader} />
     </form>
