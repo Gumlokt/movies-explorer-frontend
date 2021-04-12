@@ -39,15 +39,23 @@ function MoviesCard(props) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img
-              src={
-                props.movieItem.image && props.movieItem.image.url
-                  ? `https://api.nomoreparties.co${props.movieItem.image.url}`
-                  : 'https://via.placeholder.com/360x200/778899/FFFFFF?text=Постер'
-              }
-              className="movies-card__image"
-              alt="Постер к фильму"
-            />
+            {location.pathname === '/saved-movies' ? (
+              <img
+                src={props.movieItem.image}
+                className="movies-card__image"
+                alt="Постер к фильму"
+              />  
+            ) : (
+              <img
+                src={
+                    props.movieItem.image && props.movieItem.image.url
+                    ? `https://api.nomoreparties.co${props.movieItem.image.url}`
+                    : 'https://via.placeholder.com/360x200/778899/FFFFFF?text=Постер'
+                }
+                className="movies-card__image"
+                alt="Постер к фильму"
+              />
+            )}
           </a>
         </div>
 
@@ -64,3 +72,4 @@ function MoviesCard(props) {
 }
 
 export default MoviesCard;
+// location.pathname === '/saved-movies' ? `${props.movieItem.image}` :

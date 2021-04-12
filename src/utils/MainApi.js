@@ -79,7 +79,7 @@ export const mainApi = new MainApi({
   url: 'http://localhost:4000',
   headers: {
     // Authorization: `Bearer ${localStorage.getItem('token')}`,
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRhNzNjMDE5ODlmMDM2Mjg2NjZlNmIiLCJpYXQiOjE2MTgxNDAzNTEsImV4cCI6MTYxODc0NTE1MX0.AFGR_THuqJG6ZeNON7qint7rziAsS8-RovUIrkyH46g`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRmMDQ1NDU3ZDk3MjIyOWNiOGVkMzUiLCJpYXQiOjE2MTgxOTg1NTQsImV4cCI6MTYxODgwMzM1NH0.DDgN2_9FkQohA0uRWqjvqp9iFKt4WcfCIov_Z-fMA_E`,
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },

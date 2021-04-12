@@ -42,7 +42,7 @@ function Movies(props) {
    */
   function moviesDispatcher(selectedMovies) {
     setFilteredMovies(selectedMovies);
-
+    
     if (!selectedMovies.length) {
       setDisplayEmptySearchResults('Ничего не найдено');
     } else if (selectedMovies.length > cardsToDisplayByDefault) {
@@ -50,7 +50,7 @@ function Movies(props) {
     } else {
       setDisplayedMovies(selectedMovies);
     }
-
+    
     setDisplayPreloader(false);
   }
 
@@ -176,17 +176,17 @@ function Movies(props) {
    */
   function handleMovieSave(movie) {
     const movieToSave = {
-      country: movie.country,
-      director: movie.director,
-      duration: movie.duration,
-      year: movie.year,
-      description: movie.description,
+      country: movie.country || 'Unknown country',
+      director: movie.director || 'Unknown director',
+      duration: movie.duration || 0,
+      year: movie.year || 'Our epoch',
+      description: movie.description || 'No description...',
       image: `https://api.nomoreparties.co${movie.image.url}`,
-      trailer: movie.trailerLink,
+      trailer: movie.trailerLink || 'https://youtube.com/',
       thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
       movieId: movie.id,
-      nameRU: movie.nameRU,
-      nameEN: movie.nameEN,
+      nameRU: movie.nameRU || 'Название не известно',
+      nameEN: movie.nameEN || 'Unknown name',
     };
 
     mainApi
@@ -209,17 +209,24 @@ function Movies(props) {
       return item.movieId === movieId;
     });
 
-    console.log(movieToRemove._id);
+    // console.log(movieToRemove._id);
+    console.log(displayedMovies);
 
     mainApi
       .removeMovie(movieToRemove._id)
       .then((removedMovie) => {
-        setFavouriteMovies(
-          favouriteMovies.map((item) => {
-            return item.movieId !== removedMovie.data.movieId;
-          }),
-        );
-        console.log(favouriteMovies);
+        console.log(removedMovie.data.movieId);
+        return favouriteMovies.filter((item) => {
+          return item.movieId !== removedMovie.data.movieId;
+        });
+      })
+      .then((updatedFavouriteMovies) => {
+        setFavouriteMovies(updatedFavouriteMovies);
+
+        if (location.pathname === '/saved-movies') {
+          setDisplayedMovies(updatedFavouriteMovies);
+        }
+        console.log(displayedMovies);
       })
       .catch((err) => console.log(err));
   }
@@ -256,22 +263,33 @@ function Movies(props) {
     return () => {
       window.removeEventListener('resize', keepTrackScreenWidth);
     };
-  }, [location]);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [cardsToDisplayByDefault]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
-   * Function to read initialMovies from localStorage once at app start.
+   * Function to get all initialMovies from localStorage and favouriteMovies from api once at app start.
    * @returns {void}
    */
   useEffect(() => {
-    const allBeatfilmMovies = JSON.parse(localStorage.getItem('initialMovies'));
+    if (localStorage.getItem('initialMovies')) {
+      const allBeatfilmMovies = JSON.parse(localStorage.getItem('initialMovies'));
 
-    if (allBeatfilmMovies && allBeatfilmMovies.length) {
-      setInitialMovies(allBeatfilmMovies);
+      if (allBeatfilmMovies && allBeatfilmMovies.length) {
+        setInitialMovies(allBeatfilmMovies);
+      }
     }
 
-    setDisplayedMovies([]);
+    setDisplayEmptySearchResults('');
+    setTerm('');
+      
+    if (location.pathname === '/saved-movies') {
+      setCardsToDisplayByDefault(Infinity);
+      moviesDispatcher(favouriteMovies);
+    } else {
+      setCardsToDisplayByDefault(cardsToDisplayByDefault);
+      moviesDispatcher(initialMovies);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**
@@ -288,6 +306,20 @@ function Movies(props) {
         console.log(`catch block: ${err.message}`);
       });
   }, []);
+  
+  useEffect(() => {
+    if (location.pathname === '/saved-movies') {
+      setCardsToDisplayByDefault(Infinity);
+      moviesDispatcher(favouriteMovies);
+    } else {
+      setCardsToDisplayByDefault(cardsToDisplayByDefault);
+      moviesDispatcher(initialMovies);
+    }
+
+    setDisplayEmptySearchResults('');
+    setTerm('');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   return (
     <main className="movies">
