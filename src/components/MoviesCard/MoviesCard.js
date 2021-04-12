@@ -8,11 +8,12 @@ function MoviesCard(props) {
   const location = useLocation();
 
   function handleBtnRemoveClick() {
-    props.onMovieRemove(props.movieItem);
-    console.log('delete movie from favourite...');
+    location.pathname === '/saved-movies'
+      ? props.onMovieRemove(props.movieItem.movieId)
+      : props.onMovieRemove(props.movieItem.id);
   }
 
-  function handleBtnClick() {
+  function handleBtnSaveClick() {
     props.onMovieSave(props.movieItem);
     // console.log(props.movieItem);
     // console.log(location.pathname);
@@ -22,17 +23,12 @@ function MoviesCard(props) {
     <div className="movies-card">
       {location.pathname === '/saved-movies' ? (
         <button className="movies-card__btn movies-card__btn_type_remove" onClick={handleBtnRemoveClick}></button>
+      ) : props.favouriteMovies.some((item) => {
+          return item.movieId === props.movieItem.id;
+        }) ? (
+        <button className="movies-card__btn movies-card__btn_type_stored" onClick={handleBtnRemoveClick}></button>
       ) : (
-        <button
-          className={`movies-card__btn${
-            props.favouriteMovies.some((item) => {
-              return item.movieId === props.movieItem.id;
-            })
-              ? ' movies-card__btn_type_stored'
-              : ' movies-card__btn_type_save'
-          }`}
-          onClick={handleBtnClick}
-        ></button>
+        <button className="movies-card__btn movies-card__btn_type_save" onClick={handleBtnSaveClick}></button>
       )}
 
       <figure className="movies-card__figure">

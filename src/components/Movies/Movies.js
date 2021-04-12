@@ -193,6 +193,7 @@ function Movies(props) {
       .addMovie(movieToSave)
       .then((addedMovie) => {
         console.log(addedMovie);
+        setFavouriteMovies([addedMovie, ...favouriteMovies]);
       })
       .catch((err) => console.log(err));
   }
@@ -202,12 +203,23 @@ function Movies(props) {
    * @param {Object} movie - Browser's event - click remove button.
    * @returns {void}
    */
-  function handleMovieRemove(movie) {
+  function handleMovieRemove(movieId) {
+    // !!!! нужно бы отрефакторить !!!!
+    const movieToRemove = favouriteMovies.find((item) => {
+      return item.movieId === movieId;
+    });
+
+    console.log(movieToRemove._id);
+
     mainApi
-      .removeMovie(movie._id)
+      .removeMovie(movieToRemove._id)
       .then((removedMovie) => {
-        console.log(removedMovie);
-        // !!!! нужно доделать !!!!
+        setFavouriteMovies(
+          favouriteMovies.map((item) => {
+            return item.movieId !== removedMovie.data.movieId;
+          }),
+        );
+        console.log(favouriteMovies);
       })
       .catch((err) => console.log(err));
   }
