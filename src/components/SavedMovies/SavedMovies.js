@@ -1,13 +1,13 @@
-import './Movies.css';
+import './SavedMovies.css';
 
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import EmptySearchResults from '../EmptySearchResults/EmptySearchResults';
 
-function Movies(props) {
+function SavedMovies(props) {
   return (
-    <main className="movies">
-      <div className="movies__container">
+    <main className="saved-movies">
+      <div className="saved-movies__container">
         <SearchForm
           resetForm={props.resetForm}
           filterMoviesList={props.filterMoviesList}
@@ -25,7 +25,6 @@ function Movies(props) {
           displayedMovies={props.displayedMovies}
           displayMoreBtn={props.displayMoreBtn}
           handleMoreFilmsBtn={props.handleMoreFilmsBtn}
-          onMovieSave={props.onMovieSave}
           onMovieRemove={props.onMovieRemove}
         />
       </div>
@@ -33,4 +32,4 @@ function Movies(props) {
   );
 }
 
-export default Movies;
+export default SavedMovies;

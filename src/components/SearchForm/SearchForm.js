@@ -41,7 +41,7 @@ function SearchForm(props) {
         />
 
         <button type="reset" className="search-form__btn-reset" onClick={resetForm}></button>
-        <button className="search-form__btn-submit" onClick={props.fetchMoviesList}></button>
+        <button className="search-form__btn-submit" onClick={props.filterMoviesList}></button>
       </div>
 
       <FilterCheckbox short={props.short} handleShort={handleShort} />
