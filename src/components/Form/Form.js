@@ -61,6 +61,7 @@ function Form(props) {
       <button
         className={`form__btn-primary${props.formName === 'login' ? ' form__btn-primary_type_padded' : ''}`}
         name="primaryButton"
+        disabled
       >
         {props.btnTitle}
       </button>

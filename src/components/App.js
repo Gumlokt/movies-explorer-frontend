@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import * as auth from '../utils/auth.js';
+
 import { mainApi } from '../utils/MainApi';
 import { moviesApi } from '../utils/MoviesApi';
 import { moviesSelector } from '../utils/MoviesSelector';
@@ -12,6 +15,7 @@ import Footer from './Footer/Footer';
 
 import Register from './Register/Register';
 import Login from './Login/Login';
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 
 import Movies from './Movies/Movies';
 import Profile from './Profile/Profile';
@@ -21,6 +25,59 @@ import Popup from './Popup/Popup';
 import SavedMovies from './SavedMovies/SavedMovies';
 
 function App() {
+  // const [loggedIn, setLoggedIn] = useState(false);
+  // const [userEmail, setUserEmail] = useState('');
+  const [currentUser, setCurrentUser] = useState({ name: '', email: '', });
+
+  const [credentials, setCredentials] = useState({ name: '', email: '', password: '' });
+
+  function handleCredentialsChange(e) {
+    setCredentials({
+      ...credentials,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  // function handleUser(user) {
+  //   setCurrentUser(user);
+  // }
+
+  // function handleLoggedIn(trueOrFalse) {
+  //   setLoggedIn(trueOrFalse);
+  //   if (!trueOrFalse) {
+  //     handleUser({ name: '', email: '' });
+  //     setUserEmail('');
+  //   }
+  // }
+
+  function handleRegister(e) {
+    e.preventDefault();
+    console.log(credentials);
+
+    auth
+      .register(credentials)
+      .then((data) => {
+        if (!data) {
+          // openInformerPopup('Что-то пошло не так!');
+          console.log('Что-то пошло не так!');
+          return;
+        }
+
+        if (data.error) {
+          // openInformerPopup(data.error);
+          console.log(data.error);
+          return;
+        } else {
+          // openInformerPopup('Регистрация успешна!', true);
+          console.log('Регистрация успешна!', true);
+          // history.push('/sing-in');
+          return;
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+
   const location = useLocation();
 
   const savedMoviesRoute = '/saved-movies'; // для роута /saved-movies логика работы немного отличается от логики работы /movies
@@ -366,8 +423,19 @@ function App() {
         </Route>
 
         <Route path="/signup">
-          <Register />
+          <Register
+            credentials={credentials}
+            onCredentialsChange={handleCredentialsChange}
+            registerUser={handleRegister}
+          />
         </Route>
+
+
+        <CurrentUserContext.Provider value={currentUser}>
+        <ProtectedRoute
+        />
+        </CurrentUserContext.Provider>
+
 
         <Route path="/movies">
           <Header darkTheme={true} />
