@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react';
+
 import './SavedMovies.css';
 
 import SearchForm from '../SearchForm/SearchForm';
@@ -5,12 +7,17 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import EmptySearchResults from '../EmptySearchResults/EmptySearchResults';
 
 function SavedMovies(props) {
+  useEffect(() => {
+    props.resetForm();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <main className="saved-movies">
       <div className="saved-movies__container">
         <SearchForm
           resetForm={props.resetForm}
-          filterMoviesList={props.filterMoviesList}
+          onFilterMoviesList={props.onFilterMoviesList}
           displayPreloader={props.displayPreloader}
           term={props.term}
           short={props.short}
@@ -24,7 +31,6 @@ function SavedMovies(props) {
           favouriteMovies={props.favouriteMovies}
           displayedMovies={props.displayedMovies}
           displayMoreBtn={props.displayMoreBtn}
-          handleMoreFilmsBtn={props.handleMoreFilmsBtn}
           onMovieRemove={props.onMovieRemove}
         />
       </div>

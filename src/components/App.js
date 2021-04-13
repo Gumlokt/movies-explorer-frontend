@@ -18,9 +18,12 @@ import Profile from './Profile/Profile';
 
 import PageNotFound from './PageNotFound/PageNotFound';
 import Popup from './Popup/Popup';
+import SavedMovies from './SavedMovies/SavedMovies';
 
 function App() {
   const location = useLocation();
+
+  const savedMoviesRoute = '/saved-movies'; // для роута /saved-movies логика работы немного отличается от логики работы /movies
 
   const [isInformerPopupOpen, setInformerPopupOpen] = useState(false);
   const [messageToUser, setMessageToUser] = useState(
@@ -32,7 +35,6 @@ function App() {
     setMessageToUser('');
   }
 
-  // moved from <Movies />
   const cardsOnDesktop = 12;
   const cardsOnTablet = 8;
   const cardsOnPhone = 5;
@@ -59,12 +61,12 @@ function App() {
    * @param {Array} selectedMovies - Filtered movies according to the user's request.
    * @returns {void}
    */
-  function moviesDispatcher(selectedMovies) {
+  function dispatchMoviesDisplaying(selectedMovies) {
     setFilteredMovies(selectedMovies);
 
     if (!selectedMovies.length) {
       setDisplayEmptySearchResults('Ничего не найдено');
-    } else if (selectedMovies.length > cardsToDisplayByDefault) {
+    } else if (selectedMovies.length > cardsToDisplayByDefault && location.pathname !== savedMoviesRoute) {
       setDisplayedMovies(selectedMovies.slice(0, cardsToDisplayByDefault)); // если фильмов отфильтрованы больше, чем можно показать, то тогда сюда нужно slice-ить карточки от массива отфильтрованых фильмов
     } else {
       setDisplayedMovies(selectedMovies);
@@ -74,7 +76,7 @@ function App() {
   }
 
   /**
-   * Function to get movies from BeatfilmMoviesApi.
+   * Function to run filtering movies from BeatfilmMoviesApi.
    * @param {Object} event - Browser's event - click submit button.
    * @returns {void}
    */
@@ -90,11 +92,12 @@ function App() {
       return;
     }
 
-    setDisplayPreloader(true);
-
+    
     if (initialMovies.length) {
-      moviesDispatcher(moviesSelector.select(initialMovies, term, short));
+      dispatchMoviesDisplaying(moviesSelector.select(initialMovies, term, short));
     } else {
+      setDisplayPreloader(true);
+
       Promise.all([
         //в Promise.all передаем массив промисов которые нужно выполнить - в данном случае получаем все фильмы с сервиса beatfilm-movies
         moviesApi.getInitialMovies(),
@@ -110,11 +113,12 @@ function App() {
           return moviesSelector.select(allBeatfilmMovies, term, short);
         })
         .then((selectedMovies) => {
-          moviesDispatcher(selectedMovies);
+          dispatchMoviesDisplaying(selectedMovies);
+          setDisplayPreloader(false);
         })
         .catch((err) => {
           //попадаем сюда если хотя бы один из промисов завершится ошибкой
-          console.log(`catch block: ${err.message}`);
+          console.log(err.message);
 
           setDisplayEmptySearchResults(
             'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
@@ -126,15 +130,70 @@ function App() {
   }
 
   /**
+   * Function to run filtering favourite movies.
+   * @param {Object} event - Browser's event - click submit button.
+   * @returns {void}
+   */
+   function filterFavouriteMoviesList(event) {
+    if (event) {
+      event.preventDefault();
+    }
+
+    setDisplayedMovies([]);
+
+    if (!term) {
+      setDisplayEmptySearchResults('Нужно ввести ключевое слово');
+      return;
+    }
+
+    if (favouriteMovies.length) {
+      dispatchMoviesDisplaying(moviesSelector.select(favouriteMovies, term, short));
+    } else {
+      setDisplayPreloader(true);
+
+      Promise.all([mainApi.getFavouriteMovies()])
+        .then((values) => {
+          const [allFavouriteMovies] = values;
+          // setInitialMovies(allFavouriteMovies);
+          setFavouriteMovies(allFavouriteMovies);
+
+          return moviesSelector.select(allFavouriteMovies, term, short);
+        })
+        .then((selectedMovies) => {
+          dispatchMoviesDisplaying(selectedMovies);
+          setDisplayPreloader(false);
+        })
+        .catch((err) => {
+          //попадаем сюда если хотя бы один из промисов завершится ошибкой
+          console.log(err.message);
+
+          setDisplayEmptySearchResults(
+            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
+          );
+
+          setDisplayPreloader(false);
+        });
+    }
+}
+
+  /**
    * Function to reset search form.
    * @param {Object} event - Browser's event - click reset button.
    * @returns {void}
    */
   function resetForm(event) {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
+
     setDisplayEmptySearchResults('');
     setTerm('');
-    setDisplayedMovies([]);
+
+    if (location.pathname === savedMoviesRoute) {
+      dispatchMoviesDisplaying(favouriteMovies);
+    } else {
+      dispatchMoviesDisplaying(initialMovies);
+    }
   }
 
   /**
@@ -184,11 +243,13 @@ function App() {
       duration: movie.duration || 0,
       year: movie.year || 'Our epoch',
       description: movie.description || 'No description...',
-      image: movie.image.url
+      image: (movie.image && movie.image.url)
         ? `https://api.nomoreparties.co${movie.image.url}`
         : 'https://via.placeholder.com/360x200/778899/FFFFFF?text=Постер',
       trailer: movie.trailerLink || 'https://youtube.com/',
-      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+      thumbnail: (movie.image && movie.image.url) 
+        ? `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}` 
+        : 'https://via.placeholder.com/180x100/778899/FFFFFF?text=Постер',
       movieId: movie.id,
       nameRU: movie.nameRU || 'Название не известно',
       nameEN: movie.nameEN || 'Unknown name',
@@ -197,7 +258,6 @@ function App() {
     mainApi
       .addMovie(movieToSave)
       .then((addedMovie) => {
-        console.log(addedMovie);
         setFavouriteMovies([addedMovie, ...favouriteMovies]);
       })
       .catch((err) => console.log(err));
@@ -209,7 +269,6 @@ function App() {
    * @returns {void}
    */
   function handleMovieRemove(movieId) {
-    // !!!! нужно бы отрефакторить !!!!
     const movieToRemove = favouriteMovies.find((item) => {
       return item.movieId === movieId;
     });
@@ -217,22 +276,56 @@ function App() {
     mainApi
       .removeMovie(movieToRemove._id)
       .then((removedMovie) => {
-        console.log(removedMovie.data.movieId);
         return favouriteMovies.filter((item) => {
           return item.movieId !== removedMovie.data.movieId;
         });
       })
       .then((updatedFavouriteMovies) => {
         setFavouriteMovies(updatedFavouriteMovies);
+
+        if (location.pathname === savedMoviesRoute) {
+          if (term) {
+            dispatchMoviesDisplaying(moviesSelector.select(updatedFavouriteMovies, term, short));
+          } else {
+            dispatchMoviesDisplaying(updatedFavouriteMovies);
+          }
+        }
       })
       .catch((err) => console.log(err));
   }
 
   /**
-   * Function to track screen resolution.
+   * Function to get all initialMovies from localStorage and favouriteMovies from api once at app start and also track screen resolution.
    * @returns {void}
    */
   useEffect(() => {
+    setDisplayEmptySearchResults('');
+
+    if (localStorage.getItem('initialMovies')) {
+      const allBeatfilmMovies = JSON.parse(localStorage.getItem('initialMovies'));
+
+      if (allBeatfilmMovies && allBeatfilmMovies.length) {
+        setInitialMovies(allBeatfilmMovies);
+        if (location.pathname !== savedMoviesRoute) {
+          dispatchMoviesDisplaying(allBeatfilmMovies);
+        }
+      }
+    }
+
+    Promise.all([mainApi.getFavouriteMovies()])
+      .then((values) => {
+        const [allFavouriteMovies] = values;
+        setFavouriteMovies(allFavouriteMovies);
+
+        if (location.pathname === savedMoviesRoute) {
+          dispatchMoviesDisplaying(allFavouriteMovies);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+
     function keepTrackScreenWidth() {
       setTimeout(() => {
         setCardsToAddOnClickMoreBtn(addCardsOnTablet);
@@ -259,56 +352,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /**
-   * Function to get all initialMovies from localStorage and favouriteMovies from api once at app start.
-   * @returns {void}
-   */
-  useEffect(() => {
-    if (localStorage.getItem('initialMovies')) {
-      const allBeatfilmMovies = JSON.parse(localStorage.getItem('initialMovies'));
-
-      if (allBeatfilmMovies && allBeatfilmMovies.length) {
-        setInitialMovies(allBeatfilmMovies);
-      }
-    }
-
-    setDisplayEmptySearchResults('');
-    setTerm('');
-
-    setCardsToDisplayByDefault(cardsToDisplayByDefault);
-    moviesDispatcher(initialMovies);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  /**
-   * Function to get favouriteMovies from moviehunter.ru once at app start.
-   * @returns {void}
-   */
-  useEffect(() => {
-    Promise.all([mainApi.getFavouriteMovies()])
-      .then((values) => {
-        const [allFavouriteMovies] = values;
-        setFavouriteMovies(allFavouriteMovies);
-      })
-      .catch((err) => {
-        console.log(`catch block: ${err.message}`);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (location.pathname === '/saved-movies') {
-      setCardsToDisplayByDefault(Infinity);
-      moviesDispatcher(favouriteMovies);
-    } else {
-      setCardsToDisplayByDefault(cardsToDisplayByDefault);
-      moviesDispatcher(initialMovies);
-    }
-
-    setDisplayEmptySearchResults('');
-    setTerm('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
-
   return (
     <>
       <Switch>
@@ -330,7 +373,7 @@ function App() {
           <Header darkTheme={true} />
           <Movies
             resetForm={resetForm}
-            filterMoviesList={filterBeatfilmMoviesList}
+            onFilterMoviesList={filterBeatfilmMoviesList}
             displayPreloader={displayPreloader}
             term={term}
             short={short}
@@ -349,9 +392,9 @@ function App() {
 
         <Route path="/saved-movies">
           <Header darkTheme={true} />
-          <Movies
+          <SavedMovies
             resetForm={resetForm}
-            filterMoviesList={filterBeatfilmMoviesList}
+            onFilterMoviesList={filterFavouriteMoviesList}
             displayPreloader={displayPreloader}
             term={term}
             short={short}
@@ -361,7 +404,6 @@ function App() {
             favouriteMovies={favouriteMovies}
             displayedMovies={displayedMovies}
             displayMoreBtn={false} // кнопка "Ещё" отображается только на странице /movies
-            handleMoreFilmsBtn={handleMoreFilmsBtn}
             onMovieRemove={handleMovieRemove}
           />
           <Footer />

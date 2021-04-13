@@ -15,8 +15,6 @@ function MoviesCard(props) {
 
   function handleBtnSaveClick() {
     props.onMovieSave(props.movieItem);
-    // console.log(props.movieItem);
-    // console.log(location.pathname);
   }
 
   return (
@@ -72,4 +70,3 @@ function MoviesCard(props) {
 }
 
 export default MoviesCard;
-// location.pathname === '/saved-movies' ? `${props.movieItem.image}` :

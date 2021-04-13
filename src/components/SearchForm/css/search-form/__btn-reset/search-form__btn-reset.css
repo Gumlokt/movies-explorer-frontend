@@ -21,19 +21,18 @@
   transition: opacity 0.4s linear;
 }
 
+.search-form__btn-reset:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
 .search-form__btn-reset::before {
   content: url(../../../../../images/icons/cross.svg);
   display: block;
-  margin-top: 2px;
+  margin-top: 3px;
   transform: scale(1.4, 1.4);
 }
 
 .search-form__btn-reset:hover::before {
   transform: scale(1.6, 1.6);
-}
-
-.search-form__btn-reset:hover {
-  display: flex;
-  cursor: pointer;
-  opacity: 0.6;
 }
