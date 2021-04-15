@@ -24,19 +24,15 @@ import PageNotFound from './PageNotFound/PageNotFound';
 import Popup from './Popup/Popup';
 import SavedMovies from './SavedMovies/SavedMovies';
 
+import useFormWithValidation from '../hooks/useFormWithValidation';
+
 function App() {
+  const formValidation = useFormWithValidation();
   // const [loggedIn, setLoggedIn] = useState(false);
   // const [userEmail, setUserEmail] = useState('');
   const [currentUser, setCurrentUser] = useState({ name: '', email: '', });
 
-  const [credentials, setCredentials] = useState({ name: '', email: '', password: '' });
-
-  function handleCredentialsChange(e) {
-    setCredentials({
-      ...credentials,
-      [e.target.name]: e.target.value,
-    });
-  }
+  // const [credentials, setCredentials] = useState({ name: '', email: '', password: '' });
 
   // function handleUser(user) {
   //   setCurrentUser(user);
@@ -52,10 +48,10 @@ function App() {
 
   function handleRegister(e) {
     e.preventDefault();
-    console.log(credentials);
+    console.log(formValidation.credentials);
 
     auth
-      .register(credentials)
+      .register(formValidation.credentials)
       .then((data) => {
         if (!data) {
           // openInformerPopup('Что-то пошло не так!');
@@ -424,9 +420,10 @@ function App() {
 
         <Route path="/signup">
           <Register
-            credentials={credentials}
-            onCredentialsChange={handleCredentialsChange}
+            // credentials={formValidation.credentials}
+            // onCredentialsChange={formValidation.handleCredentialsChange}
             registerUser={handleRegister}
+            formValidation={formValidation}
           />
         </Route>
 

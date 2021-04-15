@@ -11,29 +11,33 @@ function Register(props) {
       <div className="register__container">
         <Logo />
 
-        <form className="form" name="registration" onSubmit={props.registerUser}>
+        <form className="form" name="registration" onSubmit={props.registerUser} noValidate>
           <h2 className="form__title">Добро пожаловать</h2>
 
-          <label className="form__label" htmlFor="name">Имя</label>
+          <label className="form__label" htmlFor="name">
+            Имя
+          </label>
           <input
-            onChange={props.onCredentialsChange}
-            value={props.credentials.name}
+            onChange={props.formValidation.handleCredentialsChange}
+            value={props.formValidation.credentials.name || ''}
             type="text"
             className="form__text-input"
             name="name"
             minLength="2"
-            maxLength="40"
+            maxLength="30"
             id="name"
             required
           />
-          <span className="form__input-error" id="name-error">Что-то пошло не так...</span>
+          <span className="form__input-error" id="name-error">
+            {props.formValidation.errors.name}
+          </span>
 
           <label className="form__label" htmlFor="email">
             E-mail
           </label>
           <input
-            onChange={props.onCredentialsChange}
-            value={props.credentials.email}
+            onChange={props.formValidation.handleCredentialsChange}
+            value={props.formValidation.credentials.email || ''}
             type="email"
             className="form__text-input"
             name="email"
@@ -41,23 +45,24 @@ function Register(props) {
             required
           />
           <span className="form__input-error" id="email-error">
-            Что-то пошло не так...
+            {props.formValidation.errors.email}
           </span>
 
           <label className="form__label" htmlFor="password">
             Пароль
           </label>
           <input
-            onChange={props.onCredentialsChange}
-            value={props.credentials.password}
+            onChange={props.formValidation.handleCredentialsChange}
+            value={props.formValidation.credentials.password || ''}
             type="password"
             className="form__text-input form__text-input_type_error"
             name="password"
+            minLength="8"
             id="password"
             required
           />
           <span className="form__input-error" id="password-error">
-            Что-то пошло не так...
+            {props.formValidation.errors.password}
           </span>
 
           <button
