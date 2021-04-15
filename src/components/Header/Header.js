@@ -10,7 +10,7 @@ function Header(props) {
     <header className={`header${props.darkTheme ? ' header_theme_dark' : ''}`}>
       <div className="header__container">
         <Logo />
-        <Navigation />
+        <Navigation loggedIn={props.loggedIn} />
       </div>
     </header>
   );

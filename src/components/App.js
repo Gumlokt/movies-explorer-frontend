@@ -31,23 +31,65 @@ function App() {
   
   const [serverMessage, setServerMessage] = useState('');
 
-  // const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   // const [userEmail, setUserEmail] = useState('');
   const [currentUser, setCurrentUser] = useState({ name: '', email: '', });
 
   // const [credentials, setCredentials] = useState({ name: '', email: '', password: '' });
 
-  // function handleUser(user) {
-  //   setCurrentUser(user);
-  // }
+  function handleUser(user) {
+    setCurrentUser(user);
+  }
 
-  // function handleLoggedIn(trueOrFalse) {
-  //   setLoggedIn(trueOrFalse);
-  //   if (!trueOrFalse) {
-  //     handleUser({ name: '', email: '' });
-  //     setUserEmail('');
-  //   }
-  // }
+  function handleLoggedIn(trueOrFalse) {
+    setLoggedIn(trueOrFalse);
+    if (!trueOrFalse) {
+      handleUser({ name: '', email: '' });
+      // setUserEmail('');
+    }
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+
+    auth
+      .authorize(formValidation.credentials)
+      .then((data) => {
+        if (!data) {
+          setServerMessage('Что-то пошло не так!');
+          return Promise.reject(new Error('Что-то пошло не так с валидацией'));
+        }
+
+        if (data.message) {
+          setServerMessage(data.message);
+          return Promise.reject(new Error(data.message));
+        } else if (data.token) {
+          mainApi.setToken(data.token);
+          return data.token;
+        } else {
+          setServerMessage('Барабашка взял так и учудил конкретно :-)');
+          return Promise.reject(
+            new Error('Барабашка взял так и учудил конкретно :-)'),
+          );
+        }
+      })
+      .then((token) => {
+        auth
+          .getContent(token)
+          .then((res) => {
+            console.log('i here');
+            
+            if (res) {
+              // setUserEmail(res.email);
+              handleLoggedIn(true);
+              // formValidation.handleCredentialsChange({ email: '', password: '' });
+              history.push('/movies');
+            }
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  }
 
   function handleRegister(e) {
     e.preventDefault();
@@ -416,7 +458,11 @@ function App() {
         </Route>
 
         <Route path="/signin">
-          <Login />
+          <Login
+            loginUser={handleLogin}
+            formValidation={formValidation}
+            serverMessage={serverMessage}
+          />
         </Route>
 
         <Route path="/signup">
@@ -429,13 +475,41 @@ function App() {
 
 
         <CurrentUserContext.Provider value={currentUser}>
-        <ProtectedRoute
-        />
+          <ProtectedRoute
+            path="/movies"
+            loggedIn={loggedIn}
+            // userEmail={userEmail}
+            component={Header}
+          />
+          <ProtectedRoute
+            path="/movies"
+            loggedIn={loggedIn}
+            resetForm={resetForm}
+            onFilterMoviesList={filterBeatfilmMoviesList}
+            displayPreloader={displayPreloader}
+            term={term}
+            short={short}
+            handleChangeTerm={handleChangeTerm}
+            handleShort={handleShort}
+            message={displayEmptySearchResults}
+            favouriteMovies={favouriteMovies}
+            displayedMovies={displayedMovies}
+            displayMoreBtn={filteredMovies.length > displayedMovies.length} // кнопка "Ещё" будет отображаться только на странице /movies и до тех пор, пока число отфильтрованных фильмов по запросу юзера будет превышать число отрендеренных
+            handleMoreFilmsBtn={handleMoreFilmsBtn}
+            onMovieSave={handleMovieSave}
+            onMovieRemove={handleMovieRemove}
+            component={Movies}
+          />
+          <ProtectedRoute
+            path="/movies"
+            loggedIn={loggedIn}
+            component={Footer}
+          />
         </CurrentUserContext.Provider>
 
 
-        <Route path="/movies">
-          <Header darkTheme={true} />
+        {/* <Route path="/movies">
+          <Header darkTheme={true} loggedIn={loggedIn} userEmail={userEmail} />
           <Movies
             resetForm={resetForm}
             onFilterMoviesList={filterBeatfilmMoviesList}
@@ -453,7 +527,7 @@ function App() {
             onMovieRemove={handleMovieRemove}
           />
           <Footer />
-        </Route>
+        </Route> */}
 
         <Route path="/saved-movies">
           <Header darkTheme={true} />
