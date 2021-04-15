@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import * as auth from '../utils/auth.js';
@@ -27,7 +26,11 @@ import SavedMovies from './SavedMovies/SavedMovies';
 import useFormWithValidation from '../hooks/useFormWithValidation';
 
 function App() {
+  const history = useHistory();
   const formValidation = useFormWithValidation();
+  
+  const [serverMessage, setServerMessage] = useState('');
+
   // const [loggedIn, setLoggedIn] = useState(false);
   // const [userEmail, setUserEmail] = useState('');
   const [currentUser, setCurrentUser] = useState({ name: '', email: '', });
@@ -48,29 +51,27 @@ function App() {
 
   function handleRegister(e) {
     e.preventDefault();
-    console.log(formValidation.credentials);
 
     auth
       .register(formValidation.credentials)
       .then((data) => {
         if (!data) {
-          // openInformerPopup('Что-то пошло не так!');
-          console.log('Что-то пошло не так!');
+          setServerMessage('Что-то пошло не так!');
           return;
         }
 
-        if (data.error) {
-          // openInformerPopup(data.error);
-          console.log(data.error);
+        if (data.message) {
+          setServerMessage(data.message);
           return;
         } else {
-          // openInformerPopup('Регистрация успешна!', true);
-          console.log('Регистрация успешна!', true);
-          // history.push('/sing-in');
+          setServerMessage('');
+          history.push('/signin');
           return;
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
 
@@ -420,10 +421,9 @@ function App() {
 
         <Route path="/signup">
           <Register
-            // credentials={formValidation.credentials}
-            // onCredentialsChange={formValidation.handleCredentialsChange}
             registerUser={handleRegister}
             formValidation={formValidation}
+            serverMessage={serverMessage}
           />
         </Route>
 

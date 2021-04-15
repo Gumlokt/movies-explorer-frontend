@@ -7,8 +7,13 @@ export default function useFormWithValidation() {
   const [isValid, setIsValid] = useState(false);
 
   const handleCredentialsChange = (event) => {
-    setCredentials({...credentials, [event.target.name]: event.target.value});
-    setErrors({...errors, [event.target.name]: event.target.validationMessage });
+    if (event.target.name === 'name' && event.target.validationMessage) {
+      setErrors({ ...errors, [event.target.name]: 'Допускается имя длинной от 2 до 30 символов, состоящее только из латинских и кириллических букв, а также пробелов и дефисов' });
+    } else {
+      setErrors({ ...errors, [event.target.name]: event.target.validationMessage });
+    }
+
+    setCredentials({ ...credentials, [event.target.name]: event.target.value });
     setIsValid(event.target.closest("form").checkValidity());
   };
 

@@ -4,10 +4,13 @@
   padding: 6px 0 0;
   display: block;
   width: 100%;
-  visibility: visible;
+  min-height: 30px;
+  visibility: hidden;
+  opacity: 0;
 
   font-weight: normal;
   font-size: 10px;
   line-height: 12px;
   color: #ee3465;
+  transition: opacity 0.4s linear;
 }
