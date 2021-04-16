@@ -450,117 +450,85 @@ function App() {
 
   return (
     <>
-      <Switch>
-        <Route exact path="/">
-          <Header />
-          <Main />
-          <Footer />
-        </Route>
+      <CurrentUserContext.Provider value={currentUser}>
+        <Switch>
+          <Route exact path="/">
+            <Header loggedIn={loggedIn} />
+            <Main />
+            <Footer />
+          </Route>
 
-        <Route path="/signin">
-          <Login
-            loginUser={handleLogin}
-            formValidation={formValidation}
-            serverMessage={serverMessage}
-          />
-        </Route>
+          <Route path="/signin">
+            <Login
+              loginUser={handleLogin}
+              formValidation={formValidation}
+              serverMessage={serverMessage}
+            />
+          </Route>
 
-        <Route path="/signup">
-          <Register
-            registerUser={handleRegister}
-            formValidation={formValidation}
-            serverMessage={serverMessage}
-          />
-        </Route>
-
-
-        <CurrentUserContext.Provider value={currentUser}>
-          <ProtectedRoute
-            path="/movies"
-            loggedIn={loggedIn}
-            // userEmail={userEmail}
-            component={Header}
-          />
-          <ProtectedRoute
-            path="/movies"
-            loggedIn={loggedIn}
-            resetForm={resetForm}
-            onFilterMoviesList={filterBeatfilmMoviesList}
-            displayPreloader={displayPreloader}
-            term={term}
-            short={short}
-            handleChangeTerm={handleChangeTerm}
-            handleShort={handleShort}
-            message={displayEmptySearchResults}
-            favouriteMovies={favouriteMovies}
-            displayedMovies={displayedMovies}
-            displayMoreBtn={filteredMovies.length > displayedMovies.length} // кнопка "Ещё" будет отображаться только на странице /movies и до тех пор, пока число отфильтрованных фильмов по запросу юзера будет превышать число отрендеренных
-            handleMoreFilmsBtn={handleMoreFilmsBtn}
-            onMovieSave={handleMovieSave}
-            onMovieRemove={handleMovieRemove}
-            component={Movies}
-          />
-          <ProtectedRoute
-            path="/movies"
-            loggedIn={loggedIn}
-            component={Footer}
-          />
-        </CurrentUserContext.Provider>
+          <Route path="/signup">
+            <Register
+              registerUser={handleRegister}
+              formValidation={formValidation}
+              serverMessage={serverMessage}
+            />
+          </Route>
 
 
-        {/* <Route path="/movies">
-          <Header darkTheme={true} loggedIn={loggedIn} userEmail={userEmail} />
-          <Movies
-            resetForm={resetForm}
-            onFilterMoviesList={filterBeatfilmMoviesList}
-            displayPreloader={displayPreloader}
-            term={term}
-            short={short}
-            handleChangeTerm={handleChangeTerm}
-            handleShort={handleShort}
-            message={displayEmptySearchResults}
-            favouriteMovies={favouriteMovies}
-            displayedMovies={displayedMovies}
-            displayMoreBtn={filteredMovies.length > displayedMovies.length} // кнопка "Ещё" будет отображаться только на странице /movies и до тех пор, пока число отфильтрованных фильмов по запросу юзера будет превышать число отрендеренных
-            handleMoreFilmsBtn={handleMoreFilmsBtn}
-            onMovieSave={handleMovieSave}
-            onMovieRemove={handleMovieRemove}
-          />
-          <Footer />
-        </Route> */}
 
-        <Route path="/saved-movies">
-          <Header darkTheme={true} />
-          <SavedMovies
-            resetForm={resetForm}
-            onFilterMoviesList={filterFavouriteMoviesList}
-            displayPreloader={displayPreloader}
-            term={term}
-            short={short}
-            handleChangeTerm={handleChangeTerm}
-            handleShort={handleShort}
-            message={displayEmptySearchResults}
-            favouriteMovies={favouriteMovies}
-            displayedMovies={displayedMovies}
-            displayMoreBtn={false} // кнопка "Ещё" отображается только на странице /movies
-            onMovieRemove={handleMovieRemove}
-          />
-          <Footer />
-        </Route>
+            <ProtectedRoute
+              path="/movies"
+              loggedIn={loggedIn}
+              component={Movies}
 
-        <Route path="/profile">
-          <Header darkTheme={true} />
-          <Profile />
-        </Route>
+              resetForm={resetForm}
+              onFilterMoviesList={filterBeatfilmMoviesList}
+              displayPreloader={displayPreloader}
+              term={term}
+              short={short}
+              handleChangeTerm={handleChangeTerm}
+              handleShort={handleShort}
+              message={displayEmptySearchResults}
+              favouriteMovies={favouriteMovies}
+              displayedMovies={displayedMovies}
+              displayMoreBtn={filteredMovies.length > displayedMovies.length} // кнопка "Ещё" будет отображаться только на странице /movies и до тех пор, пока число отфильтрованных фильмов по запросу юзера будет превышать число отрендеренных
+              handleMoreFilmsBtn={handleMoreFilmsBtn}
+              onMovieSave={handleMovieSave}
+              onMovieRemove={handleMovieRemove}
+            />
 
-        <Route path="/page-not-found">
-          <PageNotFound />
-        </Route>
+            <ProtectedRoute
+              path="/saved-movies"
+              loggedIn={loggedIn}
+              component={SavedMovies}
 
-        <Route path="*">
-          <PageNotFound />
-        </Route>
-      </Switch>
+              resetForm={resetForm}
+              onFilterMoviesList={filterFavouriteMoviesList}
+              displayPreloader={displayPreloader}
+              term={term}
+              short={short}
+              handleChangeTerm={handleChangeTerm}
+              handleShort={handleShort}
+              message={displayEmptySearchResults}
+              favouriteMovies={favouriteMovies}
+              displayedMovies={displayedMovies}
+              displayMoreBtn={false} // кнопка "Ещё" отображается только на странице /movies
+              onMovieRemove={handleMovieRemove}
+            />
+
+            <ProtectedRoute
+              path="/profile"
+              loggedIn={loggedIn}
+              component={Profile}
+            />
+
+
+
+          <Route path="*">
+            <PageNotFound />
+          </Route>
+        </Switch>
+      </CurrentUserContext.Provider>
 
       <Popup isOpen={isInformerPopupOpen} message={messageToUser} onClose={closeInformerPopup} />
     </>

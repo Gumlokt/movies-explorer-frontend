@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 
 import './SavedMovies.css';
 
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import EmptySearchResults from '../EmptySearchResults/EmptySearchResults';
@@ -13,28 +16,34 @@ function SavedMovies(props) {
   }, []);
 
   return (
-    <main className="saved-movies">
-      <div className="saved-movies__container">
-        <SearchForm
-          resetForm={props.resetForm}
-          onFilterMoviesList={props.onFilterMoviesList}
-          displayPreloader={props.displayPreloader}
-          term={props.term}
-          short={props.short}
-          handleChangeTerm={props.handleChangeTerm}
-          handleShort={props.handleShort}
-        />
+    <>
+      <Header darkTheme={true} loggedIn={props.loggedIn} />
 
-        <EmptySearchResults message={props.message} />
+      <main className="saved-movies">
+        <div className="saved-movies__container">
+          <SearchForm
+            resetForm={props.resetForm}
+            onFilterMoviesList={props.onFilterMoviesList}
+            displayPreloader={props.displayPreloader}
+            term={props.term}
+            short={props.short}
+            handleChangeTerm={props.handleChangeTerm}
+            handleShort={props.handleShort}
+          />
 
-        <MoviesCardList
-          favouriteMovies={props.favouriteMovies}
-          displayedMovies={props.displayedMovies}
-          displayMoreBtn={props.displayMoreBtn}
-          onMovieRemove={props.onMovieRemove}
-        />
-      </div>
-    </main>
+          <EmptySearchResults message={props.message} />
+
+          <MoviesCardList
+            favouriteMovies={props.favouriteMovies}
+            displayedMovies={props.displayedMovies}
+            displayMoreBtn={props.displayMoreBtn}
+            onMovieRemove={props.onMovieRemove}
+          />
+        </div>
+      </main>
+
+    <Footer />
+    </>
   );
 }
 

@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 import './Profile.css';
 
+import Header from '../Header/Header';
+
 function Profile(props) {
   const history = useHistory();
   // const userData = { name: 'Игорь', email: 'user@mail.dom' }; // should be get from api
@@ -35,58 +37,62 @@ function Profile(props) {
   }
 
   return (
-    <main className="profile">
-      <form className="profile__form">
-        <h3 className="profile__title">Привет, {userName}</h3>
+    <>
+      <Header darkTheme={true} loggedIn={props.loggedIn} />
 
-        <ul className="profile__items">
-          <li className="profile__item">
-            <label className="profile__label" htmlFor="name">
-              Имя
-            </label>
+      <main className="profile">
+        <form className="profile__form">
+          <h3 className="profile__title">Привет, {userName}</h3>
 
-            <input
-              onChange={handleChangeName}
-              type="text"
-              className="profile__input"
-              name="name"
-              value={userName}
-              placeholder="Имя"
-              minLength="2"
-              maxLength="40"
-              id="name"
-              disabled={inputsDisabled}
-              required
-            />
-          </li>
+          <ul className="profile__items">
+            <li className="profile__item">
+              <label className="profile__label" htmlFor="name">
+                Имя
+              </label>
 
-          <li className="profile__item">
-            <label className="profile__label" htmlFor="email">
-              E-mail
-            </label>
+              <input
+                onChange={handleChangeName}
+                type="text"
+                className="profile__input"
+                name="name"
+                value={userName}
+                placeholder="Имя"
+                minLength="2"
+                maxLength="40"
+                id="name"
+                disabled={inputsDisabled}
+                required
+              />
+            </li>
 
-            <input
-              onChange={handleChangeEmail}
-              type="email"
-              className="profile__input"
-              name="email"
-              value={userEmail}
-              placeholder="Email"
-              id="email"
-              disabled={inputsDisabled}
-              required
-            />
-          </li>
-        </ul>
+            <li className="profile__item">
+              <label className="profile__label" htmlFor="email">
+                E-mail
+              </label>
 
-        <button
-          className={`profile__btn${inputsDisabled ? ' profile__btn_action_edit' : ' profile__btn_action_save'}`}
-          onClick={handleForm}
-        ></button>
+              <input
+                onChange={handleChangeEmail}
+                type="email"
+                className="profile__input"
+                name="email"
+                value={userEmail}
+                placeholder="Email"
+                id="email"
+                disabled={inputsDisabled}
+                required
+              />
+            </li>
+          </ul>
 
-        <button onClick={signOut} className="profile__btn profile__btn_action_exit"></button>
-      </form>
-    </main>
+          <button
+            className={`profile__btn${inputsDisabled ? ' profile__btn_action_edit' : ' profile__btn_action_save'}`}
+            onClick={handleForm}
+          ></button>
+
+          <button onClick={signOut} className="profile__btn profile__btn_action_exit"></button>
+        </form>
+      </main>
+    </>
   );
 }
 
