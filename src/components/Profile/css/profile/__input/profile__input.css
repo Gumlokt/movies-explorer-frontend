@@ -7,23 +7,15 @@
 
   font-weight: 500;
   font-size: 11px;
-  line-height: 24px;
+  line-height: 13px;
 
-  border: 0;
-  color: #708090;
+  border: none;
+  color: #fff;
   background-color: transparent;
-  border-bottom: 1px solid #708090;
-  text-align: left;
+  text-align: right;
   outline: 0;
 
-  transition: all .4s linear;
-}
-
-.profile__input:disabled {
-  line-height: 13px;
-  color: #fff;
-  border: none;
-  text-align: right;
+  transition: all 0.4s linear;
 }
 
 .profile__input:focus {
@@ -32,7 +24,7 @@
 }
 
 @media screen and (max-width: 240px) {
-  .profile__label {
+  .profile__input {
     font-weight: normal;
     font-size: 10px;
     line-height: 12px;

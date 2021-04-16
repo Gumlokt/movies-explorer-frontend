@@ -1,34 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import './Profile.css';
 
 import Header from '../Header/Header';
 
 function Profile(props) {
+  const currentUser = React.useContext(CurrentUserContext);
+  
   const history = useHistory();
-  // const userData = { name: 'Игорь', email: 'user@mail.dom' }; // should be get from api
-  const [inputsDisabled, setInputsDisabled] = React.useState(true);
-
-  const [userName, setUserName] = React.useState('Игорь');
-  const [userEmail, setUserEmail] = React.useState('user@mail.dom');
-
-  function handleForm(event) {
-    event.preventDefault();
-
-    if (inputsDisabled) {
-      setInputsDisabled(false);
-    } else {
-      setInputsDisabled(true);
-    }
+  const [profileEditing, setProfileEditing] = React.useState(false);
+  
+  function startEditing() {
+    setProfileEditing(true);
   }
 
-  function handleChangeName(e) {
-    setUserName(e.target.value);
+  function stopEditing() {
+    setProfileEditing(false);
   }
 
-  function handleChangeEmail(e) {
-    setUserEmail(e.target.value);
+  function profileEdited(event) {
+    return true;
   }
 
   function signOut(event) {
@@ -36,13 +30,21 @@ function Profile(props) {
     history.push('/');
   }
 
+  useEffect(() => {
+    // props.formValidation.credentials.name = currentUser.name;
+    // props.formValidation.credentials.email = currentUser.email;
+    console.log(props.formValidation.credentials);
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Header darkTheme={true} loggedIn={props.loggedIn} />
 
       <main className="profile">
         <form className="profile__form">
-          <h3 className="profile__title">Привет, {userName}</h3>
+          <h3 className="profile__title">Привет, {currentUser.name}</h3>
 
           <ul className="profile__items">
             <li className="profile__item">
@@ -51,16 +53,17 @@ function Profile(props) {
               </label>
 
               <input
-                onChange={handleChangeName}
+                onFocus={startEditing}
+                onBlur={stopEditing}
+                onChange={props.formValidation.handleCredentialsChange}
+                value={props.formValidation.credentials.name || ''}
                 type="text"
-                className="profile__input"
+                className={`profile__input${profileEditing ? ' profile__input_mode_editing' : ''}`}
                 name="name"
-                value={userName}
                 placeholder="Имя"
                 minLength="2"
                 maxLength="40"
                 id="name"
-                disabled={inputsDisabled}
                 required
               />
             </li>
@@ -71,22 +74,22 @@ function Profile(props) {
               </label>
 
               <input
-                onChange={handleChangeEmail}
+                onFocus={startEditing}
+                onBlur={stopEditing}
+                onChange={props.formValidation.handleCredentialsChange}
+                value={props.formValidation.credentials.email || ''}
                 type="email"
-                className="profile__input"
+                className={`profile__input${profileEditing ? ' profile__input_mode_editing' : ''}`}
                 name="email"
-                value={userEmail}
                 placeholder="Email"
                 id="email"
-                disabled={inputsDisabled}
                 required
               />
             </li>
           </ul>
 
           <button
-            className={`profile__btn${inputsDisabled ? ' profile__btn_action_edit' : ' profile__btn_action_save'}`}
-            onClick={handleForm}
+            className={`profile__btn${profileEdited ? ' profile__btn_action_save' : ' profile__btn_action_edit'}`}
           ></button>
 
           <button onClick={signOut} className="profile__btn profile__btn_action_exit"></button>

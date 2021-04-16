@@ -9,6 +9,7 @@
 
 @import url(./css/profile/__label/profile__label.css);
 @import url(./css/profile/__input/profile__input.css);
+@import url(./css/profile/__input/_mode/profile__input_mode_editing.css);
 
 @import url(./css/profile/__btn/profile__btn.css);
 @import url(./css/profile/__btn/_action/profile__btn_action_edit.css);

@@ -12,11 +12,11 @@
   font-size: 13px;
   line-height: 16px;
 
-  transition: opacity .4s linear;
+  transition: opacity 0.4s linear;
 }
 
 .profile__btn:hover {
-  opacity: .6;
+  opacity: 0.6;
   transform: scale(1.02, 1.02);
   cursor: pointer;
 }

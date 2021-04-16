@@ -77,10 +77,13 @@ function App() {
         auth
           .getContent(token)
           .then((res) => {
-            console.log('i here');
-            
             if (res) {
               // setUserEmail(res.email);
+              setCurrentUser({ name: res.name, email: res.email, });
+              // console.log(formValidation.credentials);
+              formValidation.credentials.name = res.name;
+              formValidation.credentials.email = res.email;
+              
               handleLoggedIn(true);
               // formValidation.handleCredentialsChange({ email: '', password: '' });
               history.push('/movies');
@@ -520,6 +523,7 @@ function App() {
               path="/profile"
               loggedIn={loggedIn}
               component={Profile}
+              formValidation={formValidation}
             />
 
 
