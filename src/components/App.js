@@ -28,36 +28,56 @@ import useFormWithValidation from '../hooks/useFormWithValidation';
 function App() {
   const history = useHistory();
   const formValidation = useFormWithValidation();
-  
+
   const [serverMessage, setServerMessage] = useState('');
 
   const [loggedIn, setLoggedIn] = useState(false);
-  // const [userEmail, setUserEmail] = useState('');
-  const [currentUser, setCurrentUser] = useState({ name: '', email: '', });
-
-  // const [credentials, setCredentials] = useState({ name: '', email: '', password: '' });
+  const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
 
   function handleUser(user) {
     setCurrentUser(user);
+
+    formValidation.credentials.name = user.name;
+    formValidation.credentials.email = user.email;
   }
 
   function handleLoggedIn(trueOrFalse) {
     setLoggedIn(trueOrFalse);
     if (!trueOrFalse) {
-      handleUser({ name: '', email: '' });
-      // setUserEmail('');
+      setCurrentUser({ name: '', email: '' });
     }
   }
 
-  function handleLogin(e) {
-    e.preventDefault();
+  function getFavouriteMovies() {
+    Promise.all([mainApi.getFavouriteMovies()])
+      .then((values) => {
+        const [allFavouriteMovies] = values;
+        setFavouriteMovies(allFavouriteMovies);
+
+        if (location.pathname === savedMoviesRoute) {
+          dispatchMoviesDisplaying(allFavouriteMovies);
+        }
+        return allFavouriteMovies;
+      })
+      .then((freshListOfFavouriteMovies) => {
+        setDisplayEmptySearchResults('');
+        history.push('/movies');
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  function handleLogin(event) {
+    if (event) {
+      event.preventDefault();
+    }
 
     auth
       .authorize(formValidation.credentials)
       .then((data) => {
         if (!data) {
-          setServerMessage('Что-то пошло не так!');
-          return Promise.reject(new Error('Что-то пошло не так с валидацией'));
+          return Promise.reject(new Error('Не понятно что, но что-то пошло не так...'));
         }
 
         if (data.message) {
@@ -67,10 +87,7 @@ function App() {
           mainApi.setToken(data.token);
           return data.token;
         } else {
-          setServerMessage('Барабашка взял так и учудил конкретно :-)');
-          return Promise.reject(
-            new Error('Барабашка взял так и учудил конкретно :-)'),
-          );
+          return Promise.reject(new Error('Барабашка взял так и учудил конкретно :-)'));
         }
       })
       .then((token) => {
@@ -78,20 +95,17 @@ function App() {
           .getContent(token)
           .then((res) => {
             if (res) {
-              // setUserEmail(res.email);
-              setCurrentUser({ name: res.name, email: res.email, });
-              // console.log(formValidation.credentials);
-              formValidation.credentials.name = res.name;
-              formValidation.credentials.email = res.email;
-              
+              handleUser({ name: res.name, email: res.email });
               handleLoggedIn(true);
-              // formValidation.handleCredentialsChange({ email: '', password: '' });
-              history.push('/movies');
+              getFavouriteMovies();
             }
           })
           .catch((err) => console.log(err));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setServerMessage(err.message);
+        console.log(err);
+      });
   }
 
   function handleRegister(e) {
@@ -110,7 +124,7 @@ function App() {
           return;
         } else {
           setServerMessage('');
-          history.push('/signin');
+          handleLogin();
           return;
         }
       })
@@ -119,15 +133,23 @@ function App() {
       });
   }
 
+  function handleUpdateUser(newUserData) {
+    mainApi
+      .setUserInfo(newUserData)
+      .then((updatedUserData) => {
+        setInformerPopupOpen(true);
+        setMessageToUser('Данные профиля успешно обновлены');
+        handleUser(updatedUserData);
+      })
+      .catch((err) => console.log(err));
+  }
 
   const location = useLocation();
 
   const savedMoviesRoute = '/saved-movies'; // для роута /saved-movies логика работы немного отличается от логики работы /movies
 
   const [isInformerPopupOpen, setInformerPopupOpen] = useState(false);
-  const [messageToUser, setMessageToUser] = useState(
-    'Some lorem ipsum text... Some lorem ipsum text... Some lorem ipsum text...',
-  );
+  const [messageToUser, setMessageToUser] = useState('');
 
   function closeInformerPopup() {
     setInformerPopupOpen(false);
@@ -163,7 +185,7 @@ function App() {
   function dispatchMoviesDisplaying(selectedMovies) {
     setFilteredMovies(selectedMovies);
 
-    if (!selectedMovies.length) {
+    if (initialMovies.length && !selectedMovies.length) {
       setDisplayEmptySearchResults('Ничего не найдено');
     } else if (selectedMovies.length > cardsToDisplayByDefault && location.pathname !== savedMoviesRoute) {
       setDisplayedMovies(selectedMovies.slice(0, cardsToDisplayByDefault)); // если фильмов отфильтрованы больше, чем можно показать, то тогда сюда нужно slice-ить карточки от массива отфильтрованых фильмов
@@ -191,7 +213,6 @@ function App() {
       return;
     }
 
-    
     if (initialMovies.length) {
       dispatchMoviesDisplaying(moviesSelector.select(initialMovies, term, short));
     } else {
@@ -233,7 +254,7 @@ function App() {
    * @param {Object} event - Browser's event - click submit button.
    * @returns {void}
    */
-   function filterFavouriteMoviesList(event) {
+  function filterFavouriteMoviesList(event) {
     if (event) {
       event.preventDefault();
     }
@@ -253,7 +274,6 @@ function App() {
       Promise.all([mainApi.getFavouriteMovies()])
         .then((values) => {
           const [allFavouriteMovies] = values;
-          // setInitialMovies(allFavouriteMovies);
           setFavouriteMovies(allFavouriteMovies);
 
           return moviesSelector.select(allFavouriteMovies, term, short);
@@ -273,7 +293,7 @@ function App() {
           setDisplayPreloader(false);
         });
     }
-}
+  }
 
   /**
    * Function to reset search form.
@@ -342,13 +362,15 @@ function App() {
       duration: movie.duration || 0,
       year: movie.year || 'Our epoch',
       description: movie.description || 'No description...',
-      image: (movie.image && movie.image.url)
-        ? `https://api.nomoreparties.co${movie.image.url}`
-        : 'https://via.placeholder.com/360x200/778899/FFFFFF?text=Постер',
+      image:
+        movie.image && movie.image.url
+          ? `https://api.nomoreparties.co${movie.image.url}`
+          : 'https://via.placeholder.com/360x200/778899/FFFFFF?text=Постер',
       trailer: movie.trailerLink || 'https://youtube.com/',
-      thumbnail: (movie.image && movie.image.url) 
-        ? `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}` 
-        : 'https://via.placeholder.com/180x100/778899/FFFFFF?text=Постер',
+      thumbnail:
+        movie.image && movie.image.url
+          ? `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`
+          : 'https://via.placeholder.com/180x100/778899/FFFFFF?text=Постер',
       movieId: movie.id,
       nameRU: movie.nameRU || 'Название не известно',
       nameEN: movie.nameEN || 'Unknown name',
@@ -398,6 +420,24 @@ function App() {
    * @returns {void}
    */
   useEffect(() => {
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        auth
+          .getContent(token)
+          .then((res) => {
+            if (res) {
+              handleUser({ name: res.name, email: res.email });
+              handleLoggedIn(true);
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+
+      getFavouriteMovies();
+    }
+
     setDisplayEmptySearchResults('');
 
     if (localStorage.getItem('initialMovies')) {
@@ -410,20 +450,6 @@ function App() {
         }
       }
     }
-
-    Promise.all([mainApi.getFavouriteMovies()])
-      .then((values) => {
-        const [allFavouriteMovies] = values;
-        setFavouriteMovies(allFavouriteMovies);
-
-        if (location.pathname === savedMoviesRoute) {
-          dispatchMoviesDisplaying(allFavouriteMovies);
-        }
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-
 
     function keepTrackScreenWidth() {
       setTimeout(() => {
@@ -462,71 +488,59 @@ function App() {
           </Route>
 
           <Route path="/signin">
-            <Login
-              loginUser={handleLogin}
-              formValidation={formValidation}
-              serverMessage={serverMessage}
-            />
+            <Login loginUser={handleLogin} formValidation={formValidation} serverMessage={serverMessage} />
           </Route>
 
           <Route path="/signup">
-            <Register
-              registerUser={handleRegister}
-              formValidation={formValidation}
-              serverMessage={serverMessage}
-            />
+            <Register registerUser={handleRegister} formValidation={formValidation} serverMessage={serverMessage} />
           </Route>
 
+          <ProtectedRoute
+            path="/movies"
+            loggedIn={loggedIn}
+            component={Movies}
+            resetForm={resetForm}
+            onFilterMoviesList={filterBeatfilmMoviesList}
+            displayPreloader={displayPreloader}
+            term={term}
+            short={short}
+            handleChangeTerm={handleChangeTerm}
+            handleShort={handleShort}
+            message={displayEmptySearchResults}
+            favouriteMovies={favouriteMovies}
+            displayedMovies={displayedMovies}
+            displayMoreBtn={filteredMovies.length > displayedMovies.length} // кнопка "Ещё" будет отображаться только на странице /movies и до тех пор, пока число отфильтрованных фильмов по запросу юзера будет превышать число отрендеренных
+            handleMoreFilmsBtn={handleMoreFilmsBtn}
+            onMovieSave={handleMovieSave}
+            onMovieRemove={handleMovieRemove}
+          />
 
+          <ProtectedRoute
+            path="/saved-movies"
+            loggedIn={loggedIn}
+            component={SavedMovies}
+            resetForm={resetForm}
+            onFilterMoviesList={filterFavouriteMoviesList}
+            displayPreloader={displayPreloader}
+            term={term}
+            short={short}
+            handleChangeTerm={handleChangeTerm}
+            handleShort={handleShort}
+            message={displayEmptySearchResults}
+            favouriteMovies={favouriteMovies}
+            displayedMovies={displayedMovies}
+            displayMoreBtn={false} // кнопка "Ещё" отображается только на странице /movies
+            onMovieRemove={handleMovieRemove}
+          />
 
-            <ProtectedRoute
-              path="/movies"
-              loggedIn={loggedIn}
-              component={Movies}
-
-              resetForm={resetForm}
-              onFilterMoviesList={filterBeatfilmMoviesList}
-              displayPreloader={displayPreloader}
-              term={term}
-              short={short}
-              handleChangeTerm={handleChangeTerm}
-              handleShort={handleShort}
-              message={displayEmptySearchResults}
-              favouriteMovies={favouriteMovies}
-              displayedMovies={displayedMovies}
-              displayMoreBtn={filteredMovies.length > displayedMovies.length} // кнопка "Ещё" будет отображаться только на странице /movies и до тех пор, пока число отфильтрованных фильмов по запросу юзера будет превышать число отрендеренных
-              handleMoreFilmsBtn={handleMoreFilmsBtn}
-              onMovieSave={handleMovieSave}
-              onMovieRemove={handleMovieRemove}
-            />
-
-            <ProtectedRoute
-              path="/saved-movies"
-              loggedIn={loggedIn}
-              component={SavedMovies}
-
-              resetForm={resetForm}
-              onFilterMoviesList={filterFavouriteMoviesList}
-              displayPreloader={displayPreloader}
-              term={term}
-              short={short}
-              handleChangeTerm={handleChangeTerm}
-              handleShort={handleShort}
-              message={displayEmptySearchResults}
-              favouriteMovies={favouriteMovies}
-              displayedMovies={displayedMovies}
-              displayMoreBtn={false} // кнопка "Ещё" отображается только на странице /movies
-              onMovieRemove={handleMovieRemove}
-            />
-
-            <ProtectedRoute
-              path="/profile"
-              loggedIn={loggedIn}
-              component={Profile}
-              formValidation={formValidation}
-            />
-
-
+          <ProtectedRoute
+            path="/profile"
+            loggedIn={loggedIn}
+            component={Profile}
+            formValidation={formValidation}
+            onUpdateUser={handleUpdateUser}
+            onLogout={handleLoggedIn}
+          />
 
           <Route path="*">
             <PageNotFound />

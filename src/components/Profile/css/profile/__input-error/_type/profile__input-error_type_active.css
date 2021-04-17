@@ -1,0 +1,7 @@
+.profile__input-error_type_active {
+  padding: 6px 0 0;
+  visibility: visible;
+  opacity: 1;
+
+  transition: all 0.4s linear;
+}

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 import './Login.css';
-import '../Form/Form.css';
 
 import Logo from '../Logo/Logo';
 
@@ -26,7 +25,10 @@ function Login(props) {
             id="email"
             required
           />
-          <span className={`form__input-error${!props.formValidation.isValid ? ' form__input-error_type_active' : ''}`} id="email-error">
+          <span
+            className={`form__input-error${!props.formValidation.isValid ? ' form__input-error_type_active' : ''}`}
+            id="email-error"
+          >
             {props.formValidation.errors.email}
           </span>
 
@@ -43,23 +45,30 @@ function Login(props) {
             id="password"
             required
           />
-          <span className={`form__input-error${!props.formValidation.isValid ? ' form__input-error_type_active' : ''}`} id="password-error">
+          <span
+            className={`form__input-error${!props.formValidation.isValid ? ' form__input-error_type_active' : ''}`}
+            id="password-error"
+          >
             {props.formValidation.errors.password}
           </span>
 
-          <p className={`form__server-message form__server-message_type_padded${props.serverMessage ? ' form__server-message_type_active' : ''}`}>{props.serverMessage}</p>
-
-          <button
-            className="form__btn-primary"
-            name="primaryButton"
-            disabled={!props.formValidation.isValid}
+          <p
+            className={`form__server-message form__server-message_type_padded${
+              props.serverMessage ? ' form__server-message_type_active' : ''
+            }`}
           >
+            {props.serverMessage}
+          </p>
+
+          <button className="form__btn-primary" name="primaryButton" disabled={!props.formValidation.isValid}>
             Войти
           </button>
 
           <p className="form__question">
             Ещё не зарегистрированы?{' '}
-            <Link to="/signup" className="form__link">Регистрация</Link>
+            <Link to="/signup" className="form__link">
+              Регистрация
+            </Link>
           </p>
         </form>
       </div>

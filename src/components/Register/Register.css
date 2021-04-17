@@ -2,3 +2,24 @@
 @import url(./css/register/__container/register__container.css);
 
 @import url(./css/register/__logo/register__logo.css);
+
+@import url(./css/form/form.css);
+
+@import url(./css/form/__title/form__title.css);
+
+@import url(./css/form/__label/form__label.css);
+
+@import url(./css/form/__text-input/form__text-input.css);
+@import url(./css/form/__text-input/_type/form__text-input_type_error.css);
+
+@import url(./css/form/__input-error/form__input-error.css);
+@import url(./css/form/__input-error/_type/form__input-error_type_active.css);
+
+@import url(./css/form/__server-message/form__server-message.css);
+@import url(./css/form/__server-message/_type/form__server-message_type_active.css);
+@import url(./css/form/__server-message/_type/form__server-message_type_padded.css);
+
+@import url(./css/form/__btn-primary/form__btn-primary.css);
+
+@import url(./css/form/__question/form__question.css);
+@import url(./css/form/__link/form__link.css);

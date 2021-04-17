@@ -12,7 +12,6 @@
   grid-template-columns: 36px 1fr;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
 }
 
 .profile__item:last-child {

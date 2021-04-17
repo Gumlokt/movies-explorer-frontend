@@ -7,6 +7,12 @@
   background-color: #fff;
   position: relative;
   max-width: 410px;
+  min-height: 120px;
+
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 @media screen and (max-width: 480px) {

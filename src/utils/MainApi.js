@@ -50,16 +50,6 @@ class MainApi {
       .catch((err) => console.log(err));
   }
 
-  getUserInfo() {
-    return fetch(`${this._url}/users/me`, {
-      headers: this._headers,
-    })
-      .then((res) => {
-        return this._getResponseData(res, 'Данные пользователя не получены...');
-      })
-      .catch((err) => console.log(err));
-  }
-
   setUserInfo(data) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
@@ -78,8 +68,7 @@ export const mainApi = new MainApi({
   // url: 'https://api.moviehunter.ru',
   url: 'http://localhost:4000',
   headers: {
-    // Authorization: `Bearer ${localStorage.getItem('token')}`,
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRmMDQ1NDU3ZDk3MjIyOWNiOGVkMzUiLCJpYXQiOjE2MTgxOTg1NTQsImV4cCI6MTYxODgwMzM1NH0.DDgN2_9FkQohA0uRWqjvqp9iFKt4WcfCIov_Z-fMA_E`,
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },

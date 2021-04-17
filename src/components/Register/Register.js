@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 import './Register.css';
-import '../Form/Form.css';
 
 import Logo from '../Logo/Logo';
 
@@ -29,7 +28,10 @@ function Register(props) {
             id="name"
             required
           />
-          <span className={`form__input-error${!props.formValidation.isValid ? ' form__input-error_type_active' : ''}`} id="name-error">
+          <span
+            className={`form__input-error${!props.formValidation.isValid ? ' form__input-error_type_active' : ''}`}
+            id="name-error"
+          >
             {props.formValidation.errors.name}
           </span>
 
@@ -45,7 +47,10 @@ function Register(props) {
             id="email"
             required
           />
-          <span className={`form__input-error${!props.formValidation.isValid ? ' form__input-error_type_active' : ''}`} id="email-error">
+          <span
+            className={`form__input-error${!props.formValidation.isValid ? ' form__input-error_type_active' : ''}`}
+            id="email-error"
+          >
             {props.formValidation.errors.email}
           </span>
 
@@ -62,23 +67,26 @@ function Register(props) {
             id="password"
             required
           />
-          <span className={`form__input-error${!props.formValidation.isValid ? ' form__input-error_type_active' : ''}`} id="password-error">
+          <span
+            className={`form__input-error${!props.formValidation.isValid ? ' form__input-error_type_active' : ''}`}
+            id="password-error"
+          >
             {props.formValidation.errors.password}
           </span>
 
-          <p className={`form__server-message${props.serverMessage ? ' form__server-message_type_active' : ''}`}>{props.serverMessage}</p>
+          <p className={`form__server-message${props.serverMessage ? ' form__server-message_type_active' : ''}`}>
+            {props.serverMessage}
+          </p>
 
-          <button
-            className="form__btn-primary"
-            name="primaryButton"
-            disabled={!props.formValidation.isValid}
-          >
+          <button className="form__btn-primary" name="primaryButton" disabled={!props.formValidation.isValid}>
             Зарегистрироваться
           </button>
 
           <p className="form__question">
             Уже зарегистрированы?{' '}
-            <Link to="/signin" className="form__link">Войти</Link>
+            <Link to="/signin" className="form__link">
+              Войти
+            </Link>
           </p>
         </form>
       </div>
