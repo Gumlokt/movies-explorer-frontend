@@ -53,7 +53,7 @@ function App() {
   const [favouriteMovies, setFavouriteMovies] = useState([]); // все избранные фильмы, который хранятся на moviehunter.ru
 
   const [filteredMovies, setFilteredMovies] = useState([]); // число отфильтрованных фильмов в соответствии с поисковым запросом юзера (допустимые значения - от 0 до infinity)
-  const [displayedMovies, setDisplayedMovies] = useState([]); // число отрендеренных фильмов из числа отфильтрованных, изначально равно cardsToDisplayByDefault, при этом не может превышать filteredMovies (допустимые значения - от 1 до filteredMovies)
+  const [displayedMovies, setDisplayedMovies] = useState([]); // число отрендеренных фильмов из числа отфильтрованных, изначально равно cardsToDisplayByDefault, при этом не может превышать filteredMovies (допустимые значения - от 0 до filteredMovies)
 
   const [term, setTerm] = useState(''); // поисковый запрос юзера
   const [short, setShort] = useState(false); // флаг (чекбокс) "короткометражки"
@@ -81,14 +81,14 @@ function App() {
         const [allFavouriteMovies] = values;
         setFavouriteMovies(allFavouriteMovies);
 
-        if (location.pathname === config.SAVED_MOVIES_ROUTE) {
-          dispatchMoviesDisplaying(allFavouriteMovies);
-        }
         return allFavouriteMovies;
       })
       .then((freshListOfFavouriteMovies) => {
+        if (location.pathname === config.SAVED_MOVIES_ROUTE) {
+          dispatchMoviesDisplaying(freshListOfFavouriteMovies);
+        }
+
         setDisplayEmptySearchResults('');
-        history.push('/movies');
       })
       .catch((err) => {
         setInformerPopupOpen(err.message);
@@ -124,7 +124,12 @@ function App() {
             if (res) {
               handleUser({ name: res.name, email: res.email });
               handleLoggedIn(true);
-              getFavouriteMovies();
+              getFavouriteMovies(); // заполняем стейт с сохраненными фильмами
+
+              // После авторизации направляем юзера на страницу /movies
+              // При регистрации таже происходит редирект на /movies,
+              // т.к. в внутри функции регистрации вызывается эта функция авторизации
+              history.push(config.MOVIES_ROUTE);
             }
           })
           .catch((err) => {
@@ -160,7 +165,7 @@ function App() {
           return;
         } else {
           setServerMessage('');
-          handleLogin();
+          handleLogin(); // при успешной регистрации делаем юзеру автологин
           return;
         }
       })
@@ -202,7 +207,7 @@ function App() {
     if (initialMovies.length && !selectedMovies.length) {
       setDisplayEmptySearchResults('Ничего не найдено');
     } else if (selectedMovies.length > cardsToDisplayByDefault && location.pathname !== config.SAVED_MOVIES_ROUTE) {
-      setDisplayedMovies(selectedMovies.slice(0, cardsToDisplayByDefault)); // если фильмов отфильтрованы больше, чем можно показать, то тогда сюда нужно slice-ить карточки от массива отфильтрованых фильмов
+      setDisplayedMovies(selectedMovies.slice(0, cardsToDisplayByDefault)); // если фильмов отфильтрованы больше, чем можно показать, то тогда сюда slice-им карточки от массива отфильтрованых фильмов
     } else {
       setDisplayedMovies(selectedMovies);
     }
@@ -241,7 +246,7 @@ function App() {
           const [allBeatfilmMovies] = values;
 
           localStorage.setItem('initialMovies', JSON.stringify(allBeatfilmMovies)); // сохраняем весь список полученных фильмов в localStorage
-          setInitialMovies(allBeatfilmMovies); // и в стейт переменную
+          setInitialMovies(allBeatfilmMovies); // и их же в стейт переменную
 
           // отбираем фильмы согласно поисковому запросу пользователя - т.е. по введенной фразе и флагу "короткометражки"
           return moviesSelector.select(allBeatfilmMovies, term, short);
@@ -283,28 +288,7 @@ function App() {
     if (favouriteMovies.length) {
       dispatchMoviesDisplaying(moviesSelector.select(favouriteMovies, term, short));
     } else {
-      setDisplayPreloader(true);
-
-      Promise.all([mainApi.getFavouriteMovies()])
-        .then((values) => {
-          const [allFavouriteMovies] = values;
-          setFavouriteMovies(allFavouriteMovies);
-
-          return moviesSelector.select(allFavouriteMovies, term, short);
-        })
-        .then((selectedMovies) => {
-          dispatchMoviesDisplaying(selectedMovies);
-          setDisplayPreloader(false);
-        })
-        .catch((err) => {
-          setInformerPopupOpen(err.message);
-
-          setDisplayEmptySearchResults(
-            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
-          );
-
-          setDisplayPreloader(false);
-        });
+      setDisplayEmptySearchResults('Ни один фильм ещё не сохранён');
     }
   }
 
@@ -419,6 +403,7 @@ function App() {
       .then((updatedFavouriteMovies) => {
         setFavouriteMovies(updatedFavouriteMovies);
 
+        // если находимся на странице сохраненных фильмов, то нужно показать новый список сохраненных фильмов - после удаления фильма, он стал на один фильм меньше
         if (location.pathname === config.SAVED_MOVIES_ROUTE) {
           if (term) {
             dispatchMoviesDisplaying(moviesSelector.select(updatedFavouriteMovies, term, short));
@@ -438,6 +423,7 @@ function App() {
    */
   useEffect(() => {
     setDisplayEmptySearchResults('');
+
     if (location.pathname === config.SAVED_MOVIES_ROUTE) {
       filterFavouriteMoviesList();
     } else {
@@ -462,25 +448,26 @@ function App() {
               handleUser({ name: res.name, email: res.email });
               handleLoggedIn(true);
             }
+            return res;
+          })
+          .then((res) => {
+            getFavouriteMovies();
+
+            if (localStorage.getItem('initialMovies')) {
+              const allBeatfilmMovies = JSON.parse(localStorage.getItem('initialMovies'));
+
+              if (allBeatfilmMovies && allBeatfilmMovies.length) {
+                setInitialMovies(allBeatfilmMovies);
+
+                if (location.pathname !== config.SAVED_MOVIES_ROUTE) {
+                  dispatchMoviesDisplaying(allBeatfilmMovies);
+                }
+              }
+            }
           })
           .catch((err) => {
             setInformerPopupOpen(err.message);
           });
-      }
-
-      getFavouriteMovies();
-    }
-
-    setDisplayEmptySearchResults('');
-
-    if (localStorage.getItem('initialMovies')) {
-      const allBeatfilmMovies = JSON.parse(localStorage.getItem('initialMovies'));
-
-      if (allBeatfilmMovies && allBeatfilmMovies.length) {
-        setInitialMovies(allBeatfilmMovies);
-        if (location.pathname !== config.SAVED_MOVIES_ROUTE) {
-          dispatchMoviesDisplaying(allBeatfilmMovies);
-        }
       }
     }
 

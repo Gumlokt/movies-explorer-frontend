@@ -1,5 +1,5 @@
-// export const BASE_URL = 'https://moviehunter.ru';
-export const BASE_URL = 'http://localhost:4000';
+export const BASE_URL = 'https://api.moviehunter.ru';
+// export const BASE_URL = 'http://localhost:4000';
 
 export const register = ({ name, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {

@@ -65,8 +65,8 @@ class MainApi {
 
 /** Object with methods to send and request all data on the server side. */
 export const mainApi = new MainApi({
-  // url: 'https://api.moviehunter.ru',
-  url: 'http://localhost:4000',
+  url: 'https://api.moviehunter.ru',
+  // url: 'http://localhost:4000',
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
     'Content-Type': 'application/json',

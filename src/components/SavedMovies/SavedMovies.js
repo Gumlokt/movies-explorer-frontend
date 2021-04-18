@@ -12,7 +12,8 @@ import EmptySearchResults from '../EmptySearchResults/EmptySearchResults';
 function SavedMovies(props) {
   useEffect(() => {
     props.resetForm();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    props.onFilterMoviesList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -42,7 +43,7 @@ function SavedMovies(props) {
         </div>
       </main>
 
-    <Footer />
+      <Footer />
     </>
   );
 }
