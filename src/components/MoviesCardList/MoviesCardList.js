@@ -8,7 +8,7 @@ function MoviesCardList(props) {
       <ul className="movies-card-list__items">
         {props.displayedMovies.map((movieItem, index) => {
           return (
-            <li className="movies-card-list__item" key={index}>
+            <li className="movies-card-list__item" key={movieItem.id || movieItem._id}>
               <MoviesCard
                 movieItem={movieItem}
                 favouriteMovies={props.favouriteMovies}

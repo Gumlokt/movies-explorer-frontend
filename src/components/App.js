@@ -91,7 +91,7 @@ function App() {
         history.push('/movies');
       })
       .catch((err) => {
-        console.log(err.message);
+        setInformerPopupOpen(err.message);
       });
   }
 
@@ -127,11 +127,12 @@ function App() {
               getFavouriteMovies();
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            setInformerPopupOpen(err.message);
+          });
       })
       .catch((err) => {
         setServerMessage(err.message);
-        console.log(err);
       });
   }
 
@@ -164,7 +165,7 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        setInformerPopupOpen(err.message);
       });
   }
 
@@ -176,7 +177,9 @@ function App() {
         setMessageToUser('Данные профиля успешно обновлены');
         handleUser(updatedUserData);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setInformerPopupOpen(err.message);
+      });
   }
 
   /**
@@ -249,7 +252,7 @@ function App() {
         })
         .catch((err) => {
           //попадаем сюда если хотя бы один из промисов завершится ошибкой
-          console.log(err.message);
+          setInformerPopupOpen(err.message);
 
           setDisplayEmptySearchResults(
             'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
@@ -294,8 +297,7 @@ function App() {
           setDisplayPreloader(false);
         })
         .catch((err) => {
-          //попадаем сюда если хотя бы один из промисов завершится ошибкой
-          console.log(err.message);
+          setInformerPopupOpen(err.message);
 
           setDisplayEmptySearchResults(
             'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
@@ -392,7 +394,9 @@ function App() {
       .then((addedMovie) => {
         setFavouriteMovies([addedMovie, ...favouriteMovies]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setInformerPopupOpen(err.message);
+      });
   }
 
   /**
@@ -423,7 +427,9 @@ function App() {
           }
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setInformerPopupOpen(err.message);
+      });
   }
 
   /**
@@ -457,7 +463,9 @@ function App() {
               handleLoggedIn(true);
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            setInformerPopupOpen(err.message);
+          });
       }
 
       getFavouriteMovies();

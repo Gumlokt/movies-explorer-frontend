@@ -6,7 +6,7 @@ export default function useFormWithValidation() {
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
 
-  const handleCredentialsChange = (event) => {
+  function handleCredentialsChange(event) {
     if (event.target.name === 'name' && event.target.validationMessage) {
       setErrors({
         ...errors,
@@ -19,7 +19,7 @@ export default function useFormWithValidation() {
 
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
     setIsValid(event.target.closest('form').checkValidity());
-  };
+  }
 
   const resetForm = useCallback(
     (newCredentials = {}, newErrors = {}, newIsValid = false) => {
