@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
@@ -9,7 +8,6 @@ import Header from '../Header/Header';
 
 function Profile(props) {
   const currentUser = useContext(CurrentUserContext);
-  const history = useHistory();
 
   const [inputEditing, setInputEditing] = useState(false); // just for css animations
   const [saveBtnDisabled, setSaveBtnDisabled] = useState(true);
@@ -33,14 +31,6 @@ function Profile(props) {
     });
 
     setSaveBtnDisabled(true);
-  }
-
-  function signOut(event) {
-    event.preventDefault();
-
-    localStorage.removeItem('token');
-    props.onLogout(false);
-    history.push('/');
   }
 
   useEffect(() => {
@@ -131,7 +121,7 @@ function Profile(props) {
             disabled={saveBtnDisabled}
           ></button>
 
-          <button onClick={signOut} className="profile__btn profile__btn_action_exit"></button>
+          <button onClick={props.onLogout} className="profile__btn profile__btn_action_exit"></button>
         </form>
       </main>
     </>

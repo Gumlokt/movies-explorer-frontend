@@ -10,7 +10,7 @@ function Register(props) {
       <div className="register__container">
         <Logo />
 
-        <form className="form" name="registration" onSubmit={props.registerUser} noValidate>
+        <form className="form" name="registration" onSubmit={props.onRegisterUser} noValidate>
           <h2 className="form__title">Добро пожаловать</h2>
 
           <label className="form__label" htmlFor="name">

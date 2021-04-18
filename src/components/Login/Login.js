@@ -10,7 +10,7 @@ function Login(props) {
       <div className="login__container">
         <Logo />
 
-        <form className="form" name="login" onSubmit={props.loginUser} noValidate>
+        <form className="form" name="login" onSubmit={props.onLoginUser} noValidate>
           <h2 className="form__title">Рады видеть!</h2>
 
           <label className="form__label" htmlFor="email">

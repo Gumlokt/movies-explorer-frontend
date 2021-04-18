@@ -6,11 +6,11 @@ function MoviesCardList(props) {
   return (
     <section className={`movies-card-list${props.displayedMovies.length ? ' movies-card-list_type_displayed' : ''}`}>
       <ul className="movies-card-list__items">
-        {props.displayedMovies.map((item, index) => {
+        {props.displayedMovies.map((movieItem, index) => {
           return (
             <li className="movies-card-list__item" key={index}>
               <MoviesCard
-                movieItem={item}
+                movieItem={movieItem}
                 favouriteMovies={props.favouriteMovies}
                 onMovieSave={props.onMovieSave}
                 onMovieRemove={props.onMovieRemove}

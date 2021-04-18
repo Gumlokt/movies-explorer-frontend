@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 
+import { config } from '../config/index';
+
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import * as auth from '../utils/auth.js';
 
@@ -27,12 +29,37 @@ import useFormWithValidation from '../hooks/useFormWithValidation';
 
 function App() {
   const history = useHistory();
+  const location = useLocation();
   const formValidation = useFormWithValidation();
 
   const [serverMessage, setServerMessage] = useState('');
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
+
+  const [isInformerPopupOpen, setInformerPopupOpen] = useState(false);
+  const [messageToUser, setMessageToUser] = useState('');
+
+  const cardsOnDesktop = 12;
+  const cardsOnTablet = 8;
+  const cardsOnPhone = 5;
+  const addCardsOnDesktop = 3;
+  const addCardsOnTablet = 2;
+
+  const [cardsToDisplayByDefault, setCardsToDisplayByDefault] = useState(cardsOnDesktop); // 12 - число фильмов для отображения в зависимости от разрешения экрана (энд поинты: 12шт. при >=1025px+;  5шт при <=480px-; 8шт. - во всех остальных разрешениях)
+  const [cardsToAddOnClickMoreBtn, setCardsToAddOnClickMoreBtn] = useState(addCardsOnDesktop); // 3 - число фильмов, которые добавляются к уже отрендеренным при нажатии на кнопку "Ещё" (добавляется карточек: по 3шт. при >=1025px+; по 2шт. - во всех остальных разрешениях)
+
+  const [initialMovies, setInitialMovies] = useState([]); // все фильмы полученные из BeatfilmMoviesApi
+  const [favouriteMovies, setFavouriteMovies] = useState([]); // все избранные фильмы, который хранятся на moviehunter.ru
+
+  const [filteredMovies, setFilteredMovies] = useState([]); // число отфильтрованных фильмов в соответствии с поисковым запросом юзера (допустимые значения - от 0 до infinity)
+  const [displayedMovies, setDisplayedMovies] = useState([]); // число отрендеренных фильмов из числа отфильтрованных, изначально равно cardsToDisplayByDefault, при этом не может превышать filteredMovies (допустимые значения - от 1 до filteredMovies)
+
+  const [term, setTerm] = useState(''); // поисковый запрос юзера
+  const [short, setShort] = useState(false); // флаг (чекбокс) "короткометражки"
+
+  const [displayPreloader, setDisplayPreloader] = useState(false); // показть/скрыть прелоадер
+  const [displayEmptySearchResults, setDisplayEmptySearchResults] = useState(''); // показать/скрыть инфо контейнер с сообщениями юзеру
 
   function handleUser(user) {
     setCurrentUser(user);
@@ -54,7 +81,7 @@ function App() {
         const [allFavouriteMovies] = values;
         setFavouriteMovies(allFavouriteMovies);
 
-        if (location.pathname === savedMoviesRoute) {
+        if (location.pathname === config.SAVED_MOVIES_ROUTE) {
           dispatchMoviesDisplaying(allFavouriteMovies);
         }
         return allFavouriteMovies;
@@ -108,6 +135,14 @@ function App() {
       });
   }
 
+  function signOut(event) {
+    event.preventDefault();
+
+    localStorage.removeItem('token');
+    handleLoggedIn(false);
+    history.push('/');
+  }
+
   function handleRegister(e) {
     e.preventDefault();
 
@@ -144,38 +179,14 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  const location = useLocation();
-
-  const savedMoviesRoute = '/saved-movies'; // для роута /saved-movies логика работы немного отличается от логики работы /movies
-
-  const [isInformerPopupOpen, setInformerPopupOpen] = useState(false);
-  const [messageToUser, setMessageToUser] = useState('');
-
+  /**
+   * Function to hide opened Popup window.
+   * @returns {void}
+   */
   function closeInformerPopup() {
     setInformerPopupOpen(false);
     setMessageToUser('');
   }
-
-  const cardsOnDesktop = 12;
-  const cardsOnTablet = 8;
-  const cardsOnPhone = 5;
-  const addCardsOnDesktop = 3;
-  const addCardsOnTablet = 2;
-
-  const [cardsToDisplayByDefault, setCardsToDisplayByDefault] = useState(cardsOnDesktop); // 12 - число фильмов для отображения в зависимости от разрешения экрана (энд поинты: 12шт. при >=1025px+;  5шт при <=480px-; 8шт. - во всех остальных разрешениях)
-  const [cardsToAddOnClickMoreBtn, setCardsToAddOnClickMoreBtn] = useState(addCardsOnDesktop); // 3 - число фильмов, которые добавляются к уже отрендеренным при нажатии на кнопку "Ещё" (добавляется карточек: по 3шт. при >=1025px+; по 2шт. - во всех остальных разрешениях)
-
-  const [initialMovies, setInitialMovies] = useState([]); // все фильмы полученные из BeatfilmMoviesApi
-  const [favouriteMovies, setFavouriteMovies] = useState([]); // все избранные фильмы, который хранятся на moviehunter.ru
-
-  const [filteredMovies, setFilteredMovies] = useState([]); // число отфильтрованных фильмов в соответствии с поисковым запросом юзера (допустимые значения - от 0 до infinity)
-  const [displayedMovies, setDisplayedMovies] = useState([]); // число отрендеренных фильмов из числа отфильтрованных, изначально равно cardsToDisplayByDefault, при этом не может превышать filteredMovies (допустимые значения - от 1 до filteredMovies)
-
-  const [term, setTerm] = useState(''); // поисковый запрос юзера
-  const [short, setShort] = useState(false); // флаг (чекбокс) "короткометражки"
-
-  const [displayPreloader, setDisplayPreloader] = useState(false); // показть/скрыть прелоадер
-  const [displayEmptySearchResults, setDisplayEmptySearchResults] = useState(''); // показать/скрыть инфо контейнер с сообщениями юзеру
 
   /**
    * Helper function to setting the required number of movies to be rendered from among the filtered ones.
@@ -187,7 +198,7 @@ function App() {
 
     if (initialMovies.length && !selectedMovies.length) {
       setDisplayEmptySearchResults('Ничего не найдено');
-    } else if (selectedMovies.length > cardsToDisplayByDefault && location.pathname !== savedMoviesRoute) {
+    } else if (selectedMovies.length > cardsToDisplayByDefault && location.pathname !== config.SAVED_MOVIES_ROUTE) {
       setDisplayedMovies(selectedMovies.slice(0, cardsToDisplayByDefault)); // если фильмов отфильтрованы больше, чем можно показать, то тогда сюда нужно slice-ить карточки от массива отфильтрованых фильмов
     } else {
       setDisplayedMovies(selectedMovies);
@@ -308,7 +319,7 @@ function App() {
     setDisplayEmptySearchResults('');
     setTerm('');
 
-    if (location.pathname === savedMoviesRoute) {
+    if (location.pathname === config.SAVED_MOVIES_ROUTE) {
       dispatchMoviesDisplaying(favouriteMovies);
     } else {
       dispatchMoviesDisplaying(initialMovies);
@@ -404,7 +415,7 @@ function App() {
       .then((updatedFavouriteMovies) => {
         setFavouriteMovies(updatedFavouriteMovies);
 
-        if (location.pathname === savedMoviesRoute) {
+        if (location.pathname === config.SAVED_MOVIES_ROUTE) {
           if (term) {
             dispatchMoviesDisplaying(moviesSelector.select(updatedFavouriteMovies, term, short));
           } else {
@@ -414,6 +425,20 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
+
+  /**
+   * The function of automatic filtering of short films depends on whether the checkbox is selected.
+   * @returns {void}
+   */
+  useEffect(() => {
+    setDisplayEmptySearchResults('');
+    if (location.pathname === config.SAVED_MOVIES_ROUTE) {
+      filterFavouriteMoviesList();
+    } else {
+      filterBeatfilmMoviesList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [short]);
 
   /**
    * Function to get all initialMovies from localStorage and favouriteMovies from api once at app start and also track screen resolution.
@@ -445,7 +470,7 @@ function App() {
 
       if (allBeatfilmMovies && allBeatfilmMovies.length) {
         setInitialMovies(allBeatfilmMovies);
-        if (location.pathname !== savedMoviesRoute) {
+        if (location.pathname !== config.SAVED_MOVIES_ROUTE) {
           dispatchMoviesDisplaying(allBeatfilmMovies);
         }
       }
@@ -488,11 +513,11 @@ function App() {
           </Route>
 
           <Route path="/signin">
-            <Login loginUser={handleLogin} formValidation={formValidation} serverMessage={serverMessage} />
+            <Login onLoginUser={handleLogin} formValidation={formValidation} serverMessage={serverMessage} />
           </Route>
 
           <Route path="/signup">
-            <Register registerUser={handleRegister} formValidation={formValidation} serverMessage={serverMessage} />
+            <Register onRegisterUser={handleRegister} formValidation={formValidation} serverMessage={serverMessage} />
           </Route>
 
           <ProtectedRoute
@@ -539,7 +564,7 @@ function App() {
             component={Profile}
             formValidation={formValidation}
             onUpdateUser={handleUpdateUser}
-            onLogout={handleLoggedIn}
+            onLogout={signOut}
           />
 
           <Route path="*">

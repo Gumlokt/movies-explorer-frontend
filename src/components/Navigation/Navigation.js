@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+
 import iconUser from '../../images/icons/user.svg';
 import './Navigation.css';
 
 function Navigation(props) {
+  const currentUser = React.useContext(CurrentUserContext);
   const [displayTabletMenuAppearance, setTabletMenuAppearance] = React.useState(false);
 
   function handleMenuAppearance() {
