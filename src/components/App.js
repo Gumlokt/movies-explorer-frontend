@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory, useLocation } from 'react-router-dom';
 
 import { config } from '../config/index';
 
@@ -60,6 +60,7 @@ function App() {
 
   const [displayPreloader, setDisplayPreloader] = useState(false); // показть/скрыть прелоадер
   const [displayEmptySearchResults, setDisplayEmptySearchResults] = useState(''); // показать/скрыть инфо контейнер с сообщениями юзеру
+  const [permissionsChecked, setPermissionsChecked] = useState(false);
 
   function handleUser(user) {
     setCurrentUser(user);
@@ -221,15 +222,15 @@ function App() {
    * @returns {void}
    */
   function filterBeatfilmMoviesList(event) {
-    if (event) {
-      event.preventDefault();
-    }
-
     setDisplayedMovies([]);
 
-    if (!term) {
-      setDisplayEmptySearchResults('Нужно ввести ключевое слово');
-      return;
+    if (event) {
+      event.preventDefault();
+
+      if (!term) {
+        setDisplayEmptySearchResults('Нужно ввести ключевое слово');
+        return;
+      }
     }
 
     if (initialMovies.length) {
@@ -274,15 +275,15 @@ function App() {
    * @returns {void}
    */
   function filterFavouriteMoviesList(event) {
-    if (event) {
-      event.preventDefault();
-    }
-
     setDisplayedMovies([]);
 
-    if (!term) {
-      setDisplayEmptySearchResults('Нужно ввести ключевое слово');
-      return;
+    if (event) {
+      event.preventDefault();
+
+      if (!term) {
+        setDisplayEmptySearchResults('Нужно ввести ключевое слово');
+        return;
+      }
     }
 
     if (favouriteMovies.length) {
@@ -302,13 +303,16 @@ function App() {
       event.preventDefault();
     }
 
-    setDisplayEmptySearchResults('');
     setTerm('');
+    setDisplayEmptySearchResults('');
+    setShort(false);
+
+    if (location.pathname === config.MOVIES_ROUTE) {
+      dispatchMoviesDisplaying(initialMovies);
+    }
 
     if (location.pathname === config.SAVED_MOVIES_ROUTE) {
       dispatchMoviesDisplaying(favouriteMovies);
-    } else {
-      dispatchMoviesDisplaying(initialMovies);
     }
   }
 
@@ -424,11 +428,14 @@ function App() {
   useEffect(() => {
     setDisplayEmptySearchResults('');
 
-    if (location.pathname === config.SAVED_MOVIES_ROUTE) {
-      filterFavouriteMoviesList();
-    } else {
+    if (location.pathname === config.MOVIES_ROUTE) {
       filterBeatfilmMoviesList();
     }
+
+    if (location.pathname === config.SAVED_MOVIES_ROUTE) {
+      filterFavouriteMoviesList();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [short]);
 
@@ -465,10 +472,15 @@ function App() {
               }
             }
           })
+          .finally(() => {
+            setPermissionsChecked(true);
+          })
           .catch((err) => {
             setInformerPopupOpen(err.message);
           });
       }
+    } else {
+      setPermissionsChecked(true);
     }
 
     function keepTrackScreenWidth() {
@@ -497,6 +509,10 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (!permissionsChecked) {
+    return null;
+  }
+
   return (
     <>
       <CurrentUserContext.Provider value={currentUser}>
@@ -508,11 +524,19 @@ function App() {
           </Route>
 
           <Route path="/signin">
-            <Login onLoginUser={handleLogin} formValidation={formValidation} serverMessage={serverMessage} />
+            {loggedIn ? (
+              <Redirect to="/movies" />
+            ) : (
+              <Login onLoginUser={handleLogin} formValidation={formValidation} serverMessage={serverMessage} />
+            )}
           </Route>
 
           <Route path="/signup">
-            <Register onRegisterUser={handleRegister} formValidation={formValidation} serverMessage={serverMessage} />
+            {loggedIn ? (
+              <Redirect to="/movies" />
+            ) : (
+              <Register onRegisterUser={handleRegister} formValidation={formValidation} serverMessage={serverMessage} />
+            )}
           </Route>
 
           <ProtectedRoute
