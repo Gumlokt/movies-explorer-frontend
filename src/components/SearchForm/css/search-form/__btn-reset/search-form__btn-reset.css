@@ -1,0 +1,38 @@
+.search-form__btn-reset {
+  box-sizing: border-box;
+  margin: 0 10px 0;
+  padding: 0;
+
+  width: 34px;
+  height: 34px;
+
+  color: #fff;
+  background: #ee3465;
+  border-radius: 50%;
+  border: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 0.4s linear;
+}
+
+.search-form__btn-reset:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.search-form__btn-reset::before {
+  content: url(../../../../../images/icons/cross.svg);
+  display: block;
+  margin-top: 3px;
+  transform: scale(1.4, 1.4);
+}
+
+.search-form__btn-reset:hover::before {
+  transform: scale(1.6, 1.6);
+}

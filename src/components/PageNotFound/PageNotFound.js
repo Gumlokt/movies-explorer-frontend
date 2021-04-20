@@ -5,6 +5,12 @@ import './PageNotFound.css';
 function PageNotFound() {
   const history = useHistory();
 
+  function goBack() {
+    if (history.length > 1) {
+      history.goBack();
+    }
+  }
+
   return (
     <main className="page-not-found">
       <div className="page-not-found__container">
@@ -12,7 +18,7 @@ function PageNotFound() {
 
         <p className="page-not-found__text">Страница не найдена</p>
 
-        <button className="page-not-found__link" onClick={() => history.goBack()}></button>
+        <button className="page-not-found__link" onClick={goBack}></button>
       </div>
     </main>
   );

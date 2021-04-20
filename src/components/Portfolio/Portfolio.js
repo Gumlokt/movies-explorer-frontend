@@ -29,12 +29,7 @@ function Portfolio() {
           </a>
         </li>
         <li className="portfolio__item">
-          <a
-            className="portfolio__link"
-            href="http://gumlokt.students.nomoredomains.icu/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a className="portfolio__link" href="http://178.154.205.12" target="_blank" rel="noopener noreferrer">
             <p className="portfolio__link-text">Одностраничное приложение</p>
             <p className="portfolio__link-icon">↗</p>
           </a>

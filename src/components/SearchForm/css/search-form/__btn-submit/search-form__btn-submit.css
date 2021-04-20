@@ -20,12 +20,13 @@
 }
 
 .search-form__btn-submit::before {
+  margin-top: 2px;
   content: url(../../../../../images/icons/search.svg);
   display: block;
 }
 
 .search-form__btn-submit:hover::before {
-  transform: scale(1.1, 1.1);
+  transform: scale(1.2, 1.2);
 }
 
 .search-form__btn-submit:hover {

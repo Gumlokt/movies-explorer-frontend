@@ -15,10 +15,15 @@
   align-items: center;
 }
 
+.movies-card__btn_type_remove:hover {
+  transform: scale(1.1, 1.1);
+}
+
 .movies-card__btn_type_remove::after {
+  margin-top: 1px;
   content: url(../../../../../../images/icons/cross.svg);
 }
 
 .movies-card__btn_type_remove:hover::after {
-  transform: scale(1.05, 1.05);
+  transform: scale(1.1, 1.1);
 }

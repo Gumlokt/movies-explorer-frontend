@@ -1,7 +1,15 @@
 .profile__btn_action_exit {
   color: #ee3465;
+  cursor: pointer;
+
+  transition: opacity 0.4s linear;
 }
 
 .profile__btn_action_exit::before {
   content: 'Выйти из аккаунта';
+}
+
+.profile__btn_action_exit:hover {
+  opacity: 0.6;
+  transform: scale(1.02, 1.02);
 }

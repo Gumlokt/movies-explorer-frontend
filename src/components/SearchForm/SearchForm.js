@@ -6,30 +6,20 @@ import Preloader from '../Preloader/Preloader';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm(props) {
-  const [displayPreloader, setDisplayPreloader] = React.useState(false);
   const textInput = useRef(null);
 
-  function fetchMoviesList(event) {
-    event.preventDefault();
-    // here will be code to get movies list
-    setDisplayPreloader(true);
+  function resetForm(event) {
+    textInput.current.focus();
+    props.resetForm(event);
+  }
+
+  function handleShort(event) {
+    textInput.current.focus();
+    props.handleShort(event);
   }
 
   useEffect(() => {
-    const handleEsc = (event) => {
-      if (event.keyCode === 27) {
-        console.log('Close');
-        setDisplayPreloader(false);
-      }
-    };
-
     textInput.current.focus();
-
-    window.addEventListener('keydown', handleEsc);
-
-    return () => {
-      window.removeEventListener('keydown', handleEsc);
-    };
   }, []);
 
   return (
@@ -37,14 +27,26 @@ function SearchForm(props) {
       <div className="search-form__input-container">
         <label className="search-form__input-label" htmlFor="search-input"></label>
 
-        <input ref={textInput} type="text" className="search-form__text-input" placeholder="Фильм" id="search-input" />
+        <input
+          onChange={props.handleChangeTerm}
+          ref={textInput}
+          type="text"
+          className="search-form__text-input"
+          name="term"
+          value={props.term}
+          minLength="1"
+          placeholder="Фильм"
+          id="search-input"
+          required
+        />
 
-        <button className="search-form__btn-submit" onClick={fetchMoviesList}></button>
+        <button type="reset" className="search-form__btn-reset" onClick={resetForm}></button>
+        <button className="search-form__btn-submit" onClick={props.onFilterMoviesList}></button>
       </div>
 
-      <FilterCheckbox />
+      <FilterCheckbox short={props.short} handleShort={handleShort} />
 
-      <Preloader isOpen={displayPreloader} />
+      <Preloader isOpen={props.displayPreloader} />
     </form>
   );
 }

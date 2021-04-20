@@ -2,4 +2,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: all .4s ease-in-out;
 }

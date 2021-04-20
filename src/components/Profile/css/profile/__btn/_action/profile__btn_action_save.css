@@ -1,7 +1,21 @@
-.profile__btn_action_save {
-  color: #3ddc84;
-}
-
 .profile__btn_action_save::before {
   content: 'Сохранить изменения';
+}
+
+.profile__btn_action_save:enabled {
+  color: #3ddc84;
+  cursor: pointer;
+
+  transition: all 0.4s linear;
+}
+
+.profile__btn_action_save:enabled:hover {
+  opacity: 0.6;
+  transform: scale(1.02, 1.02);
+}
+
+.profile__btn_action_save:disabled {
+  color: #fff;
+  cursor: auto;
+  transition: all 0.4s linear;
 }

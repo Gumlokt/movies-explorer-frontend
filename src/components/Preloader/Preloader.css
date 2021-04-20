@@ -80,7 +80,7 @@
 }
 
 .preloader__container::after {
-    content: 'Press Escape to Cancel';
+    content: 'Press Escape to hide Preloader';
     font-size: 15px;
     line-height: 20px;
     display: block;

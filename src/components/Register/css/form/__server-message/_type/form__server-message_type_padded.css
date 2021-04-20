@@ -1,0 +1,17 @@
+.form__server-message_type_padded {
+  margin: calc(160px) 0 0;
+}
+
+@media screen and (max-width: 320px) {
+  .form__server-message_type_padded {
+    margin: 248px 0 0;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .form__server-message_type_padded {
+    margin: 86px 0 0;
+    font-size: 10px;
+    line-height: 13px;
+  }
+}
