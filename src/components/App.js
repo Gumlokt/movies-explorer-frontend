@@ -52,14 +52,15 @@ function App() {
   const [initialMovies, setInitialMovies] = useState([]); // все фильмы полученные из BeatfilmMoviesApi
   const [favouriteMovies, setFavouriteMovies] = useState([]); // все избранные фильмы, который хранятся на moviehunter.ru
 
-  const [filteredMovies, setFilteredMovies] = useState([]); // число отфильтрованных фильмов в соответствии с поисковым запросом юзера (допустимые значения - от 0 до infinity)
+  const [filteredMovies, setFilteredMovies] = useState([]); // число отфильтрованных фильмов в соответствии с поисковым запросом пользователя (допустимые значения - от 0 до infinity)
   const [displayedMovies, setDisplayedMovies] = useState([]); // число отрендеренных фильмов из числа отфильтрованных, изначально равно cardsToDisplayByDefault, при этом не может превышать filteredMovies (допустимые значения - от 0 до filteredMovies)
 
-  const [term, setTerm] = useState(''); // поисковый запрос юзера
+  const [term, setTerm] = useState(''); // поисковый запрос пользователя
+  const [searchBtnDisabled, setSearchBtnDisabled] = useState(false); // для блокировки кнопки поиска после сабмита до окончания фильтрации фильмов по запросу пользователя
   const [short, setShort] = useState(false); // флаг (чекбокс) "короткометражки"
 
   const [displayPreloader, setDisplayPreloader] = useState(false); // показть/скрыть прелоадер
-  const [displayEmptySearchResults, setDisplayEmptySearchResults] = useState(''); // показать/скрыть инфо контейнер с сообщениями юзеру
+  const [displayEmptySearchResults, setDisplayEmptySearchResults] = useState(''); // показать/скрыть инфо контейнер с сообщениями пользователю
   const [permissionsChecked, setPermissionsChecked] = useState(false);
 
   function handleUser(user) {
@@ -127,7 +128,7 @@ function App() {
               handleLoggedIn(true);
               getFavouriteMovies(); // заполняем стейт с сохраненными фильмами
 
-              // После авторизации направляем юзера на страницу /movies
+              // После авторизации направляем пользователя на страницу /movies
               // При регистрации таже происходит редирект на /movies,
               // т.к. в внутри функции регистрации вызывается эта функция авторизации
               history.push(config.MOVIES_ROUTE);
@@ -166,7 +167,7 @@ function App() {
           return;
         } else {
           setServerMessage('');
-          handleLogin(); // при успешной регистрации делаем юзеру автологин
+          handleLogin(); // при успешной регистрации делаем пользователю автологин
           return;
         }
       })
@@ -214,6 +215,7 @@ function App() {
     }
 
     setDisplayPreloader(false);
+    setSearchBtnDisabled(false);
   }
 
   /**
@@ -223,13 +225,15 @@ function App() {
    */
   function filterBeatfilmMoviesList(event) {
     setDisplayedMovies([]);
-
+    
     if (event) {
       event.preventDefault();
-
+      
       if (!term) {
         setDisplayEmptySearchResults('Нужно ввести ключевое слово');
         return;
+      } else {
+        setSearchBtnDisabled(true);
       }
     }
 
@@ -254,7 +258,6 @@ function App() {
         })
         .then((selectedMovies) => {
           dispatchMoviesDisplaying(selectedMovies);
-          setDisplayPreloader(false);
         })
         .catch((err) => {
           //попадаем сюда если хотя бы один из промисов завершится ошибкой
@@ -265,6 +268,7 @@ function App() {
           );
 
           setDisplayPreloader(false);
+          setSearchBtnDisabled(false);
         });
     }
   }
@@ -283,6 +287,8 @@ function App() {
       if (!term) {
         setDisplayEmptySearchResults('Нужно ввести ключевое слово');
         return;
+      } else {
+        setSearchBtnDisabled(true);
       }
     }
 
@@ -290,6 +296,7 @@ function App() {
       dispatchMoviesDisplaying(moviesSelector.select(favouriteMovies, term, short));
     } else {
       setDisplayEmptySearchResults('Ни один фильм ещё не сохранён');
+      setSearchBtnDisabled(false);
     }
   }
 
@@ -548,12 +555,13 @@ function App() {
             displayPreloader={displayPreloader}
             term={term}
             short={short}
+            searchBtnDisabled={searchBtnDisabled}
             handleChangeTerm={handleChangeTerm}
             handleShort={handleShort}
             message={displayEmptySearchResults}
             favouriteMovies={favouriteMovies}
             displayedMovies={displayedMovies}
-            displayMoreBtn={filteredMovies.length > displayedMovies.length} // кнопка "Ещё" будет отображаться только на странице /movies и до тех пор, пока число отфильтрованных фильмов по запросу юзера будет превышать число отрендеренных
+            displayMoreBtn={filteredMovies.length > displayedMovies.length} // кнопка "Ещё" будет отображаться только на странице /movies и до тех пор, пока число отфильтрованных фильмов по запросу пользователя будет превышать число отрендеренных
             handleMoreFilmsBtn={handleMoreFilmsBtn}
             onMovieSave={handleMovieSave}
             onMovieRemove={handleMovieRemove}
@@ -568,6 +576,7 @@ function App() {
             displayPreloader={displayPreloader}
             term={term}
             short={short}
+            searchBtnDisabled={searchBtnDisabled}
             handleChangeTerm={handleChangeTerm}
             handleShort={handleShort}
             message={displayEmptySearchResults}

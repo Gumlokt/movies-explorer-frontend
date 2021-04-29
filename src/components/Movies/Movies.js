@@ -12,7 +12,6 @@ import EmptySearchResults from '../EmptySearchResults/EmptySearchResults';
 function Movies(props) {
   useEffect(() => {
     props.resetForm();
-    props.onFilterMoviesList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -28,6 +27,7 @@ function Movies(props) {
             displayPreloader={props.displayPreloader}
             term={props.term}
             short={props.short}
+            searchBtnDisabled={props.searchBtnDisabled}
             handleChangeTerm={props.handleChangeTerm}
             handleShort={props.handleShort}
           />

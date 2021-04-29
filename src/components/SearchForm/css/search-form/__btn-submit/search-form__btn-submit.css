@@ -15,8 +15,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
-  transition: opacity 0.4s linear;
+  transition: all 0.4s linear;
+}
+
+.search-form__btn-submit:disabled {
+  background: #8b8b8b;
+  cursor: default;
 }
 
 .search-form__btn-submit::before {
@@ -30,7 +36,6 @@
 }
 
 .search-form__btn-submit:hover {
-  cursor: pointer;
   opacity: 0.6;
 }
 

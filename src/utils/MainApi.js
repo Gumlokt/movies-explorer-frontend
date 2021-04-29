@@ -39,7 +39,6 @@ class MainApi {
   }
 
   removeMovie(id) {
-    // return fetch(`${this._url}/movies/test4583q0d2574b5862test`, {
     return fetch(`${this._url}/movies/${id}`, {
       method: 'DELETE',
       headers: this._headers,
