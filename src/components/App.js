@@ -40,14 +40,8 @@ function App() {
   const [isInformerPopupOpen, setInformerPopupOpen] = useState(false);
   const [messageToUser, setMessageToUser] = useState('');
 
-  const cardsOnDesktop = 12;
-  const cardsOnTablet = 8;
-  const cardsOnPhone = 5;
-  const addCardsOnDesktop = 3;
-  const addCardsOnTablet = 2;
-
-  const [cardsToDisplayByDefault, setCardsToDisplayByDefault] = useState(cardsOnDesktop); // 12 - число фильмов для отображения в зависимости от разрешения экрана (энд поинты: 12шт. при >=1025px+;  5шт при <=480px-; 8шт. - во всех остальных разрешениях)
-  const [cardsToAddOnClickMoreBtn, setCardsToAddOnClickMoreBtn] = useState(addCardsOnDesktop); // 3 - число фильмов, которые добавляются к уже отрендеренным при нажатии на кнопку "Ещё" (добавляется карточек: по 3шт. при >=1025px+; по 2шт. - во всех остальных разрешениях)
+  const [cardsToDisplayByDefault, setCardsToDisplayByDefault] = useState(window.screen.width > config.tabletMaxWidth ? config.cardsOnDesktop : window.screen.width <= config.phoneMaxWidth ? config.cardsOnPhone : config.cardsOnTablet); // 12 - число фильмов для отображения в зависимости от разрешения экрана (энд поинты: 12шт. при >=1025px+;  5шт при <=480px-; 8шт. - во всех остальных разрешениях)
+  const [cardsToAddOnClickMoreBtn, setCardsToAddOnClickMoreBtn] = useState(window.screen.width > config.tabletMaxWidth ? config.addCardsOnDesktop : config.addCardsOnTablet); // 3 - число фильмов, которые добавляются к уже отрендеренным при нажатии на кнопку "Ещё" (добавляется карточек: по 3шт. при >=1025px+; по 2шт. - во всех остальных разрешениях)
 
   const [initialMovies, setInitialMovies] = useState([]); // все фильмы полученные из BeatfilmMoviesApi
   const [favouriteMovies, setFavouriteMovies] = useState([]); // все избранные фильмы, который хранятся на moviehunter.ru
@@ -492,21 +486,17 @@ function App() {
 
     function keepTrackScreenWidth() {
       setTimeout(() => {
-        setCardsToAddOnClickMoreBtn(addCardsOnTablet);
-        setCardsToDisplayByDefault(cardsOnTablet);
-
-        if (window.screen.width > 1024) {
-          setCardsToDisplayByDefault(cardsOnDesktop);
-          setCardsToAddOnClickMoreBtn(addCardsOnDesktop);
-        }
-
-        if (window.screen.width <= 480) {
-          setCardsToDisplayByDefault(cardsOnPhone);
+        if (window.screen.width > config.tabletMaxWidth) {
+          setCardsToDisplayByDefault(config.cardsOnDesktop);
+          setCardsToAddOnClickMoreBtn(config.addCardsOnDesktop);
+        } else if (window.screen.width <= config.phoneMaxWidth) {
+          setCardsToDisplayByDefault(config.cardsOnPhone);
+        } else {
+          setCardsToAddOnClickMoreBtn(config.addCardsOnTablet);
+          setCardsToDisplayByDefault(config.cardsOnTablet);
         }
       }, 500);
     }
-
-    keepTrackScreenWidth();
 
     window.addEventListener('resize', keepTrackScreenWidth);
 
